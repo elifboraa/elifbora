@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Hidden Streams of Ankara</title>
+</head>
+
+<body>
+
+    <h1>Hidden Streams of Ankara:
+        Data Visualization Project
+    </h1>
+
+    <p>This is the first part of the data visualization project that aims to give information about the floods in
+        Ankara. The streams that existed long before the urbanization of Ankara, have been directed into sewage pipes in
+        order to provide more space for settlement and infrastructure. However this has limited the flow of the
+        rainwater. Furthermore, unplanned urbanization effects the circulation of water, increasing the evaporation
+        rate, thus the rainfall per minute. As a result, hazardous floods become more frequent each year in the
+        city of Ankara.
+
+        The project aims to create awareness by demonstrating the relevant facts and data through infographics and data
+        visualization
+    </p>
+
+    <p>In thisinteractive installation, viewers interact with the project by altering the topographical elements and
+        moving their hands to observe a city growing between these natural forms. Through this transformation, viewers
+        observe how nature and the city might intertwine, prompting reflection on how urban environments can grow in
+        harmony with the natural world.
+    </p>
+
+    <h2>Proccess</h2>
+
+
+    <p>Firstly the relevant data was collected from open access databases, governmental websites, and disaster related
+        organizations' websites. The data was filtered and organized in order to be more operable. Then, the sketches
+        were made, in the interest of exploring the best way to represent the desired information. Various chart styles
+        and numerous ways to combine them, were examined. Later, the data sets were treated algorithmically, via the
+        website Raw Graphs, and converted into desired data visualization graphs. Finally, these graphs were adjusted,
+        blended together and visually arranged with the pursuance of readability, via Adobe Illustrator.</p>
+
+    <img src="images/emergence/emergence_04.png" width="1200" alt="Emergence_01">
+
+    <h2>Sketches</h2>
+
+      <img src="images/emergence/emergence_04.png" width="1200" alt="Emergence_01">
+
+
+
+
+    <h3>Depth Detection with Kinect</h3>
+
+    <p> We firstly used Kinect V2 2.0 and the issue we faced was, it was good at representing a large distances of
+        depths, but wasnt so good at giving a detialed view of
+        small
+        distances. Since the height difference in each level on our model was 3mm apart, we needed a more precise
+        representation. We firstly switched from Kinect V2 to Kinect Azure, which gave us a better point cloud
+        representation of the height differences in our previous model (where the heigth difference is 6mm between each
+        level). However, we still needed a more precise output and we needed to exclude the object in the distance such
+        as
+        the surface and the floor. To be able to make this we used this tutorial to create a custom depth map via using
+        GLSL. This allowed us to only have the point cloud of our model, excluding the surrounding objects.</p>
+    <video width="1200" controls>
+        <source src="videos/emergence/emergence_01.mov" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+    <p>Although we had a good point cloud view of our model, we still needed to represent the height difference with a
+        higher contrast in the output image. To do this, we increased the contrast between the maximum and minimum
+        height
+        difference. Finally we were able to get a clear debth image.</p>
+
+    <img src="images/emergence/emergence_01.png" width="1200" alt="Emergence_01">
+
+    <h3>Organic Growth Interaction</h3>
+
+    <p>For the organic growth, we used the previous method of using noise and edge detection to generate a growing city
+        effect. This time, the organic growth represented the city, so we decided that the generation should happen in
+        square grids. Also we decided to change the interaction into hand movement that will be tracked bu mediapipe.
+        The hand is tracked to draw a line and from this line, an organic city generates. We explored that Kinect camera
+        can
+        be used for Mediapipe as well, so we did not need an extra webcam. For the renewal and the regeneration of the
+        organic city growth, we used a timer that resets the canvas at every 30 second. We integrated a mask where the
+        lowest
+        and higest parts of the terrain is blocked, therfore the growth wouldnt happen at those points.</p>
+
+
+
+    <h2>Technical Details</h2>
+
+
+    <p> For the model, we used 20 A3 Greyboards of 3mm thickness. Used a laser cutter to cut each level of topography,
+        and finally glued them together. </p>
+
+    <p> We hung the Kinect Azure and a Logitech webcam (we realized we did not need this later, and we can use Kinect's
+        camera for Mediapipe instead) from the ceiling, using steel zip clips. We used a leveling ruler to align the
+        Kinect
+        perfectly. BenQ W1070 Projector, to project onto the model. </p>
+
+    <p> We used Blender for modelling, and Touchdesigner to create the interactions and the visuals. </p>
+
+    <img src="images/emergence/emergence_03.png" width="1200" alt="Emergence_02">
+
+
+
+    <h2>Final Images</h2>
+
+    <img src="images/emergence/emergence_02.png" width="1200" alt="Emergence_02">
+
+    <img src="images/emergence/emergence_05.jpeg" width="1200" alt="Emergence_05">
+
+    <img src="images/emergence/emergence_07.png" width="1200" alt="Emergence_06">
+
+    <img src="images/emergence/emergence_06.jpeg" width="1200" alt="Emergence_06">
+
+    <h2>Video Demonstration</h2>
+
+    <video width="1200" controls>
+        <source src="videos/emergence/emergence_02.mov" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
+    <video width="1200" controls>
+        <source src="videos/emergence/emergence_03.mov" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
+    <video width="1200" controls>
+        <source src="videos/emergence/emergence_04.mov" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
+    <footer>
+        <p>© 2025 Elif Bora</p>
+    </footer>
+
+</body>
+
+
+
+</html>
