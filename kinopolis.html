@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="style.css">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title> 🗺️ Kin'o'polis</title>
+</head>
+
+<body>
+
+
+    <h1> 🗺️ Kin'o'polis</h1>
+
+    <p>Kin'o'polis  is a speculative cartographic tool that is designed for everyone from urban designers and architects
+        to policy makers and local communities. The project reimagines London as a multispecies city by integrating
+        urban datasets with ecological information.  Besides visualizing this data, the tool uses it  to model
+        alternative city futures for more than human species inhabiting cities. </p>
+
+    <p>The tool brings together  spatial data with real-time user input (citizen feedback) to produce ecological urban
+        strategies represented as adaptive 3D models, emerging from the zones of development and re-developement. This
+        generated layer of the cartographic tool, reveals how neighbourhoods could evolve through more sustainable,
+        inclusive and multispecies design practices. It offers a new lens for citizens, authorities and designers to
+        reimagine their surroundings.
+    </p>
+
+    <h2>Proccess</h2>
+
+    <h3>Phase I: </h3>
+
+    <h3>Phase II: User Journey Maps </h3>
+
+    <p>I defined two types of users for my project. The first user represents, city planners, urban and
+        landscape architects and architects. I defined their needs and objectives to be, site analysis, data
+        gathering, information gathering, access to ecological, biological and scientific information such
+        as biotopes, trophic levels species habitats, policy records and environmental reports.</p>
+
+    <p>Environmental engineers, architectural and urban designers are often required to overlay multiple environmental
+        data layers from different platforms and institutions. Furthermore, the stakeholder feedback is handled in
+        different platforms. This shows the need for a combined platform that brings together multiple data in one
+        medium, for the flow of use and ease of workload. Therefore, the tool should combine these information in a
+        united interface. Furthermore, including functions such as uploading design proposals for collaboration and
+        feedback and comparing the design solutions with the algorithmically proposed solutions
+        could be another ease for this user group. </p>
+
+    <p>The second type of user represents the local neighbors, businesses, community groups. Their aim of using the tool
+        were defined as, inputting information and on observed species, giving feedback and suggestions on the
+        enhancement of neighborhood (parks, recreational areas), reporting environmental damages or risks, and get
+        informed about their local species, ecological environment, and developmental proposals (see Table 2). </p>
+
+    <img src="images/kinopolis/kinopolis_01.png" width="100%" alt="Kinopolis_01">
+
+
+    <h3>Phase III: User Interface and Interaction </h3>
+
+    <p>The more-than-human map is planned to be realized for digital mediums which allows variety of interactions,
+        enables filtering of displayed information and changes in point of view. Every Being's City is decided to be
+        accessible as a browser application since accessibility is central for participatory mapping and broader
+        engagement. The map can be explored in 2D, orthographic, and fully navigable 3D views, allowing multiple
+        perspectives and interpretations, a more organic and objective experience. This decision was important,
+        supporting the more-than-human thinking, allowing the users see ecological relationships beyond conventional
+        top-down, static maps. It includes toggleable data layers, including a layer for citizen input and a layer
+        visualizing the generated multispecies city (see Figure 17). It also includes a feedback form for local
+        communities, to input suggestions and observations. </p>
+
+    <img src="images/kinopolis/kinopolis_02.png" width="100%" alt="Kinopolis_02">
+
+    <h3>Phase IV: Preliminary Models In Blender </h3>
+
+    <p>Before the software development and coding, three-dimensional models were built in Blender. The aim of these
+        models to serve as conceptual tools for communicating the idea behind the project while conducting the
+        interviews. They were shown to the interviewees together with the sketches, to demonstrate the aim, interactions
+        and visual language of the tool </p>
+
+    <div class="slider">
+        <div class="slider-track">
+            <div class="slide">
+                <img src="images/kinopolis/kinopolis_03.png" width="100%" alt="Kinopolis_03">
+            </div>
+            <div class="slide">
+                <video width="100%" controls>
+                    <source src="videos/kinopolis/kinopolis_01.MP4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+        </div>
+        <button class="slider-btn prev" onclick="moveSlide(this, -1)">&#8249;</button>
+        <button class="slider-btn next" onclick="moveSlide(this, 1)">&#8250;</button>
+        <div class="slider-dots">
+            <span class="dot active"></span>
+            <span class="dot"></span>
+        </div>
+    </div>
+
+    <h3>Phase V: Interiews with Field Professionals </h3>
+
+    <p>Interviews were conducted with professionals from relative disciplines (see Figure 19), including environmental
+        engineering, urban planning and landscape architecture, sustainability consultancy, survey engineering, and
+        computational design. A base questionnaire was prepared (see Appendix I), however, questions were slightly
+        adapted in each interview to match the expertise of the interviewee. The participants were asked about detailed
+        information on their field and professional role, their background and/ or future expectations in working with
+        community participation and nature-inclusive design, as well as project specific questions and feedback. The
+        information and insights gathered from these interviews, guided the strategy for the map tool’s creation. </p>
+
+    <img src="images/kinopolis/kinopolis_04.png" width="100%" alt="Kinopolis_04">
+
+
+    <h3>Phase VI: Project Development </h3>
+    <h4>Filtering and Organization of the Data </h4>
+
+    <p>QGIS was used or filtering, organization, data and format conversions, attribute calculations, and preprocessing
+        of geospatial data before visualization. Unnecessary attribute fields from large datasets were removed, complex
+        and large files were simplified, the data was filtered to relative geographic extents, datasets were prepared
+        for interactive web-based maps. It was used for format conversion, such as JSON to GeoJSON and GeoTIFF to
+        GeoJSON. Additionally, QGIS was used to merge data layers, and to perform calculations. For instance, noise
+        pollution data were available as separate layers for rail and road. These layers were combined and summed up to
+        produce an overall noise pollution layer </p>
+
+    <img src="images/kinopolis/kinopolis_05.png" width="100%" alt="Kinopolis_05">
+
+    <h4>First Project Prototype (React + Cesium + Google Tiles API) </h4>
+
+    <p> The first project prototype was built using React+ Cesium with Google Map Tiles as the base map. This prototype
+        covered the entire London and visualized, the biodiversity hotspots, the most frequently observed mammals and
+        tree species, environmental risks against urban planning and ecological habitats and future city planning
+        opportunities (see The Data for further information). </p>
+
+    <p>However, this prototype had performance issues, and it was visually complicated since many colors and textures
+        were overlapped in the background and foreground (see Figure 21). Additionally, since Cesium hosts the
+        geospatial information three-dimensional globe rather than a two-dimensional map, the data had to be calculated
+        and situated in a large-scale 3D environment continuously, which slowed down the tool. The high level of details
+        in Google Map Tiles caused heavy rendering, thus, causing system freezes.
+    </p>
+
+    <img src="images/kinopolis/kinopolis_06.png" width="100%" alt="Kinopolis_06">
+
+    <h4>Second Project Prototype (Three.js + Mapbox 3D) </h4>
+
+    <p> I decided to develop the map tool using Three.js with Yandex Maps JavaScript API (Yandex, 2025). However, due to
+        an issue with accessing the API key of Yandex Maps, Mapbox GL JS (Mapbox, 2025) was used instead for base map
+        and 3D buildings. Mapbox’s ‘mapbox/dark-v11’ style was used, since it had a plain interface, and allowed other
+        data layers to be legible. The transition to Mapbox simplified the visual environment, allowing the legibility
+        and communication of ecological relationships. </p>
+
+    <p> London Biodiversity Action Plan Priority Species List (GLA, 2008) and Species Action Plans (GIGL, 2025), were
+        studied in order to select which species to focus on. Since bats and their habitats were under threat and there
+        was already an action plan on their conservation, they were the ideal species to start with. This choice allowed
+        the research to be established on more concrete choices of visualized data such as threats and opportunities and
+        specific design decisions at the generative layer. Reviewing biodiversity action plans, allowed the generative
+        rules to be based on established, existing strategies, ensuring speculative outcomes to remain more realistic.
+    </p>
+
+    <p> Resources on natural environment management solutions (The Forestry Commission, 2009) and landscape and urban
+        planning solutions (Gunnell et al., 2012) were found. Further information on bats’ habitats, ecological needs
+        (Natural England, 2010) and on the key threats (Jones, 2000) were collected. The research and collection of
+        visualized geospatial data and the generative decisions followed these informations.
+    </p>
+
+    <h4>Visualization of Environmental Data as Layers</h4>
+
+    <p> Similar to the first prototype, the second prototype also features toggleable layers of geospatial information. The first layer visualizes the species distribution, with their scientific names at the recorded sighting locations. In this prototype, the focus is only on bats. The second layer depicts habitat types across South-East London which can be filtered by category. The subsequent layers show threats to bat habitats which are noise and light pollution, as opportunities such as habitat expansion zones and fragmentation action zones. 
+    </p>
+
+    <p> A community engagement layer where public feedback related to wildlife, habitat protection and expansion of sustainable environments can be viewed and submitted through a form. Finally, the generative layer, processes the displayed data in order to propose an urban design solution through three-dimensional models, and translates the abstract data into speculative visualization (see Figure 22).  </p>
+
+
+    <div class="slider">
+        <div class="slider-track">
+            <div class="slide">
+                <img src="images/kinopolis/kinopolis_07.png" width="100%" alt="Kinopolis_07">
+            </div>
+            <div class="slide">
+                <img src="images/kinopolis/kinopolis_08.png" width="100%" alt="Kinopolis_08">
+            </div>
+            <div class="slide">
+                <img src="images/kinopolis/kinopolis_09.png" width="100%" alt="Kinopolis_09">
+            </div>
+            <div class="slide">
+                <img src="images/kinopolis/kinopolis_10.png" width="100%" alt="Kinopolis_10">
+            </div>
+        </div>
+        <button class="slider-btn prev" onclick="moveSlide(this, -1)">&#8249;</button>
+        <button class="slider-btn next" onclick="moveSlide(this, 1)">&#8250;</button>
+        <div class="slider-dots">
+            <span class="dot active"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+        </div>
+    </div>
+
+
+    <style>
+        .slider {
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+        }
+
+        .slider-track {
+            display: flex;
+            transition: transform 0.4s ease;
+        }
+
+        .slide {
+            min-width: 100%;
+            box-sizing: border-box;
+        }
+
+        .slider-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.45);
+            color: white;
+            border: none;
+            font-size: 2.2em;
+            padding: 6px 14px;
+            cursor: pointer;
+            border-radius: 4px;
+            z-index: 10;
+            line-height: 1;
+        }
+
+        .slider-btn.prev {
+            left: 8px;
+        }
+
+        .slider-btn.next {
+            right: 8px;
+        }
+
+        .slider-btn:hover {
+            background: rgba(0, 0, 0, 0.7);
+        }
+
+        .slider-dots {
+            text-align: center;
+            padding: 8px 0 4px;
+        }
+
+        .dot {
+            display: inline-block;
+            width: 9px;
+            height: 9px;
+            margin: 0 4px;
+            background: #ccc;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .dot.active {
+            background: #555;
+        }
+    </style>
+
+    <script>
+        function moveSlide(btn, dir) {
+            const slider = btn.closest('.slider');
+            const track = slider.querySelector('.slider-track');
+            const slides = slider.querySelectorAll('.slide');
+            const dots = slider.querySelectorAll('.dot');
+            let current = parseInt(track.dataset.current || '0');
+
+            // Pause video when leaving its slide
+            const currentVideo = slides[current].querySelector('video');
+            if (currentVideo) currentVideo.pause();
+
+            current = (current + dir + slides.length) % slides.length;
+            track.style.transform = `translateX(-${current * 100}%)`;
+            track.dataset.current = current;
+
+            dots.forEach((d, i) => d.classList.toggle('active', i === current));
+        }
+
+        document.querySelectorAll('.slider-dots .dot').forEach((dot, i) => {
+            dot.addEventListener('click', () => {
+                const slider = dot.closest('.slider');
+                const track = slider.querySelector('.slider-track');
+                const slides = slider.querySelectorAll('.slide');
+                const dots = slider.querySelectorAll('.dot');
+                let current = parseInt(track.dataset.current || '0');
+
+                const currentVideo = slides[current].querySelector('video');
+                if (currentVideo) currentVideo.pause();
+
+                track.style.transform = `translateX(-${i * 100}%)`;
+                track.dataset.current = i;
+                dots.forEach((d, j) => d.classList.toggle('active', j === i));
+            });
+        });
+    </script>
+
+</body>
+<footer>
+    <p>© 2025 Elif Bora</p>
+</footer>
+
+</body>
+
+
+
+</html>

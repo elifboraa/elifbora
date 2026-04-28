@@ -1,1 +1,1 @@
-console.log('hello')
+// No JavaScript needed for multi-page navigation.
