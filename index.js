@@ -1,4 +1,3 @@
-<script>
     function moveSlide(btn, dir) {
         const slider = btn.closest('.slider');
         const track = slider.querySelector('.slider-track');
@@ -31,4 +30,3 @@
             });
         });
     });
-</script>
