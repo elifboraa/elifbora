@@ -158,6 +158,110 @@
         </iframe>
     </div>
 
+
+
+
+    <style>
+        .slider {
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+        }
+
+        .slider-track {
+            display: flex;
+            transition: transform 0.4s ease;
+        }
+
+        .slide {
+            min-width: 100%;
+            box-sizing: border-box;
+        }
+
+        .slider-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.45);
+            color: white;
+            border: none;
+            font-size: 2.2em;
+            padding: 6px 14px;
+            cursor: pointer;
+            border-radius: 4px;
+            z-index: 10;
+            line-height: 1;
+        }
+
+        .slider-btn.prev {
+            left: 8px;
+        }
+
+        .slider-btn.next {
+            right: 8px;
+        }
+
+        .slider-btn:hover {
+            background: rgba(0, 0, 0, 0.7);
+        }
+
+        .slider-dots {
+            text-align: center;
+            padding: 8px 0 4px;
+        }
+
+        .dot {
+            display: inline-block;
+            width: 9px;
+            height: 9px;
+            margin: 0 4px;
+            background: #ccc;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .dot.active {
+            background: #555;
+        }
+    </style>
+
+    <script>
+        function moveSlide(btn, dir) {
+            const slider = btn.closest('.slider');
+            const track = slider.querySelector('.slider-track');
+            const slides = slider.querySelectorAll('.slide');
+            const dots = slider.querySelectorAll('.dot');
+            let current = parseInt(track.dataset.current || '0');
+
+            // Pause video when leaving its slide
+            const currentVideo = slides[current].querySelector('video');
+            if (currentVideo) currentVideo.pause();
+
+            current = (current + dir + slides.length) % slides.length;
+            track.style.transform = `translateX(-${current * 100}%)`;
+            track.dataset.current = current;
+
+            dots.forEach((d, i) => d.classList.toggle('active', i === current));
+        }
+
+        document.querySelectorAll('.slider-dots .dot').forEach((dot, i) => {
+            dot.addEventListener('click', () => {
+                const slider = dot.closest('.slider');
+                const track = slider.querySelector('.slider-track');
+                const slides = slider.querySelectorAll('.slide');
+                const dots = slider.querySelectorAll('.dot');
+                let current = parseInt(track.dataset.current || '0');
+
+                const currentVideo = slides[current].querySelector('video');
+                if (currentVideo) currentVideo.pause();
+
+                track.style.transform = `translateX(-${i * 100}%)`;
+                track.dataset.current = i;
+                dots.forEach((d, j) => d.classList.toggle('active', j === i));
+            });
+        });
+    </script>
+
 </body>
 
 
