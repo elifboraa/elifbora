@@ -117,59 +117,77 @@
     <h2>Final Images</h2>
 
     <div class="slider">
+        <div class="slider-track">
+            <div class="slide">
+                <img src="images/emergence/emergence_02.png" alt="Emergence_02">
+            </div>
+
+            <div class="slide">
+                <img src="images/emergence/emergence_05.jpeg" alt="Emergence_05">
+            </div>
+
+            <div class="slide">
+                <img src="images/emergence/emergence_07.png" alt="Emergence_07">
+            </div>
+
+            <div class="slide">
+                <img src="images/emergence/emergence_06.jpeg" alt="Emergence_06">
+            </div>
+        </div>
+
+        <button class="slider-btn prev" onclick="moveSlide(this, -1)">&#8249;</button>
+        <button class="slider-btn next" onclick="moveSlide(this, 1)">&#8250;</button>
+
+        <div class="slider-dots">
+            <span class="dot active"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+        </div>
+    </div>
+
+    <h2>Video Demonstration</h2>
+
     <div class="slider-track">
         <div class="slide">
             <img src="images/emergence/emergence_02.png" alt="Emergence_02">
         </div>
 
         <div class="slide">
-            <img src="images/emergence/emergence_05.jpeg" alt="Emergence_05">
+            <div style="position:relative; padding-bottom:56.25%; height:0; margin-bottom:20px;">
+                <iframe src="https://www.youtube.com/embed/Oqesp0-zYJI"
+                    style="position:absolute; top:0; left:0; width:100%; height:100%;" frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen>
+                </iframe>
+            </div>
         </div>
 
         <div class="slide">
-            <img src="images/emergence/emergence_07.png" alt="Emergence_07">
+            <div style="position:relative; padding-bottom:56.25%; height:0; margin-bottom:20px;">
+                <iframe src="https://www.youtube.com/embed/wZBKADE7s3c"
+                    style="position:absolute; top:0; left:0; width:100%; height:100%;" frameborder="0" allowfullscreen>
+                </iframe>
+            </div>
         </div>
-
         <div class="slide">
-            <img src="images/emergence/emergence_06.jpeg" alt="Emergence_06">
+            <div style="position:relative; padding-bottom:56.25%; height:0;">
+                <iframe src="https://www.youtube.com/embed/WhrXyVP7mI"
+                    style="position:absolute; top:0; left:0; width:100%; height:100%;" frameborder="0" allowfullscreen>
+                </iframe>
+            </div>
+
+        </div>
+        <button class="slider-btn prev" onclick="moveSlide(this, -1)">&#8249;</button>
+        <button class="slider-btn next" onclick="moveSlide(this, 1)">&#8250;</button>
+
+        <div class="slider-dots">
+            <span class="dot active"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
         </div>
     </div>
-
-    <button class="slider-btn prev" onclick="moveSlide(this, -1)">&#8249;</button>
-    <button class="slider-btn next" onclick="moveSlide(this, 1)">&#8250;</button>
-
-    <div class="slider-dots">
-        <span class="dot active"></span>
-        <span class="dot"></span>
-        <span class="dot"></span>
-        <span class="dot"></span>
-    </div>
-</div>
-
-    <h2>Video Demonstration</h2>
-
-    <div style="position:relative; padding-bottom:56.25%; height:0; margin-bottom:20px;">
-        <iframe src="https://www.youtube.com/embed/Oqesp0-zYJI"
-            style="position:absolute; top:0; left:0; width:100%; height:100%;" frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen>
-        </iframe>
-    </div>
-
-    <div style="position:relative; padding-bottom:56.25%; height:0; margin-bottom:20px;">
-        <iframe src="https://www.youtube.com/embed/wZBKADE7s3c"
-            style="position:absolute; top:0; left:0; width:100%; height:100%;" frameborder="0" allowfullscreen>
-        </iframe>
-    </div>
-
-    <div style="position:relative; padding-bottom:56.25%; height:0;">
-        <iframe src="https://www.youtube.com/embed/WhrXyVP7mI"
-            style="position:absolute; top:0; left:0; width:100%; height:100%;" frameborder="0" allowfullscreen>
-        </iframe>
-    </div>
-
-
-
 
     <style>
         .slider {
