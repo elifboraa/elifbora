@@ -103,5 +103,7 @@ code {
 
 .slide img {
     width: 100%;
-    display: block;
+    height: auto;
+    object-fit: contain;
 }
+
