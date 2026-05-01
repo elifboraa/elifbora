@@ -4,6 +4,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="style.css">
+    <script src="index.js" defer></script>
     <title> 🏔️ Emergence</title>
 </head>
 
@@ -36,7 +38,7 @@
         zone. Similarly we also thought about the user being able to alter the topography by moving some parts of it
         around. We ideated how we could make these interactions work, and what the visuals outcomes would be.</p>
 
-    <img src="images/emergence/emergence_04.png" width="1200" alt="Emergence_01">
+    <img src="images/emergence/emergence_04.png" alt="Emergence_01">
 
     <h3>Topography Model</h3>
 
@@ -77,7 +79,7 @@
         height
         difference. Finally we were able to get a clear debth image.</p>
 
-    <img src="images/emergence/emergence_01.png" width="1200" alt="Emergence_01">
+    <img src="images/emergence/emergence_01.png" alt="Emergence_01">
 
     <h3>Organic Growth Interaction</h3>
 
@@ -106,7 +108,7 @@
 
     <p> We used Blender for modelling, and Touchdesigner to create the interactions and the visuals. </p>
 
-    <img src="images/emergence/emergence_03.png" width="1200" alt="Emergence_02">
+    <img src="images/emergence/emergence_03.png" alt="Emergence_02">
 
 
 
@@ -178,43 +180,6 @@
             <span class="dot"></span>
         </div>
     </div>
-
-    <script>
-        function moveSlide(btn, dir) {
-            const slider = btn.closest('.slider');
-            const track = slider.querySelector('.slider-track');
-            const slides = slider.querySelectorAll('.slide');
-            const dots = slider.querySelectorAll('.dot');
-            let current = parseInt(track.dataset.current || '0');
-
-            // Pause video when leaving its slide
-            const currentVideo = slides[current].querySelector('video');
-            if (currentVideo) currentVideo.pause();
-
-            current = (current + dir + slides.length) % slides.length;
-            track.style.transform = `translateX(-${current * 100}%)`;
-            track.dataset.current = current;
-
-            dots.forEach((d, i) => d.classList.toggle('active', i === current));
-        }
-
-        document.querySelectorAll('.slider-dots .dot').forEach((dot, i) => {
-            dot.addEventListener('click', () => {
-                const slider = dot.closest('.slider');
-                const track = slider.querySelector('.slider-track');
-                const slides = slider.querySelectorAll('.slide');
-                const dots = slider.querySelectorAll('.dot');
-                let current = parseInt(track.dataset.current || '0');
-
-                const currentVideo = slides[current].querySelector('video');
-                if (currentVideo) currentVideo.pause();
-
-                track.style.transform = `translateX(-${i * 100}%)`;
-                track.dataset.current = i;
-                dots.forEach((d, j) => d.classList.toggle('active', j === i));
-            });
-        });
-    </script>
 
 </body>
 
