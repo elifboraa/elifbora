@@ -1,44 +1,95 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Creative Computing – Elif Bora</title>
-	 <link rel="stylesheet" href="style.css">
-    <script src="index.js" defer></script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Creative Computing — Elif Bora</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<h1> 👾 Creative Computing</h1>
-	<p>Below are the projects I have worked on while studyin at UAL CCI. They ary from game developement to 3D projection mapping.</p>
+  <nav class="nav">
+    <a href="index.html" class="nav-logo">/elif_bora/</a>
+    <ul class="nav-links">
+      <li><a href="index.html#about">about</a></li>
+      <li><a href="index.html#contact">contact</a></li>
+      <li><a href="index.html#works">works</a></li>
+      <li><a href="#" class="nav-resume">resume ↓</a></li>
+    </ul>
+    <button class="nav-burger" aria-label="menu">☰</button>
+  </nav>
 
-	<section>
-		<h3><a href="kinopolis.html"> 🗺️ Kin'o'polis</a></h3>
-		<p>A more than human city</p>
-	</section>
-	<section>
-		<h3><a href="emergence.html"> 🏔️ Emergence</a></h3>
-		<p>A 3D projection mapping project</p>
-	</section>
+  <header class="category-hero">
+    <a href="index.html#works" class="back-link">← works</a>
+    <h1 class="project-title">Creative Computing</h1>
+    <p style="color:var(--text-muted);font-size:0.95rem;margin-top:12px;">Projects from UAL CCI, ranging from game development to 3D projection mapping.</p>
+  </header>
 
-	<section>
-		<h3><a href="londonmap.html"> 🌏 London Map</a></h3>
-		<p>Machine learning project.</p>
-	</section>
+  <div class="category-list">
+    <div class="category-item">
+      <h3><a href="kinopolis.html">Kin'o'polis</a></h3>
+      <p>Speculative cartographic tool reimagining London as a multispecies city</p>
+    </div>
+    <div class="category-item">
+      <h3><a href="emergence.html">Emergence</a></h3>
+      <p>A 3D projection mapping installation</p>
+    </div>
+    <div class="category-item">
+      <h3><a href="londonmap.html">London Map Through the Eyes of AI</a></h3>
+      <p>Generative cartography using machine learning</p>
+    </div>
+    <div class="category-item">
+      <h3><a href="moon-runner.html">Moon Runner</a></h3>
+      <p>A 2D infinite runner game made in p5.js</p>
+    </div>
+    <div class="category-item">
+      <h3><a href="uncupid.html">Un-Cupid</a></h3>
+      <p>A 3D target shooting game made in Unity</p>
+    </div>
+  </div>
 
-	<section>
-		<h3><a href="moon-runner.html"> 🏃‍♀️‍➡️ Moon Runner</a></h3>
-		<p>A 2D infinite runner game.</p>
-	</section>
+  <footer class="footer">
+    <div class="footer-left">
+      <span class="footer-logo">Elif Bora</span>
+    </div>
+    <div class="footer-nav">
+      <div class="footer-col">
+        <p class="footer-col-title">Navigate</p>
+        <a href="index.html">Home</a>
+        <a href="index.html#works">Works</a>
+        <a href="index.html#about">About</a>
+      </div>
+      <div class="footer-col">
+        <p class="footer-col-title">Download</p>
+        <a href="#">Link to resume</a>
+      </div>
+      <div class="footer-col">
+        <p class="footer-col-title">Contact</p>
+        <a href="https://linkedin.com/in/elif-bora-a01476133" target="_blank">LinkedIn</a>
+        <a href="https://www.instagram.com/elifbeurre/" target="_blank">Instagram</a>
+        <a href="https://www.behance.net/elifboraa" target="_blank">Behance</a>
+      </div>
+      <div class="footer-col">
+        <p class="footer-col-title">&nbsp;</p>
+        <span>London, UK</span>
+        <span>eboracreative@gmail.com</span>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 Elif Bora</p>
+    </div>
+  </footer>
 
-	<section>
-		<h3><a href="uncupid.html"> 💘 Uncupid</a></h3>
-		<p>A 3D target shooting game.</p>
-	</section>
+  <script>
+    document.querySelector('.nav-burger').addEventListener('click', () => {
+      document.querySelector('.nav-links').classList.toggle('open');
+    });
+  </script>
 
-	<footer>
-		<p>© 2026 Elif Bora</p>
-	</footer>
 </body>
 </html>

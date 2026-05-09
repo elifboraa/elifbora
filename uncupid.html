@@ -2,200 +2,213 @@
 <html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title> 💘 Uncupid</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="index.js" defer></script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Un-Cupid — Elif Bora</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-    <h1> 💘 Un-Cupid: Target Game Made In Unity</h1>
-    <h2> Overview & Project Description</h2>
+  <nav class="nav">
+    <a href="index.html" class="nav-logo">/elif_bora/</a>
+    <ul class="nav-links">
+      <li><a href="index.html#about">about</a></li>
+      <li><a href="index.html#contact">contact</a></li>
+      <li><a href="index.html#works">works</a></li>
+      <li><a href="#" class="nav-resume">resume ↓</a></li>
+    </ul>
+    <button class="nav-burger" aria-label="menu">☰</button>
+  </nav>
 
-    <p>UnCupid is a Valentine's Day game for singles, where the players are playing the cupid-angel role, but with a
-        twist. Instead of bringing the people together, the aim is to break them up, using a bow and arrow. The theme of
-        the game is inspired by the people complaining about spending Valentine's day alone and envying the couples who
-        don't (not a personal issue).
+  <header class="project-hero">
+    <a href="index.html#works" class="back-link">← works</a>
+    <h1 class="project-title">Un-Cupid: Target Game Made In Unity</h1>
+    <span class="work-tag">Creative Computing</span>
+  </header>
 
-        I designed the console to function like a bow, allowing the players the sensation of streching and releasing a
-        string. The same idea can be applied to slingshot games, where the players would use the console horizantally,
-        instead of vertically. I used a strectch sensor for the console, which perfectly induces the feeling of using a
-        real bow. Unlike a mouse or a joystick, a strech sensor, provides a more immersive and realistic experience of
-        aiming and shooting.
+  <main class="project-content">
 
-        The game is a single-player experience, where the player is represented with a bow and arrow on the screen.
-        Since I was limited to using only one sensor, I could only give the player the control over amount of strech and
-        release. As a result, bow points to a fixed position. Since I wasn't able to make the bow rotatable, I made the
-        targets mobile, moving in a looping motion from side to side.
+    <h2>Overview</h2>
 
-        The game consists of four levels, with increasing difficulty in each stage. As the player progresses more
-        targets appear along with obstacles that are preventing them getting shot. Targets are represented with farm
-        animals with hearth shaped particles emerging from their heads The obstacles are depicted with roses,
-        reinforcing the Valentine's Day theme. Due to the bow's lack of rotation and orientation control, the game
-        functions as a 2D game, although the environment is designed in 3D.
+    <p>UnCupid is a Valentine's Day game for singles, where the players take on the cupid-angel role, but with a
+      twist. Instead of bringing people together, the aim is to break them up, using a bow and arrow. The theme of
+      the game is inspired by the people complaining about spending Valentine's day alone and envying the couples who
+      don't.</p>
 
-    </p>
+    <p>I designed the console to function like a bow, allowing the players the sensation of stretching and releasing
+      a string. The same idea can be applied to slingshot games, where the players would use the console horizontally,
+      instead of vertically. I used a stretch sensor for the console, which perfectly induces the feeling of using a
+      real bow. Unlike a mouse or a joystick, a stretch sensor provides a more immersive and realistic experience of
+      aiming and shooting.</p>
+
+    <p>The game is a single-player experience, where the player is represented with a bow and arrow on the screen.
+      Since I was limited to using only one sensor, I could only give the player the control over amount of stretch
+      and release. As a result, the bow points to a fixed position. Since I wasn't able to make the bow rotatable, I
+      made the targets mobile, moving in a looping motion from side to side.</p>
+
+    <p>The game consists of four levels, with increasing difficulty in each stage. As the player progresses more
+      targets appear along with obstacles that prevent them getting shot. Targets are represented with farm animals
+      with heart shaped particles emerging from their heads. The obstacles are depicted with roses, reinforcing the
+      Valentine's Day theme. Due to the bow's lack of rotation and orientation control, the game functions as a 2D
+      game, although the environment is designed in 3D.</p>
 
     <h2>Supplies & Materials</h2>
 
     <h3>Components Used</h3>
 
-    <p>- Arduino Leonardo
-        - Conductive rubber cord stretch sensor
-        - 1 x 10kΩ resistor
-        - 2 x crocodile clips
-        - 6 x male to male jumper wires
-        - Breadboard
-        - Upcycled cardboard from parcel box </p>
+    <p>— Arduino Leonardo<br>
+      — Conductive rubber cord stretch sensor<br>
+      — 1 × 10kΩ resistor<br>
+      — 2 × crocodile clips<br>
+      — 6 × male to male jumper wires<br>
+      — Breadboard<br>
+      — Upcycled cardboard from parcel box</p>
 
-    <img src="images/uncupid/uncupid_01.png" alt="Uncupid_01">
+    <img src="images/uncupid/uncupid_01.png" alt="Un-Cupid components">
 
     <h2>Process</h2>
 
     <h3>1. Ideation for the console design</h3>
+    <p>I decided that I wanted to create a slingshot game using a literal slingshot as a console, so I started to
+      research what type of sensors I could use for this.</p>
 
-    <p>II decided that I wanted to create a slingshot game using a literal slingshot as a console, so I started to
-        research what type of sensors I could use for this. </p>
+    <h3>2. Concept development of the game theme and mechanics</h3>
+    <p>I was thinking about the game concept, and since the project was due Valentine's Day, I decided that the theme
+      can be related to it. This made me realise that the player as a cupid should use a bow and arrow instead of a
+      slingshot, and the mechanics would still work the same for such a game.</p>
 
-    <h3>2. Concept developement of the game theme and and mechanics</h3>
+    <h3>3. Initial game development using mouse control</h3>
+    <p>I needed to implement the game mechanics without the console first. So I developed a game that was playable
+      via mouse control.</p>
 
-    <p> I was thinking about the game concept, and since the project was due Valentine's Day, I decided that the theme
-        can be related to it. This made me realise that the player as a cupid, should use a bow and arrow instead of a
-        slingshot, and the mechanics would still work the same, for such a game.
-    </p>
+    <h3>4. Testing serial data reading from stretch sensor</h3>
+    <p>This was my first time using a stretch sensor so I learned how to create a circuit with a stretch sensor and
+      write a code to enable serial reading from it.</p>
 
+    <h3>5. Integrating stretch sensor into Unity</h3>
+    <p>I made a blank sketch and followed the tutorial in Panopto to allow serial reading within Unity. However,
+      this gave a timeout error and through classmates, I learned that I needed to do something called
+      multithreading. I used ChatGPT to write the code for it.</p>
 
-    <h3>3. Initial game developement using mouse control</h3>
-
-    <p>I needed to implement the game mechanics without the console first. So I developed a game that was playable via
-        mouse control.
-    </p>
-
-    <h3>4. Testing serial data reading from strech sensor</h3>
-
-    <p>This was my first time using a strech sensor so I learned how to create a circuit with a strech sensor and write
-        a code to enable serial reading from it.
-
-    </p>
-
-    <h3>5. Integrating strech sensor into Unity</h3>
-
-    <p>I have made a blank sketch and followed the tutorial in panopto to allow serial reading within Unity. However,
-        this gave a timout error and through classmates, I learned that I needed to do something called multithreading.
-        I used chatGPT to write the code for it.
-    </p>
-
-    <h3> 6. Adding serial read into the game mechanics</h3>
-
-    <p>I replaced mouse control with the serial data from strech sensor.
-    </p>
+    <h3>6. Adding serial read into the game mechanics</h3>
+    <p>I replaced mouse control with the serial data from the stretch sensor.</p>
 
     <h3>7. Collection and implementation of game assets and UI</h3>
-
-    <p>So far, I used very basic assets and UI elements, prioritising creating to a game that was working. Then I
-        started spending time on the visual and audio elements of the game. I used free assets that I found from various
-        resources online.
-    </p>
+    <p>So far, I had used very basic assets and UI elements, prioritising creating a game that was working. Then I
+      started spending time on the visual and audio elements of the game. I used free assets found from various
+      resources online.</p>
 
     <h3>8. Adding More Levels</h3>
-
-    <p>I wanted to add levels to my game, however, in this process the serial reading strated to give an error. I spent
-        a lot of time debugging this issue.
-    </p>
+    <p>I wanted to add levels to my game, however, in this process the serial reading started to give an error. I
+      spent a lot of time debugging this issue.</p>
 
     <h3>9. Building the game console</h3>
-
-    <p>I created a bow from cardboards that were upcycled from the parcel boxes I had been collecting. I inserted the
-        strech sensors like a string of the bow, via holes. The connection of the sensor to arduino is provided by
-        crocodile clips
-    </p>
+    <p>I created a bow from cardboards that were upcycled from the parcel boxes I had been collecting. I inserted
+      the stretch sensors like a string of the bow, via holes. The connection of the sensor to Arduino is provided
+      by crocodile clips.</p>
 
     <h3>10. Debugging and final refinements</h3>
+    <p>The final touches on the game visuals, audio and mechanics were made and final debugging was done.</p>
 
-    <p>The final touches on the game visuals, audio and mechanics are made and final debugging were done.
-    </p>
-
-    <h3>11. Publishing the game for web/ Publishing the game as an app</h3>
-
+    <h3>11. Publishing the game</h3>
     <p>Since I wasn't able to publish the console controlled version of the game for the web, I published the mouse
-        contolled version. I built the console controlled version as an app on my desktop.
-    </p>
+      controlled version. I built the console controlled version as an app on my desktop.</p>
 
-    <h3>12. Playtesting and gathering feedback for further developement</h3>
-
-    <p>I asked friends and family to play the game and observed their reactions to further develope the game.
-    </p>
-
+    <h3>12. Playtesting and gathering feedback</h3>
+    <p>I asked friends and family to play the game and observed their reactions to further develop the game.</p>
 
     <h2>Video Demonstration</h2>
 
     <div class="video-wrapper">
-        <iframe src="https://www.youtube.com/embed/bO9d9qXTMoU" frameborder="0" allowfullscreen></iframe>
+      <iframe src="https://www.youtube.com/embed/bO9d9qXTMoU" frameborder="0" allowfullscreen></iframe>
     </div>
 
     <h2>Final Images</h2>
-    <img src="images/uncupid/uncupid_02.png" alt="Uncupid_02">
-    <footer>
-        <p>© 2025 Elif Bora</p>
-    </footer>
 
-    <h2> Design Justification</h2>
-    <p> The games design is largely influenced by the technical limitations and my beginner level knowledge of Unity.
-        The size of the console, was constrained by the lenght of the strech senor and the dimensions of cardboard that
-        was available.
+    <img src="images/uncupid/uncupid_02.png" alt="Un-Cupid final">
 
-        During playtesting, I realised the transition between levels is not clear enough, so this issue can be further
-        developed. To match the players' movement and interaction with console, the bow and arrow in on the screen can
-        be positioned vertically, in a more 3D orientation, allowing the player to grasp a better feeling of their role
-        in the game and how they are effecting the game. More visual depth can be added to the game for a more immersive
-        experience. Additionally, the size and form of the console can be adjusted according to player feedback. The
-        console can have haptic feedback, for a more tactile experience. This console can also be adapted for a
-        difficult targeting game, by implementing precise orientation tracking.</p>
+    <h2>Design Justification</h2>
+
+    <p>The game's design is largely influenced by the technical limitations and my beginner level knowledge of Unity.
+      The size of the console was constrained by the length of the stretch sensor and the dimensions of cardboard
+      that was available.</p>
+
+    <p>During playtesting, I realised the transition between levels is not clear enough, so this issue can be further
+      developed. To match the players' movement and interaction with console, the bow and arrow on screen can be
+      positioned vertically, in a more 3D orientation, allowing the player to grasp a better feeling of their role
+      in the game and how they are effecting the game. More visual depth can be added to the game for a more
+      immersive experience. Additionally, the size and form of the console can be adjusted according to player
+      feedback. The console can have haptic feedback, for a more tactile experience. This console can also be adapted
+      for a difficult targeting game, by implementing precise orientation tracking.</p>
 
     <h2>Project Link</h2>
 
-    <p><a href="https://play.unity.com/en/games/a1c2d837-a0fb-40da-8633-a7f8150951a8/eloevera-games"> The mouse
-            controlled version of the game</a> </p>
-
+    <p><a href="https://play.unity.com/en/games/a1c2d837-a0fb-40da-8633-a7f8150951a8/eloevera-games" target="_blank">Play
+        the mouse controlled version of the game</a></p>
 
     <h2>References</h2>
 
-    <h3> Tutorials</h3>
+    <h3>Tutorials</h3>
 
-    <p><a href="https://www.youtube.com/watch?v=OR0e-1UBEOU"> Target Script</a> </p>
-    <p><a href="www.youtube.com/watch?app=desktop&v=r7UDs5kLoB4&t=56s">
-            Bow Script</a> </p>
-    <p><a href="https://www.youtube.com/watch?v=pBXyK1DWbPg">
-            Particles</a> </p>
-    <p><a href="https://www.youtube.com/watch?v=zc8ac_qUXQY">
-            Starter Page</a> </p>
-    <p> <a href="https://www.youtube.com/watch?v=Xtfe5S9n4SI"> Play
-            Background Music Throughout Levels</a> </p>
-    <p><a href="https://www.youtube.com/watch?v=UVI6bwldPio"> Collission Sound
-            Effects</a> </p>
-    <p><a href="https://www.hackster.io/Juliette/measuring-stretch-forces-with-a-conductive-rubber-cord-d1528e"> Stretch
-            Sensor
-            Code</a> </p>
+    <p><a href="https://www.youtube.com/watch?v=OR0e-1UBEOU" target="_blank">Target Script</a></p>
+    <p><a href="https://www.youtube.com/watch?app=desktop&v=r7UDs5kLoB4&t=56s" target="_blank">Bow Script</a></p>
+    <p><a href="https://www.youtube.com/watch?v=pBXyK1DWbPg" target="_blank">Particles</a></p>
+    <p><a href="https://www.youtube.com/watch?v=zc8ac_qUXQY" target="_blank">Starter Page</a></p>
+    <p><a href="https://www.youtube.com/watch?v=Xtfe5S9n4SI" target="_blank">Play Background Music Throughout Levels</a></p>
+    <p><a href="https://www.youtube.com/watch?v=UVI6bwldPio" target="_blank">Collision Sound Effects</a></p>
+    <p><a href="https://www.hackster.io/Juliette/measuring-stretch-forces-with-a-conductive-rubber-cord-d1528e" target="_blank">Stretch Sensor Code</a></p>
 
+    <h3>Assets</h3>
 
-    <h3> Assets</h3>
+    <p>Bow and Arrow: <a href="https://www.youtube.com/watch?v=XHkAl-fVa1A&t=121s" target="_blank">Link</a></p>
+    <p>Targets: <a href="https://assetstore.unity.com/packages/3d/characters/animals/cartoon-animal-pack-01-232022" target="_blank">Link</a></p>
+    <p>Environment: <a href="https://assetstore.unity.com/packages/3d/environments/aa-3d-low-poly-nature-pack-227820" target="_blank">Link</a></p>
+    <p>Music: <a href="https://assetstore.unity.com/packages/audio/music/8bit-music-062022-225623" target="_blank">Link</a></p>
+    <p>Sound Effect: <a href="https://pixabay.com/sound-effects/search/arrow/" target="_blank">Link</a></p>
 
-    <p> Bow and Arrow:<a href="https://www.youtube.com/watch?v=XHkAl-fVa1A&t=121s"> Link</a> </p>
-    <p> Targets:<a href="https://assetstore.unity.com/packages/3d/characters/animals/cartoon-animal-pack-01-232022">
-            Link</a> </p>
-    <p> Environment:<a href="https://assetstore.unity.com/packages/3d/environments/aa-3d-low-poly-nature-pack-227820">
-            Link</a> </p>
-    <p> Clouds:<a href="- clouds: https://sketchfab.com/3d-models/low-poly-clouds-f653f67c8ea34b7b8f3dae162b7fff0f">
-            Link</a> </p>
-    <p> Hearth:<a href="https://sketchfab.com/3d-models/love-low-poly-dd3b881a34904991878dc6a5a05aa1f6"> Link</a> </p>
-    <p> Obstacle:<a href="https://assetstore.unity.com/packages/3d/environments/aa-3d-low-poly-nature-pack-227820">
-            Link</a> </p>
-    <p> Music:<a href="https://assetstore.unity.com/packages/audio/music/8bit-music-062022-225623"> Link</a> </p>
-    <p> Sound Effect:<a href="https://pixabay.com/sound-effects/search/arrow/"> Link</a> </p>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-left">
+      <span class="footer-logo">Elif Bora</span>
+    </div>
+    <div class="footer-nav">
+      <div class="footer-col">
+        <p class="footer-col-title">Navigate</p>
+        <a href="index.html">Home</a>
+        <a href="index.html#works">Works</a>
+        <a href="index.html#about">About</a>
+      </div>
+      <div class="footer-col">
+        <p class="footer-col-title">Download</p>
+        <a href="#">Link to resume</a>
+      </div>
+      <div class="footer-col">
+        <p class="footer-col-title">Contact</p>
+        <a href="https://linkedin.com/in/elif-bora-a01476133" target="_blank">LinkedIn</a>
+        <a href="https://www.instagram.com/elifbeurre/" target="_blank">Instagram</a>
+        <a href="https://www.behance.net/elifboraa" target="_blank">Behance</a>
+      </div>
+      <div class="footer-col">
+        <p class="footer-col-title">&nbsp;</p>
+        <span>London, UK</span>
+        <span>eboracreative@gmail.com</span>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 Elif Bora</p>
+    </div>
+  </footer>
+
+  <script>
+    document.querySelector('.nav-burger').addEventListener('click', () => {
+      document.querySelector('.nav-links').classList.toggle('open');
+    });
+  </script>
+
 </body>
-
-
-
 </html>

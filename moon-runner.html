@@ -2,45 +2,97 @@
 <html lang="en">
 
 <head>
-
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title> 🏃‍♀️‍➡️ Moon Runner</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="index.js" defer></script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Moon Runner — Elif Bora</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-    <h1> 🏃‍♀️‍➡️ Moon Runner: A 2D Infinite Runner Game Made in p5.js.</h1>
+  <nav class="nav">
+    <a href="index.html" class="nav-logo">/elif_bora/</a>
+    <ul class="nav-links">
+      <li><a href="index.html#about">about</a></li>
+      <li><a href="index.html#contact">contact</a></li>
+      <li><a href="index.html#works">works</a></li>
+      <li><a href="#" class="nav-resume">resume ↓</a></li>
+    </ul>
+    <button class="nav-burger" aria-label="menu">☰</button>
+  </nav>
 
-    <h2> Overview & Project Description</h2>
+  <header class="project-hero">
+    <a href="index.html#works" class="back-link">← works</a>
+    <h1 class="project-title">Moon Runner: A 2D Infinite Runner Game Made in p5.js</h1>
+    <span class="work-tag">Creative Computing</span>
+  </header>
 
-    <p>This project is an infinite runner game where the player has to avoid the obstacles and collect coins. The player
-        needs to press up arrow to jump and "A" key to shoot. Player earns points just by progressing in the game,
-        however they can collect extra points by collecting coins and shooting asteroids. This game allows the player to
-        restart the game.</p>
+  <main class="project-content">
+
+    <h2>Overview</h2>
+
+    <p>This project is an infinite runner game where the player has to avoid the obstacles and collect coins. The
+      player needs to press up arrow to jump and "A" key to shoot. Player earns points just by progressing in the
+      game, however they can collect extra points by collecting coins and shooting asteroids. This game allows the
+      player to restart the game.</p>
 
     <div class="video-wrapper">
-        <iframe src="https://www.youtube.com/embed/hB5lpsStH0c frameborder="0" allowfullscreen></iframe>
+      <iframe src="https://www.youtube.com/embed/hB5lpsStH0c" frameborder="0" allowfullscreen></iframe>
     </div>
 
+    <p>To develop this game I studied several infinite runner games made in p5.js to understand how to utilize
+      classes, objects and functions, as well as understanding the concept of object collisions. Throughout the
+      project, I used conditionals, for-loops, arrays, noise, loaded images, functions, event handlers, and
+      classes.</p>
 
-    <p>To develop this game I have studied at several infinite runner games made in p5.js(link1, link2, link3) to
-        understand how to utilize classes, objects and functions, as well as understanding the concept of object
-        collissions. Throughout the project, I used conditionals, for-loops, arrays, noise, loaded images, functions,
-        event handlers,
-        and classes.</p>
+    <img src="images/moon-runner/moon-runner_01.png" alt="Moon Runner">
 
-    <img src="images/moon-runner/moon-runner_01.png" alt="Moon-Runner_01">
+    <h2>Project Link</h2>
 
-    <h2> Link to Project</h2>
+    <p><a href="https://editor.p5js.org/elifb97/sketches/3GihpCUX3" target="_blank">View the p5.js sketch</a></p>
 
-    <p><a href="https://editor.p5js.org/elifb97/sketches/3GihpCUX3"> Link to p5 sketch.</a> </p>
+  </main>
 
+  <footer class="footer">
+    <div class="footer-left">
+      <span class="footer-logo">Elif Bora</span>
+    </div>
+    <div class="footer-nav">
+      <div class="footer-col">
+        <p class="footer-col-title">Navigate</p>
+        <a href="index.html">Home</a>
+        <a href="index.html#works">Works</a>
+        <a href="index.html#about">About</a>
+      </div>
+      <div class="footer-col">
+        <p class="footer-col-title">Download</p>
+        <a href="#">Link to resume</a>
+      </div>
+      <div class="footer-col">
+        <p class="footer-col-title">Contact</p>
+        <a href="https://linkedin.com/in/elif-bora-a01476133" target="_blank">LinkedIn</a>
+        <a href="https://www.instagram.com/elifbeurre/" target="_blank">Instagram</a>
+        <a href="https://www.behance.net/elifboraa" target="_blank">Behance</a>
+      </div>
+      <div class="footer-col">
+        <p class="footer-col-title">&nbsp;</p>
+        <span>London, UK</span>
+        <span>eboracreative@gmail.com</span>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 Elif Bora</p>
+    </div>
+  </footer>
+
+  <script>
+    document.querySelector('.nav-burger').addEventListener('click', () => {
+      document.querySelector('.nav-links').classList.toggle('open');
+    });
+  </script>
 
 </body>
-
-
-
 </html>
