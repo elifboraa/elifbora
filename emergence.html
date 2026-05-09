@@ -59,6 +59,9 @@
         <div class="slide">
           <img src="images/emergence/emergence_07.png" alt="Emergence_07">
         </div>
+           <div class="slide">
+          <img src="images/emergence/emergence_09.png" alt="Emergence_09">
+        </div>
         <div class="slide">
           <img src="images/emergence/emergence_06.jpeg" alt="Emergence_06">
         </div>
@@ -70,6 +73,7 @@
         <span class="dot"></span>
         <span class="dot"></span>
         <span class="dot"></span>
+         <span class="dot"></span>
       </div>
     </div>
 
@@ -127,6 +131,27 @@
       lines and exported it for laser cutting. After the laser cutting, we gathered the parts and glued them together.
       Our topography model was ready.</p>
 
+      <div class="slider">
+      <div class="slider-track">
+        <div class="slide">
+          <img src="images/emergence/emergence_13.png" alt="Emergence_13">
+        </div>
+        <div class="slide">
+          <img src="images/emergence/emergence_14.png" alt="Emergence_14">
+        </div>
+        <div class="slide">
+          <img src="images/emergence/emergence_11.png" alt="Emergence_11">
+        </div>
+      </div>
+      <button class="slider-btn prev" onclick="moveSlide(this, -1)">&#8249;</button>
+      <button class="slider-btn next" onclick="moveSlide(this, 1)">&#8250;</button>
+      <div class="slider-dots">
+        <span class="dot active"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+      </div>
+    </div>
+
     <h3>Depth Detection with Kinect</h3>
 
     <p>We firstly used Kinect V2 2.0 and the issue we faced was that it was good at representing large distances of
@@ -145,7 +170,8 @@
       higher contrast in the output image. To do this, we increased the contrast between the maximum and minimum height
       difference. Finally we were able to get a clear depth image.</p>
 
-    <img src="images/emergence/emergence_01.png" alt="Depth detection output">
+    <img src="images/emergence/emergence_10.png" alt="Technical setup">
+
 
     <h3>Organic Growth Interaction</h3>
 
@@ -156,6 +182,9 @@
       so we did not need an extra webcam. For the renewal and the regeneration of the organic city growth, we used a
       timer that resets the canvas every 30 seconds. We integrated a mask where the lowest and highest parts of the
       terrain are blocked, so the growth wouldn't happen at those points.</p>
+
+
+       <img src="images/emergence/emergence_12.png" alt="Technical setup">
 
     <h2>Technical Details</h2>
 
@@ -205,31 +234,43 @@
   </footer>
 
   <script>
-    function moveSlide(btn, dir) {
-      const slider = btn.closest('.slider');
-      const track = slider.querySelector('.slider-track');
-      const slides = slider.querySelectorAll('.slide');
-      const dots = slider.querySelectorAll('.dot');
-      let current = parseInt(track.dataset.current || '0');
-      current = (current + dir + slides.length) % slides.length;
-      track.style.transform = `translateX(-${current * 100}%)`;
-      track.dataset.current = current;
-      dots.forEach((d, i) => d.classList.toggle('active', i === current));
+    function goToSlide(slider, index) {
+      const track = slider.querySelector(".slider-track");
+      const slides = slider.querySelectorAll(".slide");
+      const dots = slider.querySelectorAll(".dot");
+      const slideWidth = slides[0].offsetWidth;
+      const gap = 8;
+      const offset = (slider.offsetWidth - slideWidth) / 2 - index * (slideWidth + gap);
+      track.style.transform = "translateX(" + offset + "px)";
+      track.dataset.current = index;
+      dots.forEach((d, i) => d.classList.toggle("active", i === index));
+      slides.forEach((s, i) => s.classList.toggle("active", i === index));
     }
 
-    document.querySelectorAll('.slider-dots .dot').forEach((dot, i) => {
-      dot.addEventListener('click', () => {
-        const slider = dot.closest('.slider');
-        const track = slider.querySelector('.slider-track');
-        const dots = slider.querySelectorAll('.dot');
-        track.style.transform = `translateX(-${i * 100}%)`;
-        track.dataset.current = i;
-        dots.forEach((d, j) => d.classList.toggle('active', j === i));
+    function moveSlide(btn, dir) {
+      const slider = btn.closest(".slider");
+      const slides = slider.querySelectorAll(".slide");
+      let current = parseInt(slider.querySelector(".slider-track").dataset.current || "0");
+      current = (current + dir + slides.length) % slides.length;
+      goToSlide(slider, current);
+    }
+
+    document.querySelectorAll(".slider").forEach(slider => {
+      goToSlide(slider, 0);
+      slider.querySelectorAll(".slider-dots .dot").forEach((dot, i) => {
+        dot.addEventListener("click", () => goToSlide(slider, i));
       });
     });
 
-    document.querySelector('.nav-burger').addEventListener('click', () => {
-      document.querySelector('.nav-links').classList.toggle('open');
+    window.addEventListener("resize", () => {
+      document.querySelectorAll(".slider").forEach(slider => {
+        const current = parseInt(slider.querySelector(".slider-track").dataset.current || "0");
+        goToSlide(slider, current);
+      });
+    });
+
+    document.querySelector(".nav-burger").addEventListener("click", () => {
+      document.querySelector(".nav-links").classList.toggle("open");
     });
   </script>
 

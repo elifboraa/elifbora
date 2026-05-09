@@ -104,31 +104,43 @@
   </footer>
 
   <script>
-    function moveSlide(btn, dir) {
-      const slider = btn.closest('.slider');
-      const track = slider.querySelector('.slider-track');
-      const slides = slider.querySelectorAll('.slide');
-      const dots = slider.querySelectorAll('.dot');
-      let current = parseInt(track.dataset.current || '0');
-      current = (current + dir + slides.length) % slides.length;
-      track.style.transform = `translateX(-${current * 100}%)`;
-      track.dataset.current = current;
-      dots.forEach((d, i) => d.classList.toggle('active', i === current));
+    function goToSlide(slider, index) {
+      const track = slider.querySelector(".slider-track");
+      const slides = slider.querySelectorAll(".slide");
+      const dots = slider.querySelectorAll(".dot");
+      const slideWidth = slides[0].offsetWidth;
+      const gap = 8;
+      const offset = (slider.offsetWidth - slideWidth) / 2 - index * (slideWidth + gap);
+      track.style.transform = "translateX(" + offset + "px)";
+      track.dataset.current = index;
+      dots.forEach((d, i) => d.classList.toggle("active", i === index));
+      slides.forEach((s, i) => s.classList.toggle("active", i === index));
     }
 
-    document.querySelectorAll('.slider-dots .dot').forEach((dot, i) => {
-      dot.addEventListener('click', () => {
-        const slider = dot.closest('.slider');
-        const track = slider.querySelector('.slider-track');
-        const dots = slider.querySelectorAll('.dot');
-        track.style.transform = `translateX(-${i * 100}%)`;
-        track.dataset.current = i;
-        dots.forEach((d, j) => d.classList.toggle('active', j === i));
+    function moveSlide(btn, dir) {
+      const slider = btn.closest(".slider");
+      const slides = slider.querySelectorAll(".slide");
+      let current = parseInt(slider.querySelector(".slider-track").dataset.current || "0");
+      current = (current + dir + slides.length) % slides.length;
+      goToSlide(slider, current);
+    }
+
+    document.querySelectorAll(".slider").forEach(slider => {
+      goToSlide(slider, 0);
+      slider.querySelectorAll(".slider-dots .dot").forEach((dot, i) => {
+        dot.addEventListener("click", () => goToSlide(slider, i));
       });
     });
 
-    document.querySelector('.nav-burger').addEventListener('click', () => {
-      document.querySelector('.nav-links').classList.toggle('open');
+    window.addEventListener("resize", () => {
+      document.querySelectorAll(".slider").forEach(slider => {
+        const current = parseInt(slider.querySelector(".slider-track").dataset.current || "0");
+        goToSlide(slider, current);
+      });
+    });
+
+    document.querySelector(".nav-burger").addEventListener("click", () => {
+      document.querySelector(".nav-links").classList.toggle("open");
     });
   </script>
 
