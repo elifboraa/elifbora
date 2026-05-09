@@ -14,12 +14,15 @@
 <body>
 
   <nav class="nav">
-    <a href="index.html" class="nav-logo">/elif_bora/</a>
+    <a href="index.html" class="nav-logo">
+      <span class="nav-logo-name">/elif_bora/</span>
+      <span class="nav-logo-tagline">computational artist | digital designer</span>
+    </a>
     <ul class="nav-links">
       <li><a href="index.html#about">about</a></li>
       <li><a href="index.html#contact">contact</a></li>
       <li><a href="index.html#works">works</a></li>
-      <li><a href="#" class="nav-resume">resume ↓</a></li>
+      <li><a href="Bora_CV.pdf" download class="nav-resume">resume ↓</a></li>
     </ul>
     <button class="nav-burger" aria-label="menu">☰</button>
   </nav>
@@ -27,7 +30,10 @@
   <header class="project-hero">
     <a href="index.html#works" class="back-link">← works</a>
     <h1 class="project-title">Moon Runner: A 2D Infinite Runner Game Made in p5.js</h1>
-    <span class="work-tag">Creative Computing</span>
+    <div class="project-tags">
+      <span class="work-tag">Game Development</span>
+      <span class="work-tag-soft">p5.js</span>
+    </div>
   </header>
 
   <main class="project-content">
@@ -40,7 +46,7 @@
       player to restart the game.</p>
 
     <div class="video-wrapper">
-      <iframe src="https://www.youtube.com/embed/hB5lpsStH0c" frameborder="0" allowfullscreen></iframe>
+      <iframe src="https://www.youtube.com/embed/hB5lpsStH0c" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
     </div>
 
     <p>To develop this game I studied several infinite runner games made in p5.js to understand how to utilize
