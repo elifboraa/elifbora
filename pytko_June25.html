@@ -7,7 +7,9 @@
   <title>Pytko June '25 Gig — Elif Bora</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=DM+Sans:wght@300;400;500&display=swap"
+    rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 
@@ -44,17 +46,23 @@
       <div class="slider-track">
         <div class="slide">
           <div class="video-wrapper">
-            <iframe src="https://www.youtube.com/embed/zt1dvcbcY_8" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            <iframe src="https://www.youtube.com/embed/zt1dvcbcY_8" frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen></iframe>
           </div>
         </div>
         <div class="slide">
           <div class="video-wrapper">
-            <iframe src="https://www.youtube.com/embed/f33ssgN7COc" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            <iframe src="https://www.youtube.com/embed/f33ssgN7COc" frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen></iframe>
           </div>
         </div>
         <div class="slide">
           <div class="video-wrapper">
-            <iframe src="https://www.youtube.com/embed/8C1HMT93i8k" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            <iframe src="https://www.youtube.com/embed/8C1HMT93i8k" frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen></iframe>
           </div>
         </div>
       </div>
@@ -62,17 +70,38 @@
       <button class="slider-btn next" onclick="moveSlide(this, 1)">&#8250;</button>
     </div>
 
-      <div class="slider-dots">
-        <span class="dot active"></span>
-        <span class="dot"></span>
-        <span class="dot"></span>
+    <div class="slider-dots">
+      <span class="dot active"></span>
+      <span class="dot"></span>
+      <span class="dot"></span>
+    </div>
+
+
+    <img src="images/pytko_June25/pytko01_07.jpg" alt="Pytko June 2025">
+
+
+    <div class="slider">
+      <div class="slider-track">
+        <div class="slide">
+          <img src="images/pytko_June25/pytko01_01.jpg" alt="Pytko June 2025">
+        </div>
+        <div class="slide">
+          <img src="images/pytko_June25/pytko01_03.jpg" alt="Pytko June 2025">
+        </div>
+        <div class="slide">
+          <img src="images/pytko_June25/pytko01_06.jpg" alt="Pytko June 2025">
+        </div>
       </div>
+    </div>
+    <button class="slider-btn prev" onclick="moveSlide(this, -1)">&#8249;</button>
+    <button class="slider-btn next" onclick="moveSlide(this, 1)">&#8250;</button>
+    </div>
 
-
-      <img src="images/pytko_June25/pytko01_01.jpg" alt="Pytko June 2025">
-
-    <img src="images/pytko_June25/pytko01_01.jpg" alt="Pytko June 2025">
-
+    <div class="slider-dots">
+      <span class="dot active"></span>
+      <span class="dot"></span>
+      <span class="dot"></span>
+    </div>
   </main>
 
   <footer class="footer">
@@ -127,7 +156,7 @@
       let dotsEl = slider.nextElementSibling;
       while (dotsEl && !dotsEl.classList.contains("slider-dots")) dotsEl = dotsEl.nextElementSibling;
       if (dotsEl) {
-        dotsEl.querySelectorAll(".dot").forEach(function(d, i) { d.classList.toggle("active", i === realIndex); });
+        dotsEl.querySelectorAll(".dot").forEach(function (d, i) { d.classList.toggle("active", i === realIndex); });
       }
       track.dataset.current = realIndex;
     }
@@ -177,28 +206,29 @@
       }
     }
 
-    document.querySelectorAll(".slider").forEach(function(slider) {
-      requestAnimationFrame(function() { initSlider(slider); });
+    document.querySelectorAll(".slider").forEach(function (slider) {
+      requestAnimationFrame(function () { initSlider(slider); });
       let dotsEl = slider.nextElementSibling;
       while (dotsEl && !dotsEl.classList.contains("slider-dots")) dotsEl = dotsEl.nextElementSibling;
       if (dotsEl) {
-        dotsEl.querySelectorAll(".dot").forEach(function(dot, i) {
-          dot.addEventListener("click", function() { goToSlide(slider, i, false); });
+        dotsEl.querySelectorAll(".dot").forEach(function (dot, i) {
+          dot.addEventListener("click", function () { goToSlide(slider, i, false); });
         });
       }
     });
 
-    window.addEventListener("resize", function() {
-      document.querySelectorAll(".slider").forEach(function(slider) {
+    window.addEventListener("resize", function () {
+      document.querySelectorAll(".slider").forEach(function (slider) {
         const current = parseInt(slider.querySelector(".slider-track").dataset.current || "0");
         goToSlide(slider, current, true);
       });
     });
 
-    document.querySelector(".nav-burger").addEventListener("click", function() {
+    document.querySelector(".nav-burger").addEventListener("click", function () {
       document.querySelector(".nav-links").classList.toggle("open");
     });
   </script>
 
 </body>
+
 </html>
