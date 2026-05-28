@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Coral Stories — Elif Bora</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=DM+Sans:wght@300;400;500&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <nav class="nav">
+    <a href="index.html" class="nav-logo">
+      <span class="nav-logo-name">/elif_bora/</span>
+      <span class="nav-logo-tagline">computational artist | digital designer</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html#about">about</a></li>
+      <li><a href="index.html#contact">contact</a></li>
+      <li><a href="index.html#works">works</a></li>
+      <li><a href="Bora_CV.pdf" download class="nav-resume">resume ↓</a></li>
+    </ul>
+    <button class="nav-burger" aria-label="menu">☰</button>
+  </nav>
+
+  <header class="project-hero">
+    <a href="index.html#works" class="back-link">← works</a>
+    <h1 class="project-title">Coral Stories</h1>
+    <div class="project-tags">
+      <span class="work-tag">Creative Computing</span>
+      <span class="work-tag-soft">Blender · TouchDesigner · Projection Mapping</span>
+    </div>
+  </header>
+
+  <main class="project-content">
+
+    <p>Coral Stories is a collaborative project developed under our London based studio, Aura Collective, created as
+      part of our
+      submission to the OFFF Barcelona 2026 open call, a projection mapping commission to be displayed on the Disney
+      Hub. The project explores how nature interacts with human-made artifacts and human-casued natural. The project is
+      planned to be developed further in order to reflect the theme more concretely, therefore the below images reflect
+      the process. </p>
+
+    <div class="slider">
+      <div class="slider-track">
+        <div class="slide">
+          <img src="images/coral_stories/coral_stories_04.png" alt="Coral_Stories_04">
+        </div>
+        <div class="slide">
+          <div class="video-wrapper">
+            <iframe src="https://www.youtube.com/embed/Poz8iUBbcgw" frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen></iframe>
+          </div>
+        </div>
+      </div>
+      <button class="slider-btn prev" onclick="moveSlide(this, -1)">&#8249;</button>
+      <button class="slider-btn next" onclick="moveSlide(this, 1)">&#8250;</button>
+    </div>
+
+    <div class="slider-dots">
+      <span class="dot active"></span>
+      <span class="dot"></span>
+    </div>
+
+
+    <h2>Process</h2>
+
+    <p>The open call had no set theme, so we each began by developing individual moodboards. A shared thread emerged
+      across them — ocean imagery as a way to explore the tension between the Anthropocene and the natural world. From
+      there we built a shared moodboard, aligning on visual direction, tools, and constraints. Each collaborator then
+      explored their own approach to the theme independently.</p>
+
+    <div class="slider">
+      <div class="slider-track">
+        <div class="slide">
+          <img src="images/coral_stories/coral_stories_02.png" alt="Coral_Stories_02">
+        </div>
+        <div class="slide">
+          <img src="images/coral_stories/coral_stories_01.png" alt="Coral_Stories_01">
+        </div>
+        <div class="slide">
+          <img src="images/coral_stories/coral_stories_03.png" alt="Coral_Stories_03">
+        </div>
+      </div>
+      <button class="slider-btn prev" onclick="moveSlide(this, -1)">&#8249;</button>
+      <button class="slider-btn next" onclick="moveSlide(this, 1)">&#8250;</button>
+    </div>
+
+    <div class="slider-dots">
+      <span class="dot active"></span>
+      <span class="dot"></span>
+      <span class="dot"></span>
+    </div>
+
+
+    <h2>Individual Exploration</h2>
+
+    <p>I firstly explored how to create the oil spill effect in TouchDesigner. Then I wanted to merge this effect with
+      the Blender made coral growth animation.
+    <p>
+
+
+    <p>My approach was to combine an animated Blender coral model with GLSL shaders in TouchDesigner, but the
+      integration proved technically unfeasible within the timeframe. I shifted to working entirely in Blender, and
+      produced a video of corals growing across the concrete walls of the Disney Hub — a visual of nature reclaiming
+      urban space.</p>
+
+    <div class="slider">
+      <div class="slider-track">
+
+        <div class="slide">
+          <div class="video-wrapper">
+            <iframe src="https://www.youtube.com/embed/Poz8iUBbcgw" frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen></iframe>
+          </div>
+        </div>
+        <div class="slide">
+
+          <div class="video-wrapper">
+            <iframe src="https://www.youtube.com/embed/UDqeO8Wjlv0" frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen></iframe>
+          </div>
+        </div>
+
+        <div class="slide">
+
+          <img src="images/coral_stories/coral_stories_05.png" alt="Coral_Stories_05">
+        </div>
+        <div class="slide">
+          <img src="images/coral_stories/coral_stories_06.png" alt="Coral_Stories_06">
+        </div>
+        <div class="slide">
+          <img src="images/coral_stories/coral_stories_08.png" alt="Coral_Stories_08">
+        </div>
+        <div class="slide">
+          <img src="images/coral_stories/coral_stories_09.png" alt="Coral_Stories_09">
+        </div>
+      </div>
+      <button class="slider-btn prev" onclick="moveSlide(this, -1)">&#8249;</button>
+      <button class="slider-btn next" onclick="moveSlide(this, 1)">&#8250;</button>
+    </div>
+
+    <div class="slider-dots">
+      <span class="dot active"></span>
+      <span class="dot"></span>
+      <span class="dot"></span>
+      <span class="dot"></span>
+      <span class="dot"></span>
+    </div>
+
+  </main>
+
+  <footer class="footer">
+    <div class="footer-left">
+      <span class="footer-logo">Elif Bora</span>
+    </div>
+    <div class="footer-nav">
+      <div class="footer-col">
+        <p class="footer-col-title">Navigate</p>
+        <a href="index.html">Home</a>
+        <a href="index.html#works">Works</a>
+        <a href="index.html#about">About</a>
+      </div>
+      <div class="footer-col">
+        <p class="footer-col-title">Download</p>
+        <a href="#">Link to resume</a>
+      </div>
+      <div class="footer-col">
+        <p class="footer-col-title">Contact</p>
+        <a href="https://linkedin.com/in/elif-bora-a01476133" target="_blank">LinkedIn</a>
+        <a href="https://www.instagram.com/elifbeurre/" target="_blank">Instagram</a>
+        <a href="https://www.behance.net/elifboraa" target="_blank">Behance</a>
+      </div>
+      <div class="footer-col">
+        <p class="footer-col-title">&nbsp;</p>
+        <span>London, UK</span>
+        <span>eboracreative@gmail.com</span>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 Elif Bora</p>
+    </div>
+  </footer>
+
+  <script>
+    function positionAt(slider, trackIndex, instant) {
+      const track = slider.querySelector(".slider-track");
+      const allSlides = track.querySelectorAll(".slide");
+      const slideWidth = allSlides[trackIndex] ? allSlides[trackIndex].offsetWidth : allSlides[0].offsetWidth;
+      const gap = 8;
+      const offset = (slider.offsetWidth - slideWidth) / 2 - trackIndex * (slideWidth + gap);
+      if (instant) {
+        track.style.transition = "none";
+        track.style.transform = "translateX(" + offset + "px)";
+        track.offsetHeight;
+        track.style.transition = "";
+      } else {
+        track.style.transform = "translateX(" + offset + "px)";
+      }
+    }
+
+    function updateActive(slider, realIndex) {
+      const track = slider.querySelector(".slider-track");
+      track.querySelectorAll(".slide:not(.clone)").forEach(function (s, i) {
+        s.classList.toggle("active", i === realIndex);
+      });
+      let dotsEl = slider.nextElementSibling;
+      while (dotsEl && !dotsEl.classList.contains("slider-dots")) dotsEl = dotsEl.nextElementSibling;
+      if (dotsEl) {
+        dotsEl.querySelectorAll(".dot").forEach(function (d, i) { d.classList.toggle("active", i === realIndex); });
+      }
+      track.dataset.current = realIndex;
+    }
+
+    function goToSlide(slider, realIndex, instant) {
+      positionAt(slider, realIndex + 1, instant);
+      updateActive(slider, realIndex);
+    }
+
+    function initSlider(slider) {
+      const track = slider.querySelector(".slider-track");
+      if (track.dataset.real) return;
+      const realSlides = Array.from(track.querySelectorAll(".slide"));
+      const n = realSlides.length;
+      if (n < 1) return;
+      const firstClone = realSlides[0].cloneNode(true);
+      const lastClone = realSlides[n - 1].cloneNode(true);
+      firstClone.classList.add("clone");
+      lastClone.classList.add("clone");
+      track.appendChild(firstClone);
+      track.insertBefore(lastClone, realSlides[0]);
+      track.dataset.real = n;
+      track.dataset.current = "0";
+      track.dataset.animating = "0";
+      positionAt(slider, 1, true);
+      realSlides[0].classList.add("active");
+    }
+
+    function moveSlide(btn, dir) {
+      const slider = btn.closest(".slider");
+      const track = slider.querySelector(".slider-track");
+      if (track.dataset.animating === "1") return;
+      const n = parseInt(track.dataset.real || "0");
+      const current = parseInt(track.dataset.current || "0");
+      const next = current + dir;
+
+      if (next >= 0 && next < n) {
+        goToSlide(slider, next, false);
+      } else {
+        track.dataset.animating = "1";
+        const allSlides = Array.from(track.querySelectorAll(".slide"));
+        const cloneIndex = next >= n ? n + 1 : 0;
+        allSlides.forEach(function (s, i) { s.classList.toggle("active", i === cloneIndex); });
+        positionAt(slider, cloneIndex, false);
+        track.addEventListener("transitionend", function handler() {
+          track.removeEventListener("transitionend", handler);
+          goToSlide(slider, next >= n ? 0 : n - 1, true);
+          track.dataset.animating = "0";
+        }, { once: true });
+      }
+    }
+
+    document.querySelectorAll(".slider").forEach(function (slider) {
+      requestAnimationFrame(function () {
+        initSlider(slider);
+        slider.querySelectorAll("img").forEach(function (img) {
+          img.addEventListener("load", function () {
+            const current = parseInt(slider.querySelector(".slider-track").dataset.current || "0");
+            goToSlide(slider, current, true);
+          });
+        });
+      });
+      let dotsEl = slider.nextElementSibling;
+      while (dotsEl && !dotsEl.classList.contains("slider-dots")) dotsEl = dotsEl.nextElementSibling;
+      if (dotsEl) {
+        dotsEl.querySelectorAll(".dot").forEach(function (dot, i) {
+          dot.addEventListener("click", function () { goToSlide(slider, i, false); });
+        });
+      }
+    });
+
+    window.addEventListener("resize", function () {
+      document.querySelectorAll(".slider").forEach(function (slider) {
+        const current = parseInt(slider.querySelector(".slider-track").dataset.current || "0");
+        goToSlide(slider, current, true);
+      });
+    });
+
+    document.querySelector(".nav-burger").addEventListener("click", function () {
+      document.querySelector(".nav-links").classList.toggle("open");
+    });
+  </script>
+
+</body>
+
+</html>
