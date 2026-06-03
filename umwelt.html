@@ -143,16 +143,21 @@
     </div>
 
     <h3>Phase II: Building Each Scene</h3>
-    <p> As a group, we decided to use pack of characters that fit with our visual composition, from the Unity Asset
-      Store. Unfortunately this pack did not contain a bat, therefore I decided to turn the mouse model into a bat. I
-      found another bat model online to make use of wings. In blender,where I merged a bat model's wings with to the
-      mouse. I made the ears of the mouse bigger. However this proccess caused the existing animation in the wings to be
-      lost. Therefore I reanimated the wings using rigs.</p>
+
+    <p> </p>
 
 
     <h4>The Bat Scene</h4>
 
+
     <h5>Character Model and Animation</h5>
+
+    <p> We decided to use pack of characters that fit with our visual composition, from the Unity Asset Store.
+      Unfortunately this pack did not contain a bat, therefore I decided to turn the mouse model into a bat. I found
+      another bat model online to make use of wings. In blender,where I merged a bat model's wings with to the
+      mouse. I made the ears of the mouse bigger. However this proccess caused the existing animation in the wings to be
+      lost. Therefore I reanimated the wings using rigs.</p>
+
     <div class="slider">
       <div class="slider-track">
         <div class="slide">
@@ -186,9 +191,21 @@
 
     <h5>Terrain Model</h5>
 
+    <p>Later, I modeled a sample scene that the whole group can use together, inspired from the visual moodbard we have
+      created. I imagined each of us would add our own assets to emphasize our interactions, however the general look
+      would be the same. I used Blender to model the terrain.</p>
+
     <img src="images/umwelt/umwelt_03.png" alt="Umwelt_03">
 
     <h5>Shader</h5>
+
+    <p> I wanted to create the echovisualization effect, with a terrain scan effect that are used in the games like
+      Death Strand. I imagined I can use this effect in a poorly lit game environment to make things visible.</p>
+    <p> I mostly used the last tutorial in the list, and this link provided by the creator of the video. I firstly tried
+      to use the Blit Script that was provided in the video however this did not work with the Unity version that I am
+      using. Instead I used a Full Screen Pass Renderer inside a URP Renderer with a Full Screen Shader. I used the link
+      provided above to create the "World Position from Depth" shader. Below, is the node based diagram for the shader.
+    </p>
 
     <img src="images/umwelt/umwelt_03.png" alt="Umwelt_05">
 
@@ -227,12 +244,47 @@
     </div>
 
     <h5>Infinite Runner Game Mechanics</h5>
+
+    <p>I finally created a game environment where the bat will navigate through scanning the obstacles and the prays. I
+      decided to use the infinite runner game mechanics to provide an endless navigation and exploration using the
+      echolocation. I used these video series to understand how I can construct an endless runner game from scratch. I
+      integrated the terrrain scan shader to the game.</p>
+
+    <div class="video-wrapper">
+      <iframe src="https://www.youtube.com/embed/riZustcKjgs" frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowfullscreen></iframe>
+    </div>
+
     <h5>Player Avatar</h5>
+    <p>I exported the animated bat model from Blender to Unity, the animation didnt work at first. Therefore I watched a
+      tutorial to fix this issue. When the animation started working in Unity, I replaced the player capsule with the
+      bat model.</p>
+
+    <p>I coded a tilting effect in the to player script in horizontal movements to give it a more organic flying effect.
+      I asked ChatGPT how to code it. I decided to give the player a vertical movement to make it easier to catch the
+      rewards (bugs) and runaway from obstacles. Finally I put a limited to the distance of horizontal and vertical
+      movement, for the player to stay in the runway all the time.</p>
+
+
     <h5>Rewards</h5>
+
+    <p> A dragonfly model was imported into Blender, edited it for better
+      rendering, exported into to Unity.</p>
+
+    <img src="images/umwelt/umwelt_17.png" alt="">
+
+
+    <p>I wanted the dragonfly to move organically Therefore I used a tutorial which allowed me to write a script to make
+      it move in an organic way (8 shape movement). This made the dragonfly movement more realistic. However made it
+      hard to catch it in the playing experience. I decided to work on this issue in the upcoming weeks.</p>
+
     <h5>Obstacles</h5>
 
+    <p>Collision capsules are added around the obstacles. A script where the scene will restart once the player hits the
+      obstacles, was written</p>
 
-    <h3>The Digital Cube</h3>
+    <h3>Phase III: The Digital Cube</h3>
 
     <img src="images/umwelt/umwelt_01.png" alt="Umwelt_01">
     <h4>Merging Each Scene on Digital Cube</h4>
@@ -240,7 +292,7 @@
     <h3>The Physical Cube</h3>
     <img src="images/umwelt/umwelt_06.png" alt="Umwelt_06">
 
-    <h3>The Rotation Mechanism (AutoEncoder)</h3>
+    <h3>Phase IV: The Rotation Mechanism (AutoEncoder)</h3>
 
     <div class="slider">
       <div class="slider-track">
@@ -283,9 +335,44 @@
       <span class="dot"></span>
       <span class="dot"></span>
     </div>
+    <h3>Phase V: Touchdesigner to Unity Communication</h3>
+    <p> An external package for Unity named KlakSpout is used for Touchdesigner to Unity communication. Later,
+      KantanMapper in Touchdesigner is used for projection mapping. (The screenrecorder only recorded the active
+      software. Therefore the videos do not match. In the original process, the communication is seamless)</p>
 
-    <h3>Projection Mapping</h3>
+    <div class="slider">
+      <div class="slider-track">
+        <div class="slide">
+          <div class="video-wrapper">
+            <iframe src="https://www.youtube.com/embed/h4F0mFYdfVg" frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen></iframe>
+          </div>
+        </div>
+        <div class="slide">
+          <div class="video-wrapper">
+            <iframe src="https://www.youtube.com/embed/NTbiLeu-WdI frameborder=" 0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen></iframe>
+          </div>
+        </div>
+      </div>
+      <button class="slider-btn prev" onclick="moveSlide(this, -1)">&#8249;</button>
+      <button class="slider-btn next" onclick="moveSlide(this, 1)">&#8250;</button>
+    </div>
 
+    <div class="slider-dots">
+      <span class="dot active"></span>
+      <span class="dot"></span>
+
+
+    </div>
+
+    <h3>Phase VI: Projection Mapping</h3>
+    <p>Once the communication between Unity and Touchdesigner is established, KantanMapper in Touchdesigner is used for
+      projection mapping. However however there was a lag in the data coming in from the serial port once the projector
+      was connected.</p>
+      
     <div class="video-wrapper">
       <iframe src="https://www.youtube.com/embed/7vQSnLTvuS4" frameborder="0"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
