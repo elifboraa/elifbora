@@ -164,16 +164,18 @@ a { color: inherit; text-decoration: none; }
 
 .skill-pill[data-filter] {
   cursor: pointer;
-}
-
-.skill-pill[data-filter]:hover,
-.skill-pill.active {
-  border-color: var(--accent);
   color: var(--accent);
+  border-color: var(--accent);
+}
+
+.skill-pill[data-filter]:hover {
+  background: rgba(200, 240, 96, 0.1);
 }
 
 .skill-pill.active {
-  background: rgba(200, 240, 96, 0.08);
+  background: var(--accent);
+  color: var(--bg);
+  border-color: var(--accent);
 }
 
 .work-card.filtered-out {
