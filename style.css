@@ -255,14 +255,6 @@ a { color: inherit; text-decoration: none; }
 }
 
 .filter-group .skills-track {
-  max-height: 0;
-  overflow: hidden;
-  opacity: 0;
-  transition: max-height 0.35s ease, opacity 0.25s ease;
-}
-
-.filter-group:hover .skills-track {
-  max-height: 200px;
   opacity: 1;
 }
 
