@@ -7,13 +7,15 @@
   --bg:        #0e0e0e;
   --bg-card:   #161616;
   --bg-card-hover: #1e1e1e;
-  --border:    #2a2a2a;
-  --text:      #e8e8e8;
-  --text-muted:#888;
+  --border:    #616161;
+  --border2:    #4B31A6;
+  --text:      #d2d1d1;
+  --text-muted:#434343;
+  --text-muted2:#4B31A6;
   --accent:    #c8f060;   /* sharp lime — your creative tech energy */
   --accent2:   #4a9eff;
-  --font-mono: 'JetBrains Mono', monospace;
-  --font-body: 'DM Sans', sans-serif;
+  --font-mono: 'Space Grotesk', sans-serif;
+  --font-body: 'Azeret Mono', monospace;
   --max-w:     1200px;
   --radius:    6px;
 }
@@ -37,33 +39,34 @@ a { color: inherit; text-decoration: none; }
 .nav {
   position: sticky;
   top: 0;
-  z-index: 100;
+  z-index: 70;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 20px 48px;
+  padding: 4px 72px;
   background: rgba(14,14,14,0.92);
   backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--border);
 }
 
 .nav-logo {
-  font-family: var(--font-mono);
-  font-weight: 700;
+  font-family: 'Space Grotesk', sans-serif;
   color: var(--accent);
-  letter-spacing: -0.02em;
   display: flex;
   flex-direction: column;
   gap: 2px;
 }
 
 .nav-logo-name {
-  font-size: 1.7rem;
+  font-size: 2.0rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
 }
 
 .nav-logo-tagline {
-  font-size: 0.75rem;
-  font-weight: 300;
+  font-family: 'Azeret Mono', monospace;
+  font-size: 0.8rem;
+  font-weight: 100;
   color: var(--text-muted);
   letter-spacing: 0.06em;
 }
@@ -76,7 +79,8 @@ a { color: inherit; text-decoration: none; }
 }
 
 .nav-links a {
-  font-family: var(--font-mono);
+  font-family: 'Azeret Mono', monospace;
+  font-weight: 400;
   font-size: 0.8rem;
   color: var(--text-muted);
   letter-spacing: 0.05em;
@@ -127,14 +131,18 @@ a { color: inherit; text-decoration: none; }
 }
 
 /* ── SECTION LABELS ── */
-.section-label {
-  font-family: var(--font-mono);
-  font-size: 2rem;
-  font-weight: 500;
-  letter-spacing: -0.01em;
+.section-label,
+.filter-subheader {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  letter-spacing: 0.02em;
   text-transform: none;
-  color: var(--text);
-  margin-bottom: 32px;
+  color: var(--text-muted);
+  text-align: center;
+  cursor: default;
+  margin-bottom: 10px;
+  margin-top: 10px;
 }
 
 /* ── SKILLS ── */
@@ -151,31 +159,39 @@ a { color: inherit; text-decoration: none; }
 }
 
 .skill-pill {
-  font-family: var(--font-mono);
-  font-size: 0.78rem;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.2rem;
   color: var(--text-muted);
   border: 1px solid var(--border);
-  padding: 8px 18px;
+  padding: 8px 14px;
   border-radius: 999px;
   white-space: nowrap;
-  transition: border-color 0.2s, color 0.2s, background 0.2s;
+  display: inline-block;
+  transition: border-color 0.2s, color 0.2s, background 0.2s, box-shadow 0.2s, transform 0.1s;
   cursor: default;
 }
 
 .skill-pill[data-filter] {
   cursor: pointer;
-  color: var(--accent);
-  border-color: var(--accent);
+  color: var(--text-muted);
+  border-color: var(--border);
 }
 
 .skill-pill[data-filter]:hover {
-  background: rgba(200, 240, 96, 0.1);
+  color: var(--accent);
+  border-color: var(--accent);
+  background: rgba(200, 240, 96, 0.06);
+  transform: translateY(-1px);
+  box-shadow: none;
 }
 
-.skill-pill.active {
+.skill-pill[data-filter].active {
   background: var(--accent);
   color: var(--bg);
-  border-color: var(--accent);
+  border-color: transparent;
+  outline: none;
+  transform: translateY(0);
+  box-shadow: inset 0 2px 5px rgba(0,0,0,0.35), inset 0 1px 2px rgba(0,0,0,0.2);
 }
 
 .work-card.filtered-out {
@@ -232,32 +248,69 @@ a { color: inherit; text-decoration: none; }
   margin: 0 auto;
 }
 
-.works-filters {
-  margin-bottom: 48px;
+.skills-hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 12vh 20vw 80px;
+}
+
+.skills-intro {
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
   gap: 20px;
-  padding-left: 24px;
-  border-left: 1px solid var(--border);
+  max-width: 1500px;
+  background: #161616;
+  border: 1px solid #2a2a2a;
+  border-radius: 16px;
+  padding: 48px 40px;
+}
+
+.intro-text {
+  font-family: 'Azeret Mono', monospace;
+  font-size: .8rem;
+  color: var(--text);
+  line-height: 1.5;
+  text-indent: 10em;
+}
+
+.intro-label {
+  font-family: 'Azeret Mono', monospace;
+  font-size: 1rem;
+  font-weight: 400;
+  color: var(--text-muted);
+}
+
+.intro-pills-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  align-self: center;
+  width: 100%;
+}
+
+
+.works-filters {
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+  max-width: 900px;
+  width: 100%;
 }
 
 .filter-group {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 20px;
 }
 
-.filter-subheader {
-  font-family: var(--font-mono);
-  font-size: 0.65rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--text-muted);
-  cursor: default;
-}
 
 .filter-group .skills-track {
   opacity: 1;
+  justify-content: center;
 }
 
 .works-grid {
