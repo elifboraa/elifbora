@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Palette Preview</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&family=Azeret+Mono:wght@400&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Space Grotesk', sans-serif; display: flex; gap: 0; min-height: 100vh; }
+
+    .palette { flex: 1; padding: 48px 36px; display: flex; flex-direction: column; gap: 24px; }
+
+    /* ── OPTION A: Current (neon lime) ── */
+    .a { background: #0e0e0e; }
+    .a .label { color: #555; font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 8px; }
+    .a .heading { color: #c8f060; font-size: 2rem; font-weight: 700; }
+    .a .tagline { color: #616161; font-family: 'Azeret Mono', monospace; font-size: 0.8rem; }
+    .a .body-text { color: #d2d1d1; font-family: 'Azeret Mono', monospace; font-size: 0.85rem; line-height: 1.6; }
+    .a .pill { display: inline-block; border: 1px solid #616161; color: #616161; padding: 6px 14px; border-radius: 999px; font-size: 0.8rem; margin: 4px; }
+    .a .pill-active { background: #c8f060; color: #0e0e0e; border-color: #c8f060; }
+    .a .card { background: #161616; border: 1px solid #2a2a2a; border-radius: 12px; padding: 20px; }
+    .a .section { color: #434343; font-size: 0.9rem; }
+    .a .nav { background: rgba(14,14,14,0.95); border-bottom: 1px solid #2a2a2a; padding: 12px 20px; display: flex; justify-content: space-between; align-items: center; border-radius: 8px; }
+    .a .nav-links { display: flex; gap: 20px; color: #616161; font-size: 0.8rem; font-family: 'Azeret Mono', monospace; }
+
+    /* ── OPTION B: Warm dark ── */
+    .b { background: #100e0a; }
+    .b .label { color: #4a3f32; font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 8px; }
+    .b .heading { color: #e8a84c; font-size: 2rem; font-weight: 700; }
+    .b .tagline { color: #5c4f3d; font-family: 'Azeret Mono', monospace; font-size: 0.8rem; }
+    .b .body-text { color: #c9b99a; font-family: 'Azeret Mono', monospace; font-size: 0.85rem; line-height: 1.6; }
+    .b .pill { display: inline-block; border: 1px solid #4a3f32; color: #7a6a56; padding: 6px 14px; border-radius: 999px; font-size: 0.8rem; margin: 4px; }
+    .b .pill-active { background: #e8a84c; color: #100e0a; border-color: #e8a84c; }
+    .b .card { background: #161209; border: 1px solid #2e2518; border-radius: 12px; padding: 20px; }
+    .b .section { color: #5c4f3d; font-size: 0.9rem; }
+    .b .nav { background: rgba(16,14,10,0.95); border-bottom: 1px solid #2e2518; padding: 12px 20px; display: flex; justify-content: space-between; align-items: center; border-radius: 8px; }
+    .b .nav-links { display: flex; gap: 20px; color: #5c4f3d; font-size: 0.8rem; font-family: 'Azeret Mono', monospace; }
+
+    /* ── OPTION C: Editorial ── */
+    .c { background: #f5f2ec; }
+    .c .label { color: #b0a898; font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 8px; }
+    .c .heading { color: #1a1a1a; font-size: 2rem; font-weight: 700; }
+    .c .tagline { color: #999; font-family: 'Azeret Mono', monospace; font-size: 0.8rem; }
+    .c .body-text { color: #3a3a3a; font-family: 'Azeret Mono', monospace; font-size: 0.85rem; line-height: 1.6; }
+    .c .pill { display: inline-block; border: 1px solid #ccc; color: #888; padding: 6px 14px; border-radius: 999px; font-size: 0.8rem; margin: 4px; }
+    .c .pill-active { background: #c0392b; color: #f5f2ec; border-color: #c0392b; }
+    .c .card { background: #edeae3; border: 1px solid #ddd; border-radius: 12px; padding: 20px; }
+    .c .section { color: #999; font-size: 0.9rem; }
+    .c .nav { background: rgba(245,242,236,0.95); border-bottom: 1px solid #ddd; padding: 12px 20px; display: flex; justify-content: space-between; align-items: center; border-radius: 8px; }
+    .c .nav-links { display: flex; gap: 20px; color: #888; font-size: 0.8rem; font-family: 'Azeret Mono', monospace; }
+
+    .divider { width: 1px; background: #333; }
+  </style>
+</head>
+<body>
+
+  <!-- A: Current -->
+  <div class="palette a">
+    <p class="label">A — Current (neon lime)</p>
+    <div class="nav">
+      <span class="heading" style="font-size:1.4rem">_elif_</span>
+      <div class="nav-links"><span>about</span><span>works</span><span>resume</span></div>
+    </div>
+    <div>
+      <p class="tagline">computational artist | visual designer</p>
+    </div>
+    <div class="card">
+      <p class="body-text">Hi, my name is Elif and I am a computational artist based in London...</p>
+    </div>
+    <div>
+      <p class="section" style="margin-bottom:10px">key skills</p>
+      <span class="pill">Audiovisual Art</span>
+      <span class="pill pill-active">Creative Coding</span>
+      <span class="pill">3D Design</span>
+      <span class="pill">TouchDesigner</span>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- B: Warm dark -->
+  <div class="palette b">
+    <p class="label">B — Warm dark (amber)</p>
+    <div class="nav">
+      <span class="heading" style="font-size:1.4rem">_elif_</span>
+      <div class="nav-links"><span>about</span><span>works</span><span>resume</span></div>
+    </div>
+    <div>
+      <p class="tagline">computational artist | visual designer</p>
+    </div>
+    <div class="card">
+      <p class="body-text">Hi, my name is Elif and I am a computational artist based in London...</p>
+    </div>
+    <div>
+      <p class="section" style="margin-bottom:10px">key skills</p>
+      <span class="pill">Audiovisual Art</span>
+      <span class="pill pill-active">Creative Coding</span>
+      <span class="pill">3D Design</span>
+      <span class="pill">TouchDesigner</span>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- C: Editorial -->
+  <div class="palette c">
+    <p class="label">C — Editorial (light + rust)</p>
+    <div class="nav">
+      <span class="heading" style="font-size:1.4rem">_elif_</span>
+      <div class="nav-links"><span>about</span><span>works</span><span>resume</span></div>
+    </div>
+    <div>
+      <p class="tagline">computational artist | visual designer</p>
+    </div>
+    <div class="card">
+      <p class="body-text">Hi, my name is Elif and I am a computational artist based in London...</p>
+    </div>
+    <div>
+      <p class="section" style="margin-bottom:10px">key skills</p>
+      <span class="pill">Audiovisual Art</span>
+      <span class="pill pill-active">Creative Coding</span>
+      <span class="pill">3D Design</span>
+      <span class="pill">TouchDesigner</span>
+    </div>
+  </div>
+
+</body>
+</html>

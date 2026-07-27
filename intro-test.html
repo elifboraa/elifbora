@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Intro Test</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #0d0f12;
+      font-family: 'Alumni Sans', ;
+      color: white;
+    }
+
+    /* ── NAV ── */
+    .nav {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      padding: 22px 52px;
+      background: rgba(13,15,18,0.97);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .nav-logo {
+      font-size: 2rem;
+      font-weight: 700;
+      color: white;
+      letter-spacing: -0.03em;
+      text-decoration: none;
+    }
+
+    .nav-logo .sep { color: #3a3f4a; font-weight: 300; }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 4px;
+    }
+
+    .nav-links a {
+      font-size: 0.75rem;
+      color: #666;
+      text-decoration: none;
+      letter-spacing: 0.07em;
+    }
+
+    /* ── INTRO ── */
+    .intro-section {
+      position: relative;
+      width: 100%;
+      height: 80vh;
+      min-height: 480px;
+      overflow: hidden;
+    }
+
+    /* SVG sits behind the text */
+    .intro-svg {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+    }
+
+    /* Text sits above the SVG */
+    .intro-text {
+      position: relative;
+      z-index: 1;
+      padding: 18vh 80px 0 80px;
+      max-width: 820px;
+    }
+
+    .intro-text p {
+      font-size: 1.9rem;
+      line-height: 1.45;
+      color: rgba(255,255,255,0.82);
+      font-weight: 400;
+    }
+
+    .intro-text strong {
+      font-weight: 700;
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="#" class="nav-logo">e<span class="sep">|</span>if</a>
+  <ul class="nav-links">
+    <li><a href="#">works</a></li>
+    <li><a href="#">about</a></li>
+    <li><a href="#">contact</a></li>
+    <li><a href="#" style="color:#c8f060">resume</a></li>
+  </ul>
+</nav>
+
+<section class="intro-section" id="intro">
+  <svg class="intro-svg" id="intro-svg" aria-hidden="true"></svg>
+  <div class="intro-text">
+    <p><strong>Hi,</strong> I am Elif and I am a computational artist and a visual designer. I am specialised in live media art and spatial solutions.</p>
+  </div>
+</section>
+
+<script>
+function drawIntro() {
+  const section = document.getElementById('intro');
+  const svg     = document.getElementById('intro-svg');
+  const W = section.offsetWidth;
+  const H = section.offsetHeight;
+
+  svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+  svg.setAttribute('width',  W);
+  svg.setAttribute('height', H);
+  svg.innerHTML = '';
+
+  const GREY = '#3c424e';
+  const r    = 26;          // corner radius on rounded corners
+
+  // Shape control points — adjust these to tune the geometry
+  const diagX      = W * 0.17;   // where the diagonal meets the card top edge
+  const cardTop    = H * 0.24;   // Y where the card top begins
+  const cardRight  = W * 0.91;   // right edge of card
+  const cardBottom = H * 0.96;   // bottom edge of card
+
+  // Trace the shape clockwise:
+  //   (0,0)  ──────────────────── top-left corner (start / close point)
+  //          \  diagonal           ↑
+  //           \                    │  The Z command closes the path here,
+  //       (diagX, cardTop) ────────┘  drawing the diagonal automatically
+  //                        ↓
+  //   rounded top-right corner
+  //   down right edge
+  //   rounded bottom-right corner
+  //   across bottom
+  //   rounded bottom-left corner
+  //   up left edge back to (0,0)
+
+  const d = [
+    `M 0 0`,
+    `L 0 ${cardBottom - r}`,
+    `Q 0 ${cardBottom} ${r} ${cardBottom}`,
+    `L ${cardRight - r} ${cardBottom}`,
+    `Q ${cardRight} ${cardBottom} ${cardRight} ${cardBottom - r}`,
+    `L ${cardRight} ${cardTop + r}`,
+    `Q ${cardRight} ${cardTop} ${cardRight - r} ${cardTop}`,
+    `L ${diagX} ${cardTop}`,
+    `Z`,
+  ].join(' ');
+
+  const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+  path.setAttribute('d', d);
+  path.setAttribute('fill', GREY);
+  svg.appendChild(path);
+}
+
+drawIntro();
+window.addEventListener('resize', drawIntro);
+</script>
+
+</body>
+</html>

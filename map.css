@@ -1,0 +1,359 @@
+/* =============================================
+   ELIF BORA — Underground Map Portfolio
+   ============================================= */
+
+:root {
+  --bg:          #0d0f12;
+  --river-grey:  #3c424e;
+  --river-blue:  #1a5f8a;
+  --text:        #e6edf3;
+  --text-muted:  #8b949e;
+  --text-dim:    #484f58;
+  --card-bg:     #161b22;
+  --card-border: #2a3040;
+  --font-head:   'Space Grotesk', sans-serif;
+  --font-body:   'Azeret Mono', monospace;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 14px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: inherit; text-decoration: none; }
+
+/* ── NAV ── */
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 200;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 18px 48px;
+  background: rgba(13,15,18,0.96);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+
+.nav-logo-name {
+  font-family: var(--font-head);
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: -0.03em;
+}
+
+.nav-logo-name span {
+  color: var(--text-dim);
+  font-weight: 300;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 3px;
+}
+
+.nav-links a {
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  letter-spacing: 0.06em;
+  transition: color 0.2s;
+}
+
+.nav-links a:hover { color: var(--text); }
+.nav-resume { color: #c8f060 !important; }
+
+/* ── MAP LAYOUT ── */
+.map-layout {
+  position: relative;
+  width: 680px;
+  margin: 0 auto;
+  padding-bottom: 100px;
+}
+
+.map-svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: visible;
+}
+
+.map-section {
+  position: relative;
+  z-index: 1;
+}
+
+/* ── INFO CARDS (transparent bg — SVG draws it) ── */
+.info-card {
+  background: transparent;
+  padding: 28px 32px;
+  color: var(--text);
+  max-width: 440px;
+}
+
+.info-card p {
+  font-family: var(--font-head);
+  font-size: 1.1rem;
+  line-height: 1.55;
+}
+
+.info-card strong { font-weight: 700; }
+
+.section-heading {
+  font-family: var(--font-head);
+  font-size: 1.8rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: 16px;
+}
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 6px 18px;
+}
+
+.contact-label {
+  font-size: 0.7rem;
+  color: var(--text-dim);
+  text-align: right;
+}
+
+/* ── INTRO SECTION ── */
+.intro-section {
+  padding-top: 60px;
+  padding-left: 60px;
+}
+
+/* ── SKILLS SECTION ── */
+.skills-section {
+  display: flex;
+  gap: 60px;
+  padding: 20px 0 20px 60px;
+}
+
+.skills-col h3 {
+  font-family: var(--font-head);
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text);
+  letter-spacing: 0.04em;
+  margin-bottom: 10px;
+}
+
+.line-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.line-list li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  letter-spacing: 0.02em;
+}
+
+.ldot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--c);
+  flex-shrink: 0;
+  box-shadow: 0 0 0 2px var(--bg), 0 0 0 3.5px var(--c);
+}
+
+/* ── WORKS LABEL ── */
+.works-label-wrap {
+  padding: 30px 0 16px 0;
+}
+
+.works-label {
+  font-family: var(--font-head);
+  font-size: 2.2rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--text);
+  position: absolute;
+  left: -100px;
+}
+
+/* ── PROJECT CARDS ── */
+.works-flow {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  padding-top: 10px;
+}
+
+.project-station {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+
+.project-station[data-side="right"] {
+  flex-direction: row;
+  padding-left: 200px;
+}
+
+.project-station[data-side="left"] {
+  flex-direction: row-reverse;
+  padding-right: 200px;
+}
+
+.project-inner {
+  background: var(--card-bg);
+  border: 1.5px solid var(--card-border);
+  border-radius: 14px;
+  overflow: hidden;
+  width: 280px;
+  flex-shrink: 0;
+  transition: border-color 0.3s, transform 0.25s;
+  display: block;
+}
+
+.project-inner:hover {
+  border-color: rgba(100,160,220,0.5);
+  transform: translateY(-3px);
+}
+
+.project-pills {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 10px 12px 0;
+}
+
+.pills-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.lpill {
+  font-family: var(--font-body);
+  font-size: 0.6rem;
+  color: rgba(0,0,0,0.85);
+  background: var(--c);
+  padding: 2px 8px;
+  border-radius: 999px;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+  font-weight: 600;
+}
+
+.project-img {
+  aspect-ratio: 16/9;
+  overflow: hidden;
+  margin-top: 8px;
+}
+
+.project-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  filter: brightness(0.7);
+  transition: filter 0.3s, transform 0.4s;
+}
+
+.project-inner:hover .project-img img {
+  filter: brightness(0.88);
+  transform: scale(1.04);
+}
+
+.project-title {
+  font-family: var(--font-head);
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--text);
+  padding: 10px 12px 12px;
+}
+
+.project-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding-top: 16px;
+  width: 70px;
+  flex-shrink: 0;
+}
+
+.project-meta span {
+  font-size: 0.65rem;
+  color: var(--text-dim);
+  letter-spacing: 0.02em;
+}
+
+.project-meta span:first-child {
+  color: var(--text-muted);
+  font-weight: 600;
+  font-size: 0.72rem;
+}
+
+/* ── ABOUT / CONTACT ── */
+.about-section  { padding: 60px 0 0 60px; }
+.contact-section { padding: 40px 0 0 60px; }
+
+/* ── FOOTER ── */
+.footer {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 32px 0 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  border-top: 1px solid rgba(255,255,255,0.06);
+}
+
+.footer-name {
+  font-family: var(--font-head);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text);
+  display: block;
+}
+
+.footer-year {
+  font-size: 0.7rem;
+  color: var(--text-dim);
+  margin-top: 2px;
+  display: block;
+}
+
+.footer-cols {
+  display: flex;
+  gap: 40px;
+}
+
+.footer-col {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.footer-col a, .footer-col span {
+  font-size: 0.68rem;
+  color: var(--text-dim);
+  transition: color 0.2s;
+}
+
+.footer-col a:hover { color: var(--text-muted); }

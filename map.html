@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Elif Bora</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;700&family=Azeret+Mono:wght@300;400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="map.css">
+</head>
+<body>
+
+<nav class="nav">
+  <a href="map.html" class="nav-logo">
+    <span class="nav-logo-name">e<span>|</span>if</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#works">works</a></li>
+    <li><a href="#about">about</a></li>
+    <li><a href="#contact">contact</a></li>
+    <li><a href="Bora_CV.pdf" download class="nav-resume">resume</a></li>
+  </ul>
+</nav>
+
+<main class="map-layout" id="map-layout">
+
+  <!-- SVG layer: rivers + lines drawn by JS -->
+  <svg id="map-svg" class="map-svg" aria-hidden="true"></svg>
+
+  <!-- ── INTRO ── -->
+  <section class="map-section intro-section" id="intro">
+    <div class="info-card" id="intro-card">
+      <p><strong>Hi,</strong> I am Elif and I am a computational artist and a visual designer. I am specialised in live media art and spatial solutions.</p>
+    </div>
+  </section>
+
+  <!-- ── KEY SKILLS + SOFTWARE ── -->
+  <section class="map-section skills-section" id="skills">
+    <div class="skills-col" id="key-skills-col">
+      <h3>— Key Skills</h3>
+      <ul class="line-list">
+        <li id="sk-av"      data-line="audiovisual-art">   <span class="ldot" style="--c:#c0392b"></span>Audiovisual Art</li>
+        <li id="sk-comp"    data-line="computational-art"> <span class="ldot" style="--c:#e74c3c"></span>Computational Art</li>
+        <li id="sk-game"    data-line="game-development">  <span class="ldot" style="--c:#e67e22"></span>Game Development</li>
+        <li id="sk-spatial" data-line="spatial-data">      <span class="ldot" style="--c:#d4a017"></span>Spatial Data</li>
+        <li id="sk-graphic" data-line="graphic-design">    <span class="ldot" style="--c:#f1c40f"></span>Graphic Design</li>
+        <li id="sk-3d"      data-line="3d-design">         <span class="ldot" style="--c:#c8b820"></span>3D Design</li>
+        <li id="sk-coding"  data-line="creative-coding">   <span class="ldot" style="--c:#a8a000"></span>Creative Coding</li>
+      </ul>
+    </div>
+    <div class="skills-col" id="software-col">
+      <h3>— Software</h3>
+      <ul class="line-list">
+        <li data-line="graphic-design">  <span class="ldot" style="--c:#1565c0"></span>Figma</li>
+        <li data-line="3d-design">       <span class="ldot" style="--c:#0277bd"></span>Blender</li>
+        <li data-line="touchdesigner">   <span class="ldot" style="--c:#0097a7"></span>TouchDesigner</li>
+        <li data-line="game-development"><span class="ldot" style="--c:#00796b"></span>Unity</li>
+        <li data-line="spatial-data">    <span class="ldot" style="--c:#2e7d32"></span>QGIS</li>
+        <li data-line="creative-coding"> <span class="ldot" style="--c:#388e3c"></span>Three.js / p5.js</li>
+        <li data-line="3d-design">       <span class="ldot" style="--c:#43a047"></span>Cinema 4D</li>
+        <li data-line="graphic-design">  <span class="ldot" style="--c:#558b2f"></span>Adobe Suite</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ── WORKS ── -->
+  <section class="map-section" id="works">
+    <div class="works-label-wrap" style="position:relative;height:50px;">
+      <h2 class="works-label">WORKS</h2>
+    </div>
+
+    <div class="works-flow">
+
+      <article class="project-station" id="ps-coral"
+        data-lines="computational-art creative-coding 3d-design"
+        data-skill-pills="Comp Art,Creative Coding,3D Design"
+        data-skill-colors="#e74c3c,#a8a000,#c8b820"
+        data-soft-pills="Blender"
+        data-soft-colors="#0277bd"
+        data-side="right">
+        <div class="project-meta">
+          <span>2026</span>
+          <span>OFFF</span>
+          <span>Solo</span>
+        </div>
+        <a href="coralstories.html" class="project-inner">
+          <div class="project-pills">
+            <div class="pills-row">
+              <span class="lpill" style="--c:#e74c3c">Comp Art</span>
+              <span class="lpill" style="--c:#a8a000">Creative Coding</span>
+              <span class="lpill" style="--c:#c8b820">3D Design</span>
+            </div>
+            <div class="pills-row">
+              <span class="lpill" style="--c:#0277bd">Blender</span>
+            </div>
+          </div>
+          <div class="project-img"><img src="images/coral_stories/coral_stories_04.png" alt="Coral Stories"></div>
+          <div class="project-title">Coral Stories</div>
+        </a>
+      </article>
+
+      <article class="project-station" id="ps-pytko-june"
+        data-lines="audiovisual-art touchdesigner"
+        data-side="left">
+        <a href="pytko_June25.html" class="project-inner">
+          <div class="project-pills">
+            <div class="pills-row">
+              <span class="lpill" style="--c:#c0392b">AV Art</span>
+            </div>
+            <div class="pills-row">
+              <span class="lpill" style="--c:#0097a7">TouchDesigner</span>
+            </div>
+          </div>
+          <div class="project-img"><img src="images/pytko_June25/pytko01_01.jpg" alt="Pytko June 2025"></div>
+          <div class="project-title">Pytko June '25 Gig</div>
+        </a>
+        <div class="project-meta">
+          <span>2025</span>
+          <span>Pytko</span>
+          <span>Live Visuals</span>
+        </div>
+      </article>
+
+      <article class="project-station" id="ps-kinopolis"
+        data-lines="computational-art creative-coding spatial-data"
+        data-side="right">
+        <div class="project-meta">
+          <span>2025</span>
+          <span>UAL</span>
+          <span>Solo</span>
+        </div>
+        <a href="kinopolis.html" class="project-inner">
+          <div class="project-pills">
+            <div class="pills-row">
+              <span class="lpill" style="--c:#e74c3c">Comp Art</span>
+              <span class="lpill" style="--c:#a8a000">Creative Coding</span>
+              <span class="lpill" style="--c:#d4a017">Spatial Data</span>
+            </div>
+            <div class="pills-row">
+              <span class="lpill" style="--c:#2e7d32">QGIS</span>
+              <span class="lpill" style="--c:#388e3c">Three.js</span>
+            </div>
+          </div>
+          <div class="project-img"><img src="images/kinopolis/kinopolis_10.png" alt="Kin'o'polis"></div>
+          <div class="project-title">Kin'o'polis</div>
+        </a>
+      </article>
+
+      <article class="project-station" id="ps-pytko-sept"
+        data-lines="audiovisual-art touchdesigner"
+        data-side="left">
+        <a href="pytko_Sept25.html" class="project-inner">
+          <div class="project-pills">
+            <div class="pills-row">
+              <span class="lpill" style="--c:#c0392b">AV Art</span>
+            </div>
+            <div class="pills-row">
+              <span class="lpill" style="--c:#0097a7">TouchDesigner</span>
+            </div>
+          </div>
+          <div class="project-img"><img src="images/pytko_Sept25/pytko02_05.jpg" alt="Pytko Sept 2025"></div>
+          <div class="project-title">Pytko Sept '25 Gig</div>
+        </a>
+        <div class="project-meta">
+          <span>2025</span>
+          <span>Pytko</span>
+          <span>Live Visuals</span>
+        </div>
+      </article>
+
+      <article class="project-station" id="ps-emergence"
+        data-lines="computational-art creative-coding 3d-design"
+        data-side="right">
+        <div class="project-meta">
+          <span>2025</span>
+          <span>UAL</span>
+          <span>Solo</span>
+        </div>
+        <a href="emergence.html" class="project-inner">
+          <div class="project-pills">
+            <div class="pills-row">
+              <span class="lpill" style="--c:#e74c3c">Comp Art</span>
+              <span class="lpill" style="--c:#c8b820">3D Design</span>
+            </div>
+            <div class="pills-row">
+              <span class="lpill" style="--c:#0277bd">Blender</span>
+              <span class="lpill" style="--c:#0097a7">TouchDesigner</span>
+            </div>
+          </div>
+          <div class="project-img"><img src="images/emergence/emergence_02.png" alt="Emergence"></div>
+          <div class="project-title">Emergence</div>
+        </a>
+      </article>
+
+      <article class="project-station" id="ps-umwelt"
+        data-lines="computational-art creative-coding game-development"
+        data-side="left">
+        <a href="umwelt.html" class="project-inner">
+          <div class="project-pills">
+            <div class="pills-row">
+              <span class="lpill" style="--c:#e74c3c">Comp Art</span>
+              <span class="lpill" style="--c:#e67e22">Game Dev</span>
+            </div>
+            <div class="pills-row">
+              <span class="lpill" style="--c:#00796b">Unity</span>
+              <span class="lpill" style="--c:#0097a7">TouchDesigner</span>
+            </div>
+          </div>
+          <div class="project-img"><img src="images/umwelt/umwelt_18.png" alt="Umwelt"></div>
+          <div class="project-title">Umwelt</div>
+        </a>
+        <div class="project-meta">
+          <span>2024</span>
+          <span>UAL</span>
+          <span>Solo</span>
+        </div>
+      </article>
+
+      <article class="project-station" id="ps-londonmap"
+        data-lines="computational-art spatial-data"
+        data-side="right">
+        <div class="project-meta">
+          <span>2024</span>
+          <span>UAL</span>
+          <span>Solo</span>
+        </div>
+        <a href="londonmap.html" class="project-inner">
+          <div class="project-pills">
+            <div class="pills-row">
+              <span class="lpill" style="--c:#e74c3c">Comp Art</span>
+              <span class="lpill" style="--c:#d4a017">Spatial Data</span>
+            </div>
+            <div class="pills-row">
+              <span class="lpill" style="--c:#2e7d32">QGIS</span>
+            </div>
+          </div>
+          <div class="project-img"><img src="images/londonmap/londonmap_09.png" alt="London Map"></div>
+          <div class="project-title">London Map</div>
+        </a>
+      </article>
+
+      <article class="project-station" id="ps-theleadarrow"
+        data-lines="game-development 3d-design"
+        data-side="left">
+        <a href="theleadarrow.html" class="project-inner">
+          <div class="project-pills">
+            <div class="pills-row">
+              <span class="lpill" style="--c:#e67e22">Game Dev</span>
+              <span class="lpill" style="--c:#c8b820">3D Design</span>
+            </div>
+            <div class="pills-row">
+              <span class="lpill" style="--c:#00796b">Unity</span>
+            </div>
+          </div>
+          <div class="project-img"><img src="images/theleadarrow/theleadarrow_02.png" alt="The Lead Arrow"></div>
+          <div class="project-title">The Lead Arrow</div>
+        </a>
+        <div class="project-meta">
+          <span>2024</span>
+          <span>UAL</span>
+          <span>Solo</span>
+        </div>
+      </article>
+
+      <article class="project-station" id="ps-artemis"
+        data-lines="graphic-design"
+        data-side="right">
+        <div class="project-meta">
+          <span>2024</span>
+          <span>UAL</span>
+          <span>Solo</span>
+        </div>
+        <a href="artemis.html" class="project-inner">
+          <div class="project-pills">
+            <div class="pills-row">
+              <span class="lpill" style="--c:#f1c40f">Graphic Design</span>
+            </div>
+            <div class="pills-row">
+              <span class="lpill" style="--c:#1565c0">Figma</span>
+              <span class="lpill" style="--c:#558b2f">Adobe Suite</span>
+            </div>
+          </div>
+          <div class="project-img"><img src="images/artemis/artemis_01.jpg" alt="Artemis"></div>
+          <div class="project-title">Artemis</div>
+        </a>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- ── ABOUT ── -->
+  <section class="map-section about-section" id="about">
+    <div class="info-card" id="about-card">
+      <h2 class="section-heading">ABOUT</h2>
+      <p>I am a computational artist and visual designer based in London, specialising in live media art, spatial data visualisation, and interactive experiences. My work sits at the intersection of technology and art, exploring new ways of seeing and experiencing the world.</p>
+    </div>
+  </section>
+
+  <!-- ── CONTACT ── -->
+  <section class="map-section contact-section" id="contact">
+    <div class="info-card" id="contact-card">
+      <h2 class="section-heading">CONTACT</h2>
+      <div class="contact-grid">
+        <span class="contact-label">mail:</span>    <span>eboracreative@gmail.com</span>
+        <span class="contact-label">linkedin:</span><a href="https://linkedin.com/in/elif-bora-a01476133" target="_blank">elif-bora</a>
+        <span class="contact-label">behance:</span> <a href="https://www.behance.net/elifboraa" target="_blank">elifboraa</a>
+        <span class="contact-label">instagram:</span><a href="https://www.instagram.com/elifbeurre/" target="_blank">elifbeurre</a>
+        <span class="contact-label">location:</span><span>London, UK</span>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div>
+    <span class="footer-name">Elif Bora</span>
+    <span class="footer-year">2026</span>
+  </div>
+  <div class="footer-cols">
+    <div class="footer-col">
+      <a href="#works">Works</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <div class="footer-col">
+      <a href="https://linkedin.com/in/elif-bora-a01476133" target="_blank">LinkedIn</a>
+      <a href="https://www.behance.net/elifboraa" target="_blank">Behance</a>
+      <a href="https://www.instagram.com/elifbeurre/" target="_blank">Instagram</a>
+    </div>
+    <div class="footer-col">
+      <a href="Bora_CV.pdf" download>Resume ↓</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ================================================================
+   MAP LINE DRAWING
+   Draws the underground map SVG:
+   - Grey organic river (info backbone)
+   - Blue organic river (works region)
+   - Coloured skill/software lines with right-angle elbows
+================================================================ */
+
+// ── SKILL LINE CONFIG ─────────────────────────────────────────────
+// Each entry: [line-id, color, type('skill'|'software')]
+const SKILL_LINES = [
+  ['audiovisual-art',   '#c0392b', 'skill'],
+  ['computational-art', '#e74c3c', 'skill'],
+  ['game-development',  '#e67e22', 'skill'],
+  ['spatial-data',      '#d4a017', 'skill'],
+  ['graphic-design',    '#f1c40f', 'skill'],
+  ['3d-design',         '#c8b820', 'skill'],
+  ['creative-coding',   '#a8a000', 'skill'],
+  ['touchdesigner',     '#0097a7', 'software'],
+];
+
+// x offset of each skill line from the grey river center
+// skills bundle on the left, software on the right
+const SKILL_OFFSET  = [-28, -22, -16, -10, -4,  4,  10]; // 7 skills
+const SOFTWARE_OFFSET = [16, 22]; // 2 software (touchdesigner)
+
+// ── HELPERS ──────────────────────────────────────────────────────
+function domRect(el) {
+  if (!el) return null;
+  const r = el.getBoundingClientRect();
+  const sy = window.scrollY;
+  return {
+    top:    r.top + sy,
+    bottom: r.bottom + sy,
+    left:   r.left,
+    right:  r.right,
+    cx:     r.left + r.width / 2,
+    cy:     r.top + sy + r.height / 2,
+    w:      r.width,
+    h:      r.height,
+  };
+}
+
+// Get element position relative to the map-layout container
+function mapRect(el) {
+  if (!el) return null;
+  const layout = document.getElementById('map-layout');
+  const lr = layout.getBoundingClientRect();
+  const er = el.getBoundingClientRect();
+  const sy = window.scrollY;
+  return {
+    top:    er.top - lr.top + sy,
+    bottom: er.bottom - lr.top + sy,
+    left:   er.left - lr.left,
+    right:  er.right - lr.left,
+    cx:     (er.left - lr.left) + er.width / 2,
+    cy:     (er.top - lr.top + sy) + er.height / 2,
+    w:      er.width,
+    h:      er.height,
+  };
+}
+
+function svgEl(tag, attrs) {
+  const el = document.createElementNS('http://www.w3.org/2000/svg', tag);
+  for (const [k, v] of Object.entries(attrs)) el.setAttribute(k, v);
+  return el;
+}
+
+function addPath(parent, d, stroke, sw, opts = {}) {
+  parent.appendChild(svgEl('path', {
+    d, stroke, 'stroke-width': sw,
+    fill: opts.fill || 'none',
+    'stroke-linecap': 'round',
+    'stroke-linejoin': 'round',
+    opacity: opts.op ?? 1,
+    ...(opts.dash ? { 'stroke-dasharray': opts.dash } : {})
+  }));
+}
+
+function addRect(parent, x, y, w, h, rx, fill, op = 1) {
+  parent.appendChild(svgEl('rect', { x, y, width: w, height: h, rx, ry: rx, fill, opacity: op }));
+}
+
+function addCircle(parent, cx, cy, r, fill, strokeC, sw) {
+  parent.appendChild(svgEl('circle', { cx, cy, r, fill, stroke: strokeC, 'stroke-width': sw }));
+}
+
+// Right-angle elbow: go vertical first, then horizontal
+function elbowVH(x1, y1, x2, y2) {
+  return `M ${x1} ${y1} L ${x1} ${y2} L ${x2} ${y2}`;
+}
+
+// Right-angle elbow: go horizontal first, then vertical
+function elbowHV(x1, y1, x2, y2) {
+  return `M ${x1} ${y1} L ${x2} ${y1} L ${x2} ${y2}`;
+}
+
+// ── MAIN DRAW ────────────────────────────────────────────────────
+function drawMap() {
+  const svg    = document.getElementById('map-svg');
+  const layout = document.getElementById('map-layout');
+  if (!svg || !layout) return;
+
+  const W = layout.offsetWidth;
+  const H = layout.scrollHeight;
+
+  svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+  svg.setAttribute('width', W);
+  svg.setAttribute('height', H);
+  svg.innerHTML = '';
+
+  // Layer groups (back to front)
+  const gRivers = svgEl('g', { id: 'g-rivers' });
+  const gLines  = svgEl('g', { id: 'g-lines' });
+  const gDots   = svgEl('g', { id: 'g-dots' });
+  svg.append(gRivers, gLines, gDots);
+
+  // Measure key elements
+  const introCard   = mapRect(document.getElementById('intro-card'));
+  const skillsEl    = mapRect(document.getElementById('skills'));
+  const worksEl     = mapRect(document.getElementById('works'));
+  const aboutCard   = mapRect(document.getElementById('about-card'));
+  const contactCard = mapRect(document.getElementById('contact-card'));
+
+  if (!introCard || !aboutCard || !contactCard) return;
+
+  // ── GREY RIVER ────────────────────────────────────────────────
+  // Runs down the left, "swelling" into info cards
+  const GREY   = '#3c424e';
+  const GX     = introCard.left + 40; // river center x
+  const GW_NAR = 22;  // narrow river width
+  const PAD    = 18;  // padding around cards
+
+  // River above intro card
+  addPath(gRivers,
+    `M ${GX} 0 L ${GX} ${introCard.top - PAD}`,
+    GREY, GW_NAR, { op: 0.9 });
+
+  // Intro card background (filled rounded rect)
+  addRect(gRivers,
+    introCard.left - PAD, introCard.top - PAD,
+    introCard.w + PAD * 2, introCard.h + PAD * 2,
+    22, GREY, 0.9);
+
+  // River below intro to skills
+  const skillsTop = skillsEl ? skillsEl.top : introCard.bottom + 40;
+  addPath(gRivers,
+    `M ${GX} ${introCard.bottom + PAD} L ${GX} ${skillsTop}`,
+    GREY, GW_NAR, { op: 0.9 });
+
+  // River through skills and works (thin — skill lines are visible here)
+  const worksBottom = worksEl ? worksEl.bottom : aboutCard.top - 40;
+  addPath(gRivers,
+    `M ${GX} ${skillsTop} L ${GX} ${aboutCard.top - PAD}`,
+    GREY, 14, { op: 0.5 });
+
+  // About card background
+  addRect(gRivers,
+    aboutCard.left - PAD, aboutCard.top - PAD,
+    aboutCard.w + PAD * 2, aboutCard.h + PAD * 2,
+    22, GREY, 0.9);
+
+  // River between about and contact
+  addPath(gRivers,
+    `M ${GX} ${aboutCard.bottom + PAD} L ${GX} ${contactCard.top - PAD}`,
+    GREY, GW_NAR, { op: 0.9 });
+
+  // Contact card background
+  addRect(gRivers,
+    contactCard.left - PAD, contactCard.top - PAD,
+    contactCard.w + PAD * 2, contactCard.h + PAD * 2,
+    22, GREY, 0.9);
+
+  // River below contact
+  addPath(gRivers,
+    `M ${GX} ${contactCard.bottom + PAD} L ${GX} ${H}`,
+    GREY, GW_NAR, { op: 0.9 });
+
+  // ── BLUE RIVER ────────────────────────────────────────────────
+  // Weaves through the works section diagonally
+  const BLUE = '#1a5f8a';
+  const BW   = 28;
+
+  if (worksEl) {
+    const cards = Array.from(document.querySelectorAll('.project-station'));
+    if (cards.length > 0) {
+      const firstCard = mapRect(cards[0]);
+      const lastCard  = mapRect(cards[cards.length - 1]);
+      const BX_START  = GX + 40;
+      const BX_END    = GX + 60;
+
+      // Build a winding path through project cards
+      let d = `M ${BX_START} ${firstCard.top - 30}`;
+      let prevX = BX_START;
+
+      cards.forEach((card, i) => {
+        const cr   = mapRect(card);
+        const side = card.dataset.side;
+        // Blue river snakes left for left cards, right for right cards
+        const targetX = side === 'right'
+          ? Math.min(cr.right - 20, W - 20)
+          : Math.max(cr.left  + 20, 20);
+        const targetY = cr.cy;
+        // Right-angle routing: down then across
+        d += ` L ${prevX} ${targetY} L ${targetX} ${targetY}`;
+        prevX = targetX;
+      });
+
+      // Return to grey river area and go down
+      const lastCr = mapRect(cards[cards.length - 1]);
+      d += ` L ${prevX} ${lastCr.bottom + 30} L ${BX_END} ${aboutCard.top - 30}`;
+
+      addPath(gRivers, d, BLUE, BW, { op: 0.55 });
+    }
+  }
+
+  // ── SKILL / SOFTWARE LINES ─────────────────────────────────────
+  // Lines run vertically down from each skill item, then branch with
+  // right-angle elbows (V → H) to each connected project card.
+
+  // Collect skill items and assign x positions in the bundled group
+  const skillItems    = Array.from(document.querySelectorAll('#key-skills-col [data-line]'));
+  const softwareItems = Array.from(document.querySelectorAll('#software-col [data-line]'));
+
+  const allItems = [
+    ...skillItems.map((el, i) => ({ el, x: GX + SKILL_OFFSET[i] ?? 0 })),
+    ...softwareItems.map((el, i) => ({ el, x: GX + (SOFTWARE_OFFSET[i] ?? 18) })),
+  ];
+
+  allItems.forEach(({ el, x }) => {
+    const lineName = el.dataset.line;
+    // Determine color from the dot in this item
+    const dot = el.querySelector('.ldot');
+    if (!dot) return;
+    const color = getComputedStyle(dot).getPropertyValue('--c').trim() ||
+                  dot.style.getPropertyValue('--c');
+    if (!color) return;
+
+    const itemR = mapRect(el);
+    if (!itemR) return;
+
+    // Start: from dot, go DOWN to just below skills section
+    const bundleStartY = itemR.cy;
+
+    // Find connected project cards
+    const cards = Array.from(document.querySelectorAll(
+      `.project-station[data-lines*="${lineName}"]`
+    ));
+
+    if (!cards.length) {
+      // Just draw a short tail down
+      addPath(gLines,
+        `M ${x} ${bundleStartY} L ${x} ${bundleStartY + 40}`,
+        color, 2.5, { op: 0.85 });
+      return;
+    }
+
+    // Find lowest card y
+    const cardRects = cards.map(c => mapRect(c));
+    const maxY = Math.max(...cardRects.map(r => r.bottom));
+
+    // Main vertical trunk: from skill item down past all connected cards
+    addPath(gLines,
+      `M ${x} ${bundleStartY} L ${x} ${maxY + 10}`,
+      color, 2.5, { op: 0.85 });
+
+    // Terminal dot at skill item
+    addCircle(gDots, x, bundleStartY, 4, color, '#0d0f12', 1.5);
+
+    // Branch to each card: right-angle elbow (at card center Y, go horizontal)
+    cards.forEach((card, ci) => {
+      const cr   = mapRect(card);
+      const side = card.dataset.side;
+      // Connect to the side of the card facing the line bundle
+      const cardEdgeX = side === 'right'
+        ? cr.left + 8
+        : cr.right - 8;
+      const cardY = cr.top + 18 + (ci % 2) * 8; // stagger slightly
+
+      // Elbow: go down the trunk to cardY, then across to card
+      const d = `M ${x} ${cardY} L ${cardEdgeX} ${cardY}`;
+      addPath(gLines, d, color, 2, { op: 0.75 });
+
+      // Terminal dot on card edge
+      addCircle(gDots, cardEdgeX, cardY, 3.5, color, '#0d0f12', 1.5);
+    });
+  });
+
+  // ── STATION DOTS on grey river ────────────────────────────────
+  [
+    { r: introCard,   y: introCard.top + 30   },
+    { r: aboutCard,   y: aboutCard.top + 30   },
+    { r: contactCard, y: contactCard.top + 30 },
+  ].forEach(({ y }) => {
+    addCircle(gDots, GX, y, 8, GREY, '#0d0f12', 3);
+    addCircle(gDots, GX, y, 4, '#e6edf3', 'none', 0);
+  });
+}
+
+// Run on load and resize
+window.addEventListener('load', drawMap);
+window.addEventListener('resize', () => {
+  clearTimeout(window._mapTimer);
+  window._mapTimer = setTimeout(drawMap, 120);
+});
+</script>
+
+</body>
+</html>
