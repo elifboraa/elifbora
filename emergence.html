@@ -1,397 +1,592 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Emergence — Elif Bora</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=DM+Sans:wght@300;400;500&display=swap"
-    rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
-</head>
+  <link rel="stylesheet" href="https://use.typekit.net/ngv0pic.css">
+  <style>
+    /* ── RESET ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+    :root {
+      --bg:      #000;
+      --panel:   #1d1d1d;
+      --text:    #ffffff;
+      --muted:   #d9d9d9;
+      --muted2:  #a5a5a5;
+      --radius:  15px;
+      --content-w: 1586px;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'urbane', sans-serif;
+      font-weight: 300;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    .page-inner {
+      max-width: var(--content-w);
+      margin: 0 auto;
+      padding: 0 clamp(24px, 6vw, 95px);
+    }
+
+    /* ── HEADER ── */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: var(--bg);
+      transform: translateY(0);
+      transition: transform 0.3s ease;
+    }
+    .site-header.is-hidden { transform: translateY(-100%); }
+    .site-header-inner {
+      max-width: var(--content-w);
+      margin: 0 auto;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 20px;
+      padding: 28px clamp(24px, 6vw, 95px) 14px;
+      border-bottom: 1px solid rgba(255,255,255,0.25);
+    }
+    .brand { display: flex; flex-direction: column; gap: 6px; }
+    .brand-name { font-weight: 600; font-size: 25px; letter-spacing: 0.02em; }
+    .brand-tag { font-weight: 300; font-style: italic; font-size: 15px; color: var(--muted2); }
+    .site-nav { display: flex; flex-wrap: wrap; gap: 16px 48px; align-items: center; }
+    .site-nav a { font-weight: 500; font-size: 17px; transition: font-weight 0.15s ease; }
+    .site-nav a:hover, .site-nav a:focus-visible { font-weight: 700; }
+
+    /* ── PROJECT MAIN ── */
+    .project-main { padding: 40px 0 80px; position: relative; }
+    .project-close {
+      position: absolute;
+      top: 60px;
+      right: 24px;
+      display: inline-block;
+      font-size: 28px;
+      line-height: 1;
+      color: var(--muted2);
+      transition: color 0.2s ease;
+    }
+    .project-close:hover, .project-close:focus-visible { color: #fff; }
+
+    .project-panel {
+      margin: 0 auto;
+      background: var(--panel);
+      border-radius: var(--radius);
+      padding: clamp(24px, 6vw, 70px);
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      box-shadow: inset 0 0 60px rgba(0,0,0,0.45);
+    }
+
+    .project-title { font-weight: 800; font-size: 38px; line-height: 1.15; margin-bottom: 14px; max-width: 760px; margin-left: 100px; }
+
+    .project-tags2 {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: 6px 18px;
+      font-size: 12px;
+      font-style: italic;
+      font-weight: 300;
+      color: var(--muted2);
+      max-width: 760px;
+      margin-left: 100px;
+    }
+
+    .project-meta-row {
+      display: inline-flex;
+      flex-wrap: wrap;
+      gap: 32px;
+      padding: 16px 0;
+      width: fit-content;
+      max-width: min(100%, 760px);
+      margin-left: 100px;
+      border-top: 0.5px solid rgba(255,255,255,0.5);
+      border-bottom: 0.5px solid rgba(255,255,255,0.5);
+    }
+    .project-meta { display: flex; gap: 24px; font-size: 12px; }
+    .mk-col2, .mv-col2 { display: flex; flex-direction: column; gap: 16px; }
+    .mk-col2 { font-weight: 600; }
+    .mv-col2 { font-weight: 300; }
+    .mv-col2 .multi { display: flex; flex-direction: column; gap: 2px; }
+
+    .project-intro, .project-section-text {
+      font-weight: 300;
+      font-size: 15px;
+      line-height: 1.7;
+      max-width: 760px;
+      margin-left: 100px;
+    }
+    .project-section-text + .project-section-text { margin-top: -8px; }
+
+    .project-section-title { font-weight: 800; font-size: 22px; margin-top: 8px; max-width: 760px; margin-left: 100px; }
+
+    /* ── PROJECT CONTENT TYPOGRAPHY (extends coral-stories base) ── */
+    .project-panel h2 { font-weight: 800; font-size: 22px; margin-top: 8px; max-width: 760px; margin-left: 100px; }
+    .project-panel h3 { font-weight: 700; font-size: 18px; margin-top: 4px; max-width: 760px; margin-left: 100px; }
+    .project-panel h4 { font-weight: 600; font-size: 16px; margin-top: 4px; color: var(--muted); max-width: 760px; margin-left: 100px; }
+    .project-panel h5 { font-weight: 600; font-size: 15px; font-style: italic; color: var(--muted2); margin-top: 2px; max-width: 760px; margin-left: 100px; }
+    .project-panel p { font-weight: 300; font-size: 15px; line-height: 1.7; max-width: 760px; margin-left: 100px; }
+    .project-panel p + p { margin-top: -8px; }
+    .project-panel a { text-decoration: underline; text-underline-offset: 3px; }
+    .project-panel img { width: 100%; height: auto; display: block; border-radius: var(--radius); }
+    .project-panel .video-wrapper { border-radius: var(--radius); overflow: hidden; }
+    .project-panel ul { padding-left: 20px; display: flex; flex-direction: column; gap: 8px; max-width: 760px; margin-left: 100px; }
+    .project-panel li { font-weight: 300; font-size: 15px; line-height: 1.6; }
+    .project-panel .box { background: #141414; border: 1px solid rgba(255,255,255,0.15); border-radius: var(--radius); padding: 20px 24px; overflow-x: auto; max-width: 760px; margin-left: 100px; }
+    .project-panel .box pre { margin: 0; }
+    .project-panel .box code { font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #b1f16d; white-space: pre; }
+
+    /* ── SLIDER / GALLERY ── */
+    .slider { position: relative; border-radius: var(--radius); overflow: hidden; transition: height 0.35s ease; }
+    .slider-track { display: flex; align-items: center; transition: transform 0.45s ease; }
+    .slide { flex: 0 0 100%; }
+    .slide img { width: 100%; height: auto; display: block; }
+    .video-wrapper { width: 100%; aspect-ratio: 16 / 9; }
+    .video-wrapper iframe { width: 100%; height: 100%; display: block; border: none; }
+    .slider-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      background: rgba(20,20,20,0.6);
+      border: 1px solid var(--muted2);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
+      z-index: 2;
+    }
+    .slider-btn:hover { border-color: #fff; background: rgba(20,20,20,0.85); }
+    .slider-btn.prev { left: 14px; }
+    .slider-btn.next { right: 14px; }
+
+    .slider-dots {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      width: fit-content;
+      margin: -14px auto 0;
+      padding: 7px 14px;
+      background: rgba(30,30,30,0.55);
+      border-radius: 20px;
+    }
+    .dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      border: 2px solid var(--muted2);
+      background: transparent;
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .dot.active { background: #fff; border-color: #fff; }
+
+    /* ── FOOTER ── */
+    .site-footer {
+      border-top: 1px solid rgba(255,255,255,0.25);
+      padding: 20px 0 50px;
+      font-weight: 300;
+      font-size: 13px;
+      color: var(--muted2);
+    }
+
+    @media (max-width: 700px) {
+      .project-title { font-size: 28px; }
+      .project-meta-row { flex-direction: column; }
+    }
+  </style>
+</head>
 <body>
 
-  <nav class="nav">
-    <a href="index.html" class="nav-logo">
-      <span class="nav-logo-name">/elif_bora/</span>
-      <span class="nav-logo-tagline">computational artist | digital designer</span>
-    </a>
-    <ul class="nav-links">
-      <li><a href="index.html#about">about</a></li>
-      <li><a href="index.html#contact">contact</a></li>
-      <li><a href="index.html#works">works</a></li>
-      <li><a href="Bora_CV.pdf" download class="nav-resume">resume ↓</a></li>
-    </ul>
-    <button class="nav-burger" aria-label="menu">☰</button>
-  </nav>
-
-  <header class="project-hero">
-    <a href="index.html#works" class="back-link">← works</a>
-    <h1 class="project-title">Emergence: A 3D Projection Mapping Project</h1>
-    <div class="project-tags">
-      <span class="work-tag">Creative Computing</span>
-      <span class="work-tag-soft">Blender · TouchDesigner</span>
-    </div>
-  </header>
-
-  <main class="project-content">
-
-    <p>This project explores the organic growth of both cities and nature, drawing parallels between the expansion of
-      built environments with natural growth patterns. It raises questions such as: Should cities be designed with
-      rigid grids to ensure livability? How do natural elements like water, forests, and topography influence human
-      settlement and growth? And does organic urban development allow for a more harmonious coexistence with nature?</p>
-
-    <p>In this interactive installation, viewers interact with the project by altering the topographical elements and
-      moving their hands to observe a city growing between these natural forms. Through this transformation, viewers
-      observe how nature and the city might intertwine, prompting reflection on how urban environments can grow in
-      harmony with the natural world.</p>
-
-    <div class="slider">
-      <div class="slider-track">
-        <div class="slide">
-          <img src="images/emergence/emergence_02.png" alt="Emergence_02">
-        </div>
-        <div class="slide">
-          <img src="images/emergence/emergence_05.jpeg" alt="Emergence_05">
-        </div>
-        <div class="slide">
-          <img src="images/emergence/emergence_07.png" alt="Emergence_07">
-        </div>
-        <div class="slide">
-          <img src="images/emergence/emergence_09.png" alt="Emergence_09">
-        </div>
-        <div class="slide">
-          <img src="images/emergence/emergence_06.jpeg" alt="Emergence_06">
-        </div>
-        <div class="slide">
-          <img src="images/emergence/emergence_15.jpeg" alt="Emergence_06">
-        </div>
+<header class="site-header" id="top">
+  <div class="site-header-inner">
+      <div class="brand">
+        <span class="brand-name">ELIF BORA</span>
+        <span class="brand-tag">creative technologist | visual designer</span>
       </div>
-      <button class="slider-btn prev" onclick="moveSlide(this, -1)">&#8249;</button>
-      <button class="slider-btn next" onclick="moveSlide(this, 1)">&#8250;</button>
-    </div>
+      <nav class="site-nav">
+        <a href="index.html#top">WORKS</a>
+        <a href="about.html">ABOUT/CONTACT</a>
+        <a href="Bora_CV.pdf" target="_blank" rel="noopener">RESUME</a>
+      </nav>
+  </div>
+</header>
 
-    <div class="slider-dots">
-      <span class="dot active"></span>
-      <span class="dot"></span>
-      <span class="dot"></span>
-      <span class="dot"></span>
-      <span class="dot"></span>
-      <span class="dot"></span>
-    </div>
+<div class="page-inner">
 
-    <div class="slider">
-      <div class="slider-track">
-        <div class="slide">
-          <div class="video-wrapper">
-            <iframe src="https://www.youtube.com/embed/Oqesp0-zYJI" frameborder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              allowfullscreen></iframe>
-          </div>
-        </div>
-        <div class="slide">
-          <div class="video-wrapper">
-            <iframe src="https://www.youtube.com/embed/wZBKADE7s3c" frameborder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              allowfullscreen></iframe>
-          </div>
-        </div>
-        <div class="slide">
-          <div class="video-wrapper">
-            <iframe src="https://www.youtube.com/embed/4-34Zetjmvw" frameborder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              allowfullscreen></iframe>
+  <main class="project-main">
+    <a class="project-close" href="index.html#top" aria-label="Back to works">&times;</a>
+
+    <div class="project-panel">
+      <h1 class="project-title">Emergence: A 3D Projection Mapping Project</h1>
+
+      <div class="project-tags2">
+        <span>Projection Mapping</span>
+        <span>3D Modelling and Animation</span>
+        <span>Interactive Art</span>
+        <span>TouchDesigner</span>
+        <span>Blender</span>
+      </div>
+
+      <div class="project-meta-row">
+        <div class="project-meta">
+          <div class="mk-col2"><span>Year:</span><span>Company:</span><span>Collaborators:</span></div>
+          <div class="mv-col2">
+            <span>2025</span>
+            <span>UAL</span>
+            <span class="multi">
+              <span>Cecilia Gonzalez</span>
+              <span>Elif Bora</span>
+              <span>Nemo</span>
+            </span>
           </div>
         </div>
       </div>
-      <button class="slider-btn prev" onclick="moveSlide(this, -1)">&#8249;</button>
-      <button class="slider-btn next" onclick="moveSlide(this, 1)">&#8250;</button>
-    </div>
 
-    <div class="slider-dots">
-      <span class="dot active"></span>
-      <span class="dot"></span>
-      <span class="dot"></span>
-    </div>
-    <h2>Collaborators</h2>
-    <p> Cecilia Gonzalez, Elif Bora, Nemo</p>
+      <p>This project explores the organic growth of both cities and nature, drawing parallels between the expansion of
+        built environments with natural growth patterns. It raises questions such as: Should cities be designed with
+        rigid grids to ensure livability? How do natural elements like water, forests, and topography influence human
+        settlement and growth? And does organic urban development allow for a more harmonious coexistence with nature?</p>
 
-    <h2>Process</h2>
+      <p>In this interactive installation, viewers interact with the project by altering the topographical elements and
+        moving their hands to observe a city growing between these natural forms. Through this transformation, viewers
+        observe how nature and the city might intertwine, prompting reflection on how urban environments can grow in
+        harmony with the natural world.</p>
 
-    <h3>Ideation</h3>
+      <div class="slider">
+        <div class="slider-track">
+          <div class="slide"><img src="images/emergence/emergence_02.png" alt="Emergence_02"></div>
+          <div class="slide"><img src="images/emergence/emergence_05.jpeg" alt="Emergence_05"></div>
+          <div class="slide"><img src="images/emergence/emergence_07.png" alt="Emergence_07"></div>
+          <div class="slide"><img src="images/emergence/emergence_09.png" alt="Emergence_09"></div>
+          <div class="slide"><img src="images/emergence/emergence_06.jpeg" alt="Emergence_06"></div>
+          <div class="slide"><img src="images/emergence/emergence_15.jpeg" alt="Emergence_06"></div>
+        </div>
+        <button class="slider-btn prev" onclick="moveSlide(this, -1)" aria-label="Previous">&#8249;</button>
+        <button class="slider-btn next" onclick="moveSlide(this, 1)" aria-label="Next">&#8250;</button>
+      </div>
+      <div class="slider-dots">
+        <span class="dot active"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+      </div>
 
-    <p>We started out thinking about the relationship of cities with water, and how water affects the emergence of a
-      city. We decided that we wanted to use a 3D topography model, so that we could project the water on the
-      topographical surface and explore interactions with the user (via a webcam or mediapipe) simulating urban and
-      natural elements (with particle systems or another way to create organic visuals), and terrains. We wanted the
-      natural elements to be generated via more organic movement of the user (drawing, hand gestures and etc.), and
-      the city to be generated with more mechanical movements like putting blocks of geometry onto the interaction
-      zone. Similarly we also thought about the user being able to alter the topography by moving some parts of it
-      around. We ideated how we could make these interactions work, and what the visual outcomes would be.</p>
-
-    <img src="images/emergence/emergence_04.png" alt="Emergence ideation">
-
-    <h3>Topography Model</h3>
-
-    <p>We discussed that the model should be big and have a detailed surface. We also decided that the observer should
-      be able to interact with it, such as changing the position of the hills. Since we aimed to integrate depth
-      detection to our model, we wanted to have a topography with varying depths of mountains. We decided not to use a
-      real location but a randomly generated terrain.</p>
-
-    <p>To do this, I used Blender's A.N.T Landscape addon where a mesh with noise displacement can be generated and
-      adjusted according to the level of desired details and scale. Then I turned this generated model into isometric
-      lines and exported it for laser cutting. After the laser cutting, we gathered the parts and glued them together.
-      Our topography model was ready.</p>
-
-    <div class="slider">
-      <div class="slider-track">
-
-        <div class="slide">
-          <div class="video-wrapper">
-            <iframe src="https://www.youtube.com/embed/vojqgRRBqMc" frameborder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              allowfullscreen></iframe>
+      <div class="slider">
+        <div class="slider-track">
+          <div class="slide">
+            <div class="video-wrapper">
+              <iframe src="https://www.youtube.com/embed/Oqesp0-zYJI" frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen></iframe>
+            </div>
+          </div>
+          <div class="slide">
+            <div class="video-wrapper">
+              <iframe src="https://www.youtube.com/embed/wZBKADE7s3c" frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen></iframe>
+            </div>
+          </div>
+          <div class="slide">
+            <div class="video-wrapper">
+              <iframe src="https://www.youtube.com/embed/4-34Zetjmvw" frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen></iframe>
+            </div>
           </div>
         </div>
-        <div class="slide">
-          <img src="images/emergence/emergence_14.png" alt="Emergence_14">
-        </div>
-        <div class="slide">
-          <img src="images/emergence/emergence_11.png" alt="Emergence_11">
-        </div>
+        <button class="slider-btn prev" onclick="moveSlide(this, -1)" aria-label="Previous">&#8249;</button>
+        <button class="slider-btn next" onclick="moveSlide(this, 1)" aria-label="Next">&#8250;</button>
       </div>
-      <button class="slider-btn prev" onclick="moveSlide(this, -1)">&#8249;</button>
-      <button class="slider-btn next" onclick="moveSlide(this, 1)">&#8250;</button>
-    </div>
+      <div class="slider-dots">
+        <span class="dot active"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+      </div>
 
-    <div class="slider-dots">
-      <span class="dot active"></span>
-      <span class="dot"></span>
-      <span class="dot"></span>
-    </div>
+      <h2>Process</h2>
 
-    <h3>Depth Detection with Kinect</h3>
+      <h3>Ideation</h3>
 
-    <p>We firstly used Kinect V2 2.0 and the issue we faced was that it was good at representing large distances of
-      depth, but wasn't so good at giving a detailed view of small distances. Since the height difference in each level
-      on our model was 3mm apart, we needed a more precise representation. We switched from Kinect V2 to Kinect Azure,
-      which gave us a better point cloud representation of the height differences in our model (where the height
-      difference is 6mm between each level). However, we still needed a more precise output and we needed to exclude
-      objects in the distance such as the surface and the floor. To be able to do this we created a custom depth map
-      via GLSL, which allowed us to only have the point cloud of our model, excluding the surrounding objects.</p>
+      <p>We started out thinking about the relationship of cities with water, and how water affects the emergence of a
+        city. We decided that we wanted to use a 3D topography model, so that we could project the water on the
+        topographical surface and explore interactions with the user (via a webcam or mediapipe) simulating urban and
+        natural elements (with particle systems or another way to create organic visuals), and terrains. We wanted the
+        natural elements to be generated via more organic movement of the user (drawing, hand gestures and etc.), and
+        the city to be generated with more mechanical movements like putting blocks of geometry onto the interaction
+        zone. Similarly we also thought about the user being able to alter the topography by moving some parts of it
+        around. We ideated how we could make these interactions work, and what the visual outcomes would be.</p>
 
-    <div class="video-wrapper">
-      <iframe src="https://www.youtube.com/embed/RL4aQPQnJC4" frameborder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-        allowfullscreen></iframe>
-    </div>
+      <img src="images/emergence/emergence_04.png" alt="Emergence ideation">
 
-    <p>Although we had a good point cloud view of our model, we still needed to represent the height difference with a
-      higher contrast in the output image. To do this, we increased the contrast between the maximum and minimum height
-      difference. Finally we were able to get a clear depth image.</p>
+      <h3>Topography Model</h3>
 
-    <img src="images/emergence/emergence_10.png" alt="Technical setup">
+      <p>We discussed that the model should be big and have a detailed surface. We also decided that the observer should
+        be able to interact with it, such as changing the position of the hills. Since we aimed to integrate depth
+        detection to our model, we wanted to have a topography with varying depths of mountains. We decided not to use a
+        real location but a randomly generated terrain.</p>
 
+      <p>To do this, I used Blender's A.N.T Landscape addon where a mesh with noise displacement can be generated and
+        adjusted according to the level of desired details and scale. Then I turned this generated model into isometric
+        lines and exported it for laser cutting. After the laser cutting, we gathered the parts and glued them together.
+        Our topography model was ready.</p>
 
-    <h3>Organic Growth Interaction</h3>
+      <div class="slider">
+        <div class="slider-track">
+          <div class="slide">
+            <div class="video-wrapper">
+              <iframe src="https://www.youtube.com/embed/vojqgRRBqMc" frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen></iframe>
+            </div>
+          </div>
+          <div class="slide"><img src="images/emergence/emergence_14.png" alt="Emergence_14"></div>
+          <div class="slide"><img src="images/emergence/emergence_11.png" alt="Emergence_11"></div>
+        </div>
+        <button class="slider-btn prev" onclick="moveSlide(this, -1)" aria-label="Previous">&#8249;</button>
+        <button class="slider-btn next" onclick="moveSlide(this, 1)" aria-label="Next">&#8250;</button>
+      </div>
+      <div class="slider-dots">
+        <span class="dot active"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+      </div>
 
-    <p>For the organic growth, we used noise and edge detection to generate a growing city effect. This time, the
-      organic growth represented the city, so we decided that the generation should happen in square grids. We also
-      decided to change the interaction to hand movement tracked by Mediapipe. The hand is tracked to draw a line and
-      from this line, an organic city generates. We explored that the Kinect camera can be used for Mediapipe as well,
-      so we did not need an extra webcam. For the renewal and the regeneration of the organic city growth, we used a
-      timer that resets the canvas every 30 seconds. We integrated a mask where the lowest and highest parts of the
-      terrain are blocked, so the growth wouldn't happen at those points.</p>
+      <h3>Depth Detection with Kinect</h3>
 
-    <div class="slider">
-      <div class="slider-track">
+      <p>We firstly used Kinect V2 2.0 and the issue we faced was that it was good at representing large distances of
+        depth, but wasn't so good at giving a detailed view of small distances. Since the height difference in each level
+        on our model was 3mm apart, we needed a more precise representation. We switched from Kinect V2 to Kinect Azure,
+        which gave us a better point cloud representation of the height differences in our model (where the height
+        difference is 6mm between each level). However, we still needed a more precise output and we needed to exclude
+        objects in the distance such as the surface and the floor. To be able to do this we created a custom depth map
+        via GLSL, which allowed us to only have the point cloud of our model, excluding the surrounding objects.</p>
 
-        <div class="slide">
-          <div class="video-wrapper">
-            <iframe src="https://www.youtube.com/embed/IayGEbgP29U" frameborder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              allowfullscreen></iframe>
+      <div class="video-wrapper">
+        <iframe src="https://www.youtube.com/embed/RL4aQPQnJC4" frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen></iframe>
+      </div>
+
+      <p>Although we had a good point cloud view of our model, we still needed to represent the height difference with a
+        higher contrast in the output image. To do this, we increased the contrast between the maximum and minimum height
+        difference. Finally we were able to get a clear depth image.</p>
+
+      <img src="images/emergence/emergence_10.png" alt="Technical setup">
+
+      <h3>Organic Growth Interaction</h3>
+
+      <p>For the organic growth, we used noise and edge detection to generate a growing city effect. This time, the
+        organic growth represented the city, so we decided that the generation should happen in square grids. We also
+        decided to change the interaction to hand movement tracked by Mediapipe. The hand is tracked to draw a line and
+        from this line, an organic city generates. We explored that the Kinect camera can be used for Mediapipe as well,
+        so we did not need an extra webcam. For the renewal and the regeneration of the organic city growth, we used a
+        timer that resets the canvas every 30 seconds. We integrated a mask where the lowest and highest parts of the
+        terrain are blocked, so the growth wouldn't happen at those points.</p>
+
+      <div class="slider">
+        <div class="slider-track">
+          <div class="slide">
+            <div class="video-wrapper">
+              <iframe src="https://www.youtube.com/embed/IayGEbgP29U" frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen></iframe>
+            </div>
+          </div>
+          <div class="slide"><img src="images/emergence/emergence_12.png" alt="Emergence_14"></div>
+        </div>
+        <button class="slider-btn prev" onclick="moveSlide(this, -1)" aria-label="Previous">&#8249;</button>
+        <button class="slider-btn next" onclick="moveSlide(this, 1)" aria-label="Next">&#8250;</button>
+      </div>
+      <div class="slider-dots">
+        <span class="dot active"></span>
+        <span class="dot"></span>
+      </div>
+
+      <h2>Technical Details</h2>
+
+      <p>For the model, we used 20 A3 Greyboards of 3mm thickness. Used a laser cutter to cut each level of topography,
+        and finally glued them together.</p>
+
+      <p>We hung the Kinect Azure and a Logitech webcam (we realized we did not need this later, and we can use Kinect's
+        camera for Mediapipe instead) from the ceiling, using steel zip clips. We used a levelling ruler to align the
+        Kinect perfectly. We projected onto the model using a BenQ W1070 Projector.</p>
+
+      <p>We used Blender for modelling, and TouchDesigner to create the interactions and the visuals.</p>
+
+      <div class="slider">
+        <div class="slider-track">
+          <div class="slide"><img src="images/emergence/emergence_03.png" alt="Emergence_03"></div>
+          <div class="slide"><img src="images/emergence/emergence_16.jpg" alt="Emergence_16"></div>
+          <div class="slide">
+            <div class="video-wrapper">
+              <iframe src="https://www.youtube.com/embed/NkNSnXC72q8" frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen></iframe>
+            </div>
           </div>
         </div>
-        <div class="slide">
-          <img src="images/emergence/emergence_12.png" alt="Emergence_14">
-        </div>
-
+        <button class="slider-btn prev" onclick="moveSlide(this, -1)" aria-label="Previous">&#8249;</button>
+        <button class="slider-btn next" onclick="moveSlide(this, 1)" aria-label="Next">&#8250;</button>
       </div>
-      <button class="slider-btn prev" onclick="moveSlide(this, -1)">&#8249;</button>
-      <button class="slider-btn next" onclick="moveSlide(this, 1)">&#8250;</button>
-    </div>
-
-    <div class="slider-dots">
-      <span class="dot active"></span>
-      <span class="dot"></span>
-      <span class="dot"></span>
-    </div>
-
-
-    <h2>Technical Details</h2>
-
-    <p>For the model, we used 20 A3 Greyboards of 3mm thickness. Used a laser cutter to cut each level of topography,
-      and finally glued them together.</p>
-
-    <p>We hung the Kinect Azure and a Logitech webcam (we realized we did not need this later, and we can use Kinect's
-      camera for Mediapipe instead) from the ceiling, using steel zip clips. We used a levelling ruler to align the
-      Kinect perfectly. We projected onto the model using a BenQ W1070 Projector.</p>
-
-    <p>We used Blender for modelling, and TouchDesigner to create the interactions and the visuals.</p>
-
-
-    <div class="slider">
-      <div class="slider-track">
-        <div class="slide">
-          <img src="images/emergence/emergence_03.png" alt="Emergence_03">
-        </div>
-        <div class="slide">
-          <img src="images/emergence/emergence_16.jpg" alt="Emergence_16">
-        </div>
-        <div class="slide">
-          <div class="video-wrapper">
-            <iframe src="https://www.youtube.com/embed/NkNSnXC72q8" frameborder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              allowfullscreen></iframe>
-          </div>
-        </div>
+      <div class="slider-dots">
+        <span class="dot active"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
       </div>
-      <button class="slider-btn prev" onclick="moveSlide(this, -1)">&#8249;</button>
-      <button class="slider-btn next" onclick="moveSlide(this, 1)">&#8250;</button>
-    </div>
 
+    </div>
   </main>
 
-  <footer class="footer">
-    <div class="footer-left">
-      <span class="footer-logo">Elif Bora</span>
-    </div>
-    <div class="footer-nav">
-      <div class="footer-col">
-        <p class="footer-col-title">Navigate</p>
-        <a href="index.html">Home</a>
-        <a href="index.html#works">Works</a>
-        <a href="index.html#about">About</a>
-      </div>
-      <div class="footer-col">
-        <p class="footer-col-title">Download</p>
-        <a href="#">Link to resume</a>
-      </div>
-      <div class="footer-col">
-        <p class="footer-col-title">Contact</p>
-        <a href="https://linkedin.com/in/elif-bora-a01476133" target="_blank">LinkedIn</a>
-        <a href="https://www.instagram.com/elifbeurre/" target="_blank">Instagram</a>
-        <a href="https://www.behance.net/elifboraa" target="_blank">Behance</a>
-      </div>
-      <div class="footer-col">
-        <p class="footer-col-title">&nbsp;</p>
-        <span>London, UK</span>
-        <span>eboracreative@gmail.com</span>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <p>© 2026 Elif Bora</p>
-    </div>
+  <footer class="site-footer">
+    <span>&copy; 2026 Elif Bora</span>
   </footer>
 
-  <script>
-    function positionAt(slider, trackIndex, instant) {
-      const track = slider.querySelector(".slider-track");
-      const slideWidth = slider.offsetWidth;
-      const offset = -trackIndex * slideWidth;
-      if (instant) {
-        track.style.transition = "none";
-        track.style.transform = "translateX(" + offset + "px)";
-        track.offsetHeight;
-        track.style.transition = "";
-      } else {
-        track.style.transform = "translateX(" + offset + "px)";
-      }
+</div>
+
+<script>
+  function positionAt(slider, trackIndex, instant) {
+    const track = slider.querySelector(".slider-track");
+    const allSlides = track.querySelectorAll(".slide");
+    const slideWidth = allSlides[trackIndex] ? allSlides[trackIndex].offsetWidth : allSlides[0].offsetWidth;
+    const gap = 0;
+    const offset = -trackIndex * (slideWidth + gap);
+    if (instant) {
+      track.style.transition = "none";
+      track.style.transform = "translateX(" + offset + "px)";
+      track.offsetHeight;
+      track.style.transition = "";
+    } else {
+      track.style.transform = "translateX(" + offset + "px)";
     }
+  }
 
-    function updateActive(slider, realIndex) {
-      const track = slider.querySelector(".slider-track");
-      let dotsEl = slider.nextElementSibling;
-      while (dotsEl && !dotsEl.classList.contains("slider-dots")) dotsEl = dotsEl.nextElementSibling;
-      if (dotsEl) {
-        dotsEl.querySelectorAll(".dot").forEach(function (d, i) { d.classList.toggle("active", i === realIndex); });
-      }
-      track.dataset.current = realIndex;
-    }
-
-    function goToSlide(slider, realIndex, instant) {
-      positionAt(slider, realIndex + 1, instant);
-      updateActive(slider, realIndex);
-    }
-
-    function initSlider(slider) {
-      const track = slider.querySelector(".slider-track");
-      if (track.dataset.real) return;
-      const realSlides = Array.from(track.querySelectorAll(".slide"));
-      const n = realSlides.length;
-      if (n < 1) return;
-      const firstClone = realSlides[0].cloneNode(true);
-      const lastClone = realSlides[n - 1].cloneNode(true);
-      firstClone.classList.add("clone");
-      lastClone.classList.add("clone");
-      track.appendChild(firstClone);
-      track.insertBefore(lastClone, realSlides[0]);
-      track.dataset.real = n;
-      track.dataset.current = "0";
-      track.dataset.animating = "0";
-      positionAt(slider, 1, true);
-    }
-
-    function moveSlide(btn, dir) {
-      const slider = btn.closest(".slider");
-      const track = slider.querySelector(".slider-track");
-      if (track.dataset.animating === "1") return;
-      const n = parseInt(track.dataset.real || "0");
-      const current = parseInt(track.dataset.current || "0");
-      const next = current + dir;
-
-      if (next >= 0 && next < n) {
-        goToSlide(slider, next, false);
-      } else {
-        track.dataset.animating = "1";
-        const cloneIndex = next >= n ? n + 1 : 0;
-        positionAt(slider, cloneIndex, false);
-        track.addEventListener("transitionend", function handler() {
-          track.removeEventListener("transitionend", handler);
-          goToSlide(slider, next >= n ? 0 : n - 1, true);
-          track.dataset.animating = "0";
-        }, { once: true });
-      }
-    }
-
-    document.querySelectorAll(".slider").forEach(function (slider) {
-      requestAnimationFrame(function () { initSlider(slider); });
-      let dotsEl = slider.nextElementSibling;
-      while (dotsEl && !dotsEl.classList.contains("slider-dots")) dotsEl = dotsEl.nextElementSibling;
-      if (dotsEl) {
-        dotsEl.querySelectorAll(".dot").forEach(function (dot, i) {
-          dot.addEventListener("click", function () { goToSlide(slider, i, false); });
-        });
-      }
+  function updateActive(slider, realIndex) {
+    const track = slider.querySelector(".slider-track");
+    track.querySelectorAll(".slide:not(.clone)").forEach(function (s, i) {
+      s.classList.toggle("active", i === realIndex);
     });
+    let dotsEl = slider.nextElementSibling;
+    while (dotsEl && !dotsEl.classList.contains("slider-dots")) dotsEl = dotsEl.nextElementSibling;
+    if (dotsEl) {
+      dotsEl.querySelectorAll(".dot").forEach(function (d, i) { d.classList.toggle("active", i === realIndex); });
+    }
+    track.dataset.current = realIndex;
+  }
 
-    window.addEventListener("resize", function () {
-      document.querySelectorAll(".slider").forEach(function (slider) {
-        const current = parseInt(slider.querySelector(".slider-track").dataset.current || "0");
-        goToSlide(slider, current, true);
+  function goToSlide(slider, realIndex, instant) {
+    positionAt(slider, realIndex + 1, instant);
+    updateActive(slider, realIndex);
+  }
+
+  function initSlider(slider) {
+    const track = slider.querySelector(".slider-track");
+    if (track.dataset.real) return;
+    const realSlides = Array.from(track.querySelectorAll(".slide"));
+    const n = realSlides.length;
+    if (n < 1) return;
+    const firstClone = realSlides[0].cloneNode(true);
+    const lastClone = realSlides[n - 1].cloneNode(true);
+    firstClone.classList.add("clone");
+    lastClone.classList.add("clone");
+    track.appendChild(firstClone);
+    track.insertBefore(lastClone, realSlides[0]);
+    track.dataset.real = n;
+    track.dataset.current = "0";
+    track.dataset.animating = "0";
+    positionAt(slider, 1, true);
+    realSlides[0].classList.add("active");
+  }
+
+  function moveSlide(btn, dir) {
+    const slider = btn.closest(".slider");
+    const track = slider.querySelector(".slider-track");
+    if (track.dataset.animating === "1") return;
+    const n = parseInt(track.dataset.real || "0");
+    const current = parseInt(track.dataset.current || "0");
+    const next = current + dir;
+
+    if (next >= 0 && next < n) {
+      goToSlide(slider, next, false);
+    } else {
+      track.dataset.animating = "1";
+      const allSlides = Array.from(track.querySelectorAll(".slide"));
+      const cloneIndex = next >= n ? n + 1 : 0;
+      allSlides.forEach(function (s, i) { s.classList.toggle("active", i === cloneIndex); });
+      positionAt(slider, cloneIndex, false);
+      track.addEventListener("transitionend", function handler() {
+        track.removeEventListener("transitionend", handler);
+        goToSlide(slider, next >= n ? 0 : n - 1, true);
+        track.dataset.animating = "0";
+      }, { once: true });
+    }
+  }
+
+  document.querySelectorAll(".slider").forEach(function (slider) {
+    requestAnimationFrame(function () {
+      initSlider(slider);
+      slider.querySelectorAll("img").forEach(function (img) {
+        img.addEventListener("load", function () {
+          const current = parseInt(slider.querySelector(".slider-track").dataset.current || "0");
+          goToSlide(slider, current, true);
+        });
       });
     });
+    let dotsEl = slider.nextElementSibling;
+    while (dotsEl && !dotsEl.classList.contains("slider-dots")) dotsEl = dotsEl.nextElementSibling;
+    if (dotsEl) {
+      dotsEl.querySelectorAll(".dot").forEach(function (dot, i) {
+        dot.addEventListener("click", function () { goToSlide(slider, i, false); });
+      });
+    }
+  });
 
-    document.querySelector(".nav-burger").addEventListener("click", function () {
-      document.querySelector(".nav-links").classList.toggle("open");
+  window.addEventListener("resize", function () {
+    document.querySelectorAll(".slider").forEach(function (slider) {
+      const current = parseInt(slider.querySelector(".slider-track").dataset.current || "0");
+      goToSlide(slider, current, true);
     });
-  </script>
+  });
+</script>
 
+
+<script>
+(function () {
+  var header = document.querySelector('.site-header');
+  var lastY = window.scrollY;
+  var ticking = false;
+  window.addEventListener('scroll', function () {
+    if (ticking) return;
+    ticking = true;
+    window.requestAnimationFrame(function () {
+      var y = window.scrollY;
+      if (y > lastY && y > 80) {
+        header.classList.add('is-hidden');
+      } else {
+        header.classList.remove('is-hidden');
+      }
+      lastY = y;
+      ticking = false;
+    });
+  }, { passive: true });
+})();
+</script>
 </body>
-
 </html>

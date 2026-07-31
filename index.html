@@ -4,1817 +4,436 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Elif Bora — Visual Designer &amp; Computational Artist</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://use.typekit.net/ngv0pic.css">
-  <link href="https://fonts.googleapis.com/css2?family=Bitter:wght@300;400;500;700;800;900&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
     /* ── RESET ── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { overflow-x: hidden; scrollbar-width: none; -ms-overflow-style: none; scroll-snap-type: y mandatory; }
-    html::-webkit-scrollbar { display: none; }
 
     :root {
-      --bg:         #1E1E1E;
-      --accent-deep: #1D1E97;
-      --panel-grad: linear-gradient(160deg, rgba(130,130,130,0.32) 0%, rgba(15,15,15,0.5) 100%);
-      --sidebar-w:  168px;
-      --sidebar-w-collapsed: 76px;
-      --text:       #e2e2e2;
-      --muted:      #D9D9D9;
-      --muted2:     #A5A5A5;
-      --green:      #96F037;
-      --blue:       #7D7FF2;
-      --tag-green:  #B1F16D;
-      --tag-blue:   #7D7FF2;
-      --panel:      #262626;
-      --panel-border: #5A5858;
+      --bg:      #000;
+      --panel:   #1e1e1e;
+      --text:    #ffffff;
+      --muted:   #d9d9d9;
+      --muted2:  #a5a5a5;
+      --accent:  #96f037;
+      --radius:  15px;
+      --content-w: 1586px;
     }
 
     body {
-      position: relative;
-      background:
-        radial-gradient(ellipse 55% 26% at 66% 10%,   rgba(56,57,143,0.32), rgba(93,95,239,0.22) 40%, transparent 72%),
-        radial-gradient(ellipse 56% 24% at 16% 25%, rgba(143,98,56,0.30), rgba(239,164,93,0.20) 40%, transparent 72%),
-        radial-gradient(ellipse 90% 45% at 70% 42%,  rgba(101,143,56,0.30), rgba(185,242,125,0.22) 40%, transparent 72%),
-        radial-gradient(ellipse 70% 30% at 20% 85%,   rgba(143,98,56,0.28), rgba(239,164,93,0.19) 40%, transparent 72%),
-        radial-gradient(ellipse 67% 40% at 60% 70%, rgba(56,57,143,0.28), rgba(93,95,239,0.20) 40%, transparent 72%),
-        radial-gradient(ellipse 52% 16% at 135% 113%, rgba(101,143,56,0.28), rgba(185,242,125,0.20) 40%, transparent 72%),
-        var(--bg);
-      background-color: var(--bg);
+      background: var(--bg);
       color: var(--text);
-      font-family: 'Bitter', serif;
-      font-size: 16px;
-      line-height: 1.6;
+      font-family: 'urbane', sans-serif;
+      font-weight: 300;
       -webkit-font-smoothing: antialiased;
-      overflow-x: hidden;
-    }
-    body::after {
-      content: '';
-      position: fixed;
-      inset: 0;
-      z-index: 0;
-      pointer-events: none;
-      opacity: 0.05;
-      mix-blend-mode: overlay;
-      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
-      background-size: 100% 100%;
-      background-repeat: no-repeat;
     }
 
     a { color: inherit; text-decoration: none; }
 
-    /* ── SIDEBAR ── */
-    .sidebar {
-      position: fixed;
-      top: 0; left: 0;
-      width: var(--sidebar-w-collapsed);
-      height: 100vh;
-      z-index: 100;
-      display: flex;
-      flex-direction: column;
-      padding: 84px 0 72px 0;
-      border-radius: 0 24px 24px 0;
-      overflow: hidden;
-      transition: width 0.35s ease;
-    }
-    .sidebar.is-expanded {
-      width: var(--sidebar-w);
-    }
-    .sidebar::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: var(--panel-grad);
-      mix-blend-mode: multiply;
-      pointer-events: none;
-      z-index: 0;
-    }
-    .sidebar > * { position: relative; z-index: 1; }
-
-    /* Logo */
-    .logo {
-      font-family: 'urbane', sans-serif;
-      font-weight: 100;
-      font-size: 2.9rem;
-      color: #fff;
-      letter-spacing: -0.09em;
-      line-height: 1;
-      flex-shrink: 0;
-      display: flex;
-      align-items: baseline;
-      justify-content: center;
-    }
-    /* collapsed: shows as a cursor-like "|"; expanded: becomes the actual "l" in "elif" */
-    .logo .pipe {
-      font-weight: 300;
-      color: var(--green);
-    }
-    .logo .pipe::before {
-      content: "|";
-    }
-    .sidebar.is-expanded .logo .pipe::before {
-      content: "l";
-    }
-    .logo-if {
-      display: inline-block;
-      max-width: 80px;
-      opacity: 1;
-      overflow: hidden;
-      white-space: nowrap;
-      line-height: 1.3;
-      padding-bottom: 0.1em;
-      transition: max-width 0.3s ease, opacity 0.2s ease;
-    }
-    .sidebar:not(.is-expanded) .logo-if { max-width: 0; opacity: 0; }
-
-    /* Nav */
-    .dot-nav {
-      display: flex;
-      flex-direction: column;
-      margin-top: auto;
-      margin-bottom: auto;
-      padding-left: 30px;
-      transition: padding-left 0.35s ease;
-    }
-    .sidebar.is-expanded .dot-nav { padding-left: 22px; }
-
-    /* connector lines */
-    .dot-seg {
-      width: 1px;
-      height: 24px;
-      margin-left: 21px;
-      background: var(--muted2);
+    .page-inner {
+      max-width: var(--content-w);
+      margin: 0 auto;
+      padding: 0 clamp(24px, 6vw, 95px);
     }
 
-    .dot-item {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      cursor: pointer;
-      padding: 0;
-      transition: gap 0.3s ease;
-    }
-    .sidebar:not(.is-expanded) .dot-item { gap: 0; }
-
-    .dot {
-      width: 16px; height: 16px;
-      border-radius: 50%;
-      border: 2px solid var(--muted);
-      flex-shrink: 0;
-      background: transparent;
-      transition: border-color 0.25s, background 0.25s, box-shadow 0.25s;
-    }
-
-    .dot-lbl {
-      display: inline-block;
-      max-width: 140px;
-      opacity: 1;
-      overflow: hidden;
-      white-space: nowrap;
-      font-family: 'urbane', sans-serif;
-      font-weight: 300;
-      font-size: 21px;
-      color: var(--muted);
-      letter-spacing: 0.01em;
-      transition: color 0.25s, font-weight 0.25s, max-width 0.3s ease, opacity 0.2s ease;
-    }
-    .sidebar:not(.is-expanded) .dot-lbl { max-width: 0; opacity: 0; }
-
-    /* active state */
-    .dot-item.active .dot {
-      border-color: var(--green);
-      background: var(--green);
-      box-shadow: 0 0 8px rgba(150,240,55,0.5);
-    }
-    .dot-item.active .dot-lbl { color: #a8ef5d; font-weight: 500; }
-
-    /* standalone down-arrow above the resume pill */
-    .resume-arrow {
-      display: block;
-      margin: 10px 0 0 16px;
-      width: 11px;
-      color: var(--muted2);
-    }
-
-    /* resume pill button */
-    .resume-btn {
-      margin-top: 8px;
-      width: fit-content;
-      padding: 8px 18px;
-      display: flex;
-      align-items: center;
-      border: 1px solid var(--muted2);
-      border-radius: 15px;
-      font-family: 'urbane', sans-serif;
-      font-weight: 300;
-      font-size: 21px;
-      color: var(--muted2);
-      transition: border-color 0.25s, color 0.25s, padding 0.3s ease, max-width 0.3s ease, opacity 0.2s ease;
-    }
-    .sidebar:not(.is-expanded) .resume-btn {
-      max-width: 0;
-      opacity: 0;
-      padding: 0;
-      margin-top: 0;
-      border-color: transparent;
-      overflow: hidden;
-    }
-    .resume-lbl {
-      display: inline-block;
-      max-width: 80px;
-      opacity: 1;
-      overflow: hidden;
-      white-space: nowrap;
-      transition: max-width 0.3s ease, opacity 0.2s ease;
-    }
-    .sidebar:not(.is-expanded) .resume-lbl { max-width: 0; opacity: 0; }
-    .resume-btn:hover {
-      border-color: var(--green);
-      color: var(--green);
-    }
-
-    .copyright {
-      font-family: 'Inter', sans-serif;
-      font-size: 15px;
-      font-weight: 300;
-      color: var(--muted);
-      line-height: 1.55;
-      padding-left: 22px;
-      opacity: 1;
-      max-height: 60px;
-      overflow: hidden;
-      transition: opacity 0.25s ease, max-height 0.3s ease, padding-left 0.3s ease;
-    }
-    .sidebar:not(.is-expanded) .copyright {
-      opacity: 0;
-      max-height: 0;
-      padding-left: 0;
-    }
-
-    /* ── MAIN ── */
-    .main-content {
-      margin-left: 0;
-      position: relative;
-      z-index: 1;
-    }
-
-    /* ── SECTION BASE ── */
-    .section {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 80px 60px;
-      position: relative;
-      overflow: hidden;
-      scroll-snap-align: start;
-      scroll-snap-stop: always;
-    }
-
-    /* ── CARD ── */
-    .card {
-      position: relative;
-      border-radius: 15px;
-      overflow: hidden;
-    }
-    .card::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: var(--panel-grad);
-      mix-blend-mode: overlay;
-      pointer-events: none;
-      z-index: 0;
-    }
-    .card > * { position: relative; z-index: 1; }
-
-    /* ── HEADING MOTIF ── */
-    .hd {
-      font-family: 'urbane', sans-serif;
-      font-size: 2.6rem;
-      font-weight: 700;
-      color: #fff;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      line-height: 1;
-    }
-
-    /* ── HI ── */
-    .section-hi { overflow: visible; }
-
-    .pill-field {
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      width: 1418px;
-      height: 1278px;
-      transform: translate(calc(-50% - 25px), calc(-50% - 25px)) rotate(-30.7deg);
-      z-index: 0;
-    }
-    .pill {
-      position: absolute;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 13px 38px;
-      border-radius: 999px;
-      border: none;
-      background: rgba(255,255,255,0.01);
-      color: var(--pc);
-      font-family: 'urbane', sans-serif;
-      font-weight: 100;
-      font-size: 40px;
-      white-space: nowrap;
-      cursor: pointer;
-      box-shadow: inset 5px 5px 15px 2px rgba(0,0,0,0.25);
-      transition: background 0.25s, color 0.25s, box-shadow 0.25s, font-weight 0.1s;
-    }
-    .pill.b { --pc: #bebff9; }
-    .pill.g { --pc: #a8ef5d; }
-    .pill.b:hover, .pill.b.active {
-      background: var(--tag-blue);
-      color: #fff;
-      font-weight: 600;
-      box-shadow: inset 5px -10px 15px rgba(0,0,0,0.25);
-    }
-    .pill.g:hover, .pill.g.active {
-      background: var(--tag-green);
-      color: #1e1e1e;
-      font-weight: 600;
-      box-shadow: inset 5px -10px 15px rgba(0,0,0,0.25);
-    }
-
-    .hi-copy {
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      transform: translate(-50%, -50%) rotate(-30deg);
-      z-index: 1;
-      width: 552px;
-      pointer-events: none;
-    }
-    .hi-line {
-      display: block;
-      text-align: center;
-      white-space: nowrap;
-      font-family: 'urbane', sans-serif;
-      font-weight: 300;
-      font-size: 45px;
-      line-height: 45px;
-      color: #fff;
-    }
-    .hi-line + .hi-line { margin-top: 26px; }
-    .hi-line.hi-first {
-      font-size: 90px;
-      line-height: 75px;
-      margin-top: 0;
-    }
-    .hi-line .hi-hi { font-weight: 700; }
-    .hi-line .hi-name { font-size: 45px; font-weight: 300; }
-
-    /* ── WORKS ── */
-    .section-works {
-      height: 100vh;
-      min-height: 0;
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-start;
-      padding: 40px 60px 24px;
-    }
-
-    .card-works {
-      position: relative;
-      width: min(1363px, 96%);
-      flex: 1 1 auto;
-      min-height: 0;
-      padding: 24px 70px 32px;
-      display: flex;
-      flex-direction: column;
-      background: none;
-      border: none;
-      box-shadow: none;
-      overflow: visible;
-    }
-    .card-works::before { content: none; }
-
-    .works-filter-row {
-      position: relative;
-      z-index: 5;
-      display: flex;
-      align-items: center;
-      justify-content: flex-end;
-      gap: 15px;
-      flex-shrink: 0;
-      margin-bottom: 24px;
-    }
-
-    /* collapsed = current masked/scrollable view; full = every project in normal page flow */
-    .works-expand-toggle {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      height: 35px;
-      padding: 5px 21px;
-      border-radius: 21px;
-      border: none;
-      cursor: pointer;
-      background: #3f3f3f;
-      color: #fff;
-      font-family: 'urbane', sans-serif;
-      font-weight: 500;
-      font-size: 21px;
-      white-space: nowrap;
-      box-shadow: inset -5px -5px 20px rgba(0,0,0,0.1);
-      transition: color 0.2s ease;
-    }
-    .works-expand-toggle:hover, .works-expand-toggle:focus-visible { color: var(--green); }
-    .works-expand-icon { width: 14px; height: 8px; flex-shrink: 0; transition: transform 0.3s ease; }
-    .works-expand-toggle[aria-expanded="true"] .works-expand-icon { transform: rotate(180deg); }
-
-    /* full view: drop the viewport height cap and internal scroll so every project shows */
-    .section-works.is-full { height: auto; scroll-snap-align: none; }
-    .section-works.is-full .card-works { flex: 0 0 auto; height: auto; }
-    .section-works.is-full .works-viewport { overflow: visible; }
-    .section-works.is-full .works-list {
-      height: auto;
-      overflow: visible;
-      overscroll-behavior: auto;
-    }
-    .section-works.is-full .works-scrollbar,
-    .section-works.is-full .works-fade-top,
-    .section-works.is-full .works-fade-bottom {
-      display: none;
-    }
-
-    /* -- filter tab: default / expanded / active-chip states -- */
-    .works-filter {
-      position: relative;
-      display: inline-flex;
-      align-items: center;
-      gap: 15px;
-      padding: 5px 30px;
-      border-radius: 35px;
-      background: #3f3f3f;
-      box-shadow: inset -5px -5px 20px rgba(0,0,0,0.1);
-      flex-shrink: 0;
-    }
-    .filter-icon { width: 24px; height: 24px; color: #fff; flex-shrink: 0; }
-    .filter-toggle {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 35px;
-      padding: 5px 21px;
-      border-radius: 21px;
-      border: none;
-      cursor: pointer;
-      background: rgba(255,255,255,0.01);
-      box-shadow: inset 5px 5px 10px rgba(0,0,0,0.25);
-      font-family: 'urbane', sans-serif;
-      font-weight: 500;
-      font-size: 21px;
-      color: #fff;
-      white-space: nowrap;
-      transition: color 0.2s ease;
-    }
-    .filter-toggle:hover, .filter-toggle:focus-visible { color: var(--green); }
-
-    .filter-chip {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      height: 35px;
-      padding: 5px 8px 5px 18px;
-      border-radius: 21px;
-      border: none;
-      cursor: pointer;
-      background: var(--tag-green);
-      color: #1e1e1e;
-      font-family: 'urbane', sans-serif;
-      font-weight: 500;
-      font-size: 15px;
-      white-space: nowrap;
-      box-shadow: inset -5px -5px 10px rgba(0,0,0,0.15);
-    }
-    .filter-chip[hidden] { display: none; }
-    .filter-chip-x {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 18px; height: 18px;
-      border-radius: 50%;
-      background: rgba(30,30,30,0.28);
-      font-size: 0.65rem;
-      line-height: 1;
-    }
-
-    .filter-panel {
-      position: absolute;
-      top: calc(100% + 10px);
-      right: 0;
-      width: 260px;
-      max-height: 0;
-      opacity: 0;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 10px;
-      padding: 0 15px;
-      border-radius: 24px;
-      background: #3f3f3f;
-      box-shadow: inset 5px 5px 20px rgba(0,0,0,0.15), 0 20px 40px rgba(0,0,0,0.35);
-      pointer-events: none;
-      transition: max-height 0.35s ease, opacity 0.25s ease, padding 0.35s ease;
-      z-index: 10;
-    }
-    .works-filter.is-open .filter-panel {
-      max-height: 65vh;
-      opacity: 1;
-      padding: 15px;
-      overflow-y: auto;
-      pointer-events: auto;
-    }
-    .filter-option {
-      display: inline-flex;
-      align-items: center;
-      padding: 3px 5px;
-      border-radius: 15px;
-      border: none;
-      background: none;
-      cursor: pointer;
-      font-family: 'urbane', sans-serif;
-      font-weight: 300;
-      font-size: 15px;
-      color: #fff;
-      white-space: nowrap;
-      text-align: left;
-      transition: color 0.2s ease;
-    }
-    .filter-option:hover, .filter-option.active { color: var(--green); }
-
-    .proj-row.hidden { display: none; }
-
-    /* -- masked scroll viewport with top/bottom fade lines -- */
-    .works-viewport {
-      position: relative;
-      flex: 1 1 auto;
-      min-height: 0;
-      overflow: hidden;
-    }
-    .works-fade {
-      position: relative;
-      left: 50%;
-      right: auto;
-      width: calc(100vw - 220px);
-      transform: translateX(-50%);
-      height: 6px;
-      background: rgba(255,255,255,0.01);
-      z-index: 2;
-      pointer-events: none;
-    }
-    .works-fade-top {
-      flex-shrink: 0;
-      margin-bottom: 48px;
-      box-shadow: 0 15px 15px 25px rgba(0,0,0,0.25);
-    }
-    .works-fade-bottom {
-      position: absolute;
-      bottom: 0;
-      box-shadow: 0 -15px 15px 10px rgba(0,0,0,0.25);
-    }
-
-    .works-list {
-      height: 100%;
-      overflow-y: auto;
-      overscroll-behavior-y: contain;
-      padding-right: 12px;
-      margin-right: -12px;
-      scrollbar-width: none;
-    }
-    .works-list::-webkit-scrollbar { display: none; }
-
-    /* custom scrollbar, spans exactly the area between the two magenta lines.
-       positioned relative to .card-works (not .works-viewport) so it can sit
-       further right without being clipped by the viewport's vertical mask;
-       top/height are synced to the viewport's bounds via JS. */
-    .works-scrollbar {
-      position: absolute;
-      right: 50px;
-      width: 6px;
-      border-radius: 3px;
-      background: rgba(255,255,255,0.08);
-      z-index: 3;
-    }
-    .works-scrollbar-thumb {
-      position: absolute;
-      left: 0;
-      right: 0;
+    /* ── HEADER ── */
+    .site-header {
+      position: sticky;
       top: 0;
-      width: 6px;
-      border-radius: 3px;
-      background: var(--green);
-      cursor: grab;
-      touch-action: none;
+      z-index: 20;
+      background: var(--bg);
+      transform: translateY(0);
+      transition: transform 0.3s ease;
     }
-    .works-scrollbar-thumb:active { cursor: grabbing; }
-
-    .proj-row {
+    .site-header.is-hidden { transform: translateY(-100%); }
+    .site-header-inner {
+      max-width: var(--content-w);
+      margin: 0 auto;
       display: flex;
-      gap: 8px;
-      margin-bottom: 70px;
+      align-items: flex-end;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 20px;
+      padding: 28px clamp(24px, 6vw, 95px) 14px;
+      border-bottom: 1px solid rgba(255,255,255,0.25);
     }
-    .proj-row:last-child { margin-bottom: 0; }
-    .proj-row-duo {
-      display: flex;
-      gap: 15px;
-      margin-bottom: 75px;
+    .brand { display: flex; flex-direction: column; gap: 6px; }
+    .brand-name {
+      font-weight: 600;
+      font-size: 25px;
+      letter-spacing: 0.02em;
     }
-    .proj-row-duo:last-child { margin-bottom: 0; }
-    .proj-row-duo .proj-row { flex: 1 1 0; margin-bottom: 0; }
+    .brand-tag {
+      font-weight: 300;
+      font-style: italic;
+      font-size: 15px;
+      color: var(--muted2);
+    }
+    .site-nav { display: flex; flex-wrap: wrap; gap: 16px 48px; align-items: center; }
+    .site-nav a {
+      font-weight: 500;
+      font-size: 17px;
+      transition: color 0.2s ease;
+    }
+    .site-nav a:hover, .site-nav a:focus-visible { font-weight: 700; }
 
-    /* -- square layouts (L1 image-right / L3 image-left), row height 580 -- */
-    .wl-square-r, .wl-square-l, .wl-narrow-r, .wl-narrow-l { height: 580px; }
-    .wl-square-r .proj-card, .wl-square-l .proj-card { flex: 0 0 618px; padding: 50px 40px; }
-    .wl-square-r .proj-imgs, .wl-square-l .proj-imgs { flex: 1 1 auto; }
-    .wl-square-r .proj-card { border-radius: 60px 15px 15px 60px; }
-    .wl-square-r .proj-imgs { border-radius: 15px 60px 60px 15px; }
-    .wl-square-l .proj-card { border-radius: 15px 60px 60px 15px; }
-    .wl-square-l .proj-imgs { border-radius: 60px 15px 15px 60px; }
+    /* ── WORKS GRID ── */
+    .works-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      padding: 40px 0 80px;
+    }
+    @media (max-width: 860px) {
+      .works-grid { grid-template-columns: 1fr; }
+    }
 
-    /* -- narrow layouts (L4 info-left / L5 info-right), row height 580 -- */
-    .wl-narrow-r .proj-card, .wl-narrow-l .proj-card { flex: 0 0 350px; padding: 60px 32px; }
-    .wl-narrow-r .proj-imgs, .wl-narrow-l .proj-imgs { flex: 1 1 auto; }
-    .wl-narrow-r .proj-card { border-radius: 60px 15px 15px 60px; }
-    .wl-narrow-r .proj-imgs { border-radius: 15px 60px 60px 15px; }
-    .wl-narrow-l .proj-card { border-radius: 15px 60px 60px 15px; }
-    .wl-narrow-l .proj-imgs { border-radius: 60px 15px 15px 60px; }
-    .wl-narrow-r .proj-meta, .wl-narrow-l .proj-meta, .proj-row-duo .proj-meta { gap: 15px; }
-    .wl-narrow-r .mv, .wl-narrow-l .mv, .proj-row-duo .mv { white-space: normal; }
+    .g-square, .g-narrow { display: flex; height: 370px; }
+    .g-bar { display: flex; flex-direction: column; height: 370px; }
+    .g-duo { display: flex; gap: 16px; height: 370px; }
+    .g-duo-item { flex: 1 1 0; display: flex; flex-direction: column; }
 
-    /* -- bar layouts (L2 two images below / L6 one image below) -- */
-    .wl-bar-2img, .wl-bar-1img { flex-direction: column; }
-    .wl-bar-2img .proj-card, .wl-bar-1img .proj-card { border-radius: 60px 60px 15px 15px; padding: 40px 50px; }
-    .proj-imgs-row { display: flex; gap: 15px; height: 580px; }
-    .proj-imgs-row .proj-imgs { flex: 1 1 0; }
-    .proj-imgs-row .proj-imgs:first-child { border-radius: 15px 15px 15px 60px; }
-    .proj-imgs-row .proj-imgs:last-child { border-radius: 15px 15px 60px 15px; }
-    .wl-bar-1img .proj-imgs { border-radius: 15px 15px 60px 60px; height: 580px; }
+    .g-square, .g-narrow, .g-bar, .g-duo-item {
+      border-radius: var(--radius);
+      box-shadow: 0 0 0 0 rgba(255,255,255,0);
+      transition: box-shadow 0.2s ease;
+    }
+    .g-square:hover, .g-narrow:hover, .g-bar:hover, .g-duo-item:hover {
+      box-shadow: 0 0 0 1.5px rgba(255,255,255,0.85);
+    }
 
-    /* -- duo layout (L7, two half-width mini cards side by side) -- */
-    .proj-row-duo .proj-card { border-radius: 60px 60px 15px 15px; padding: 32px 40px; }
-    .proj-row-duo .proj-row { flex-direction: column; }
-    .proj-row-duo .proj-row:first-child .proj-imgs { border-radius: 15px 15px 15px 60px; }
-    .proj-row-duo .proj-row:last-child .proj-imgs { border-radius: 15px 15px 60px 15px; }
-    .proj-row-duo .proj-imgs { height: 580px; }
+    .row-split > :first-child { border-radius: var(--radius) 0 0 var(--radius); overflow: hidden; }
+    .row-split > :last-child  { border-radius: 0 var(--radius) var(--radius) 0; overflow: hidden; }
+    .col-split > .p-card      { border-radius: var(--radius) var(--radius) 0 0; overflow: hidden; }
+    .col-split > .p-media     { border-radius: 0 0 var(--radius) var(--radius); overflow: hidden; }
+    .p-media-row { display: flex; gap: 0; flex: 1 1 auto; min-height: 0; }
+    .p-media-row > .p-media { flex: 1 1 0; min-width: 0; }
+    .p-media-row > :only-child { border-radius: 0 0 var(--radius) var(--radius); overflow: hidden; }
+    .p-media-row > :first-child:not(:only-child) { border-radius: 0 0 0 var(--radius); overflow: hidden; }
+    .p-media-row > :last-child:not(:only-child)  { border-radius: 0 0 var(--radius) 0; overflow: hidden; }
 
-    .proj-card {
+    .g-narrow .p-card { flex: 0 0 33.333%; }
+    .g-narrow .p-media { flex: 1 1 66.667%; }
+    .g-square .p-card, .g-square .p-media { flex: 1 1 50%; }
+    .g-duo-item .p-card { flex: 0 0 140px; }
+    .g-duo-item .p-media { flex: 1 1 auto; min-height: 0; }
+
+    .p-card {
       position: relative;
-      background: none;
-      border: none;
-      padding: 40px;
+      background: var(--panel);
+      padding: 40px 30px;
       display: flex;
       flex-direction: column;
       justify-content: center;
-      gap: 20px;
-      overflow: hidden;
-      box-shadow: inset 10px 10px 20px 10px rgba(0,0,0,0.25);
+      gap: 15px;
+      box-shadow: inset 8px 8px 16px rgba(0,0,0,0.25);
     }
-    .proj-card::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: rgba(255,255,255,0.01);
-      mix-blend-mode: luminosity;
-      pointer-events: none;
-      z-index: 0;
-    }
-    .proj-card > * { position: relative; z-index: 1; }
-    .proj-title {
-      font-family: 'urbane', sans-serif;
-      font-size: 45px;
-      font-weight: 700;
-      color: #fff;
-      line-height: 1.1;
-      flex-shrink: 0;
-    }
-    .proj-meta-row { display: flex; align-items: flex-start; gap: 40px; flex-wrap: wrap; }
-    .proj-meta {
-      position: relative;
-      background: none;
-      border: none;
-      border-radius: 30px;
-      padding: 20px;
-      display: flex;
-      gap: 25px;
+    .g-bar .p-card {
+      flex: 0 0 140px;
+      flex-direction: row;
+      flex-wrap: nowrap;
       align-items: flex-start;
-      flex-shrink: 0;
+      gap: 18px;
+      padding: 24px 30px;
       overflow: hidden;
-      box-shadow: inset 10px 10px 20px 10px rgba(0,0,0,0.25);
     }
-    .proj-meta::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: rgba(255,255,255,0.01);
-      mix-blend-mode: luminosity;
-      pointer-events: none;
-      z-index: 0;
-    }
-    .proj-meta > * { position: relative; z-index: 1; }
-    .mkcol, .mvcol { display: flex; flex-direction: column; gap: 5px; }
-    .mk, .mv {
-      font-family: 'urbane', sans-serif;
-      font-weight: 300;
-      font-size: 21px;
-      line-height: 1.3;
-      color: var(--muted);
-      white-space: nowrap;
-    }
-    .proj-desc {
-      font-family: 'urbane', sans-serif;
-      font-weight: 100;
-      font-size: 21px;
-      color: var(--muted);
-      line-height: 1.35;
-      flex-shrink: 1;
-    }
-    .proj-desc b, .proj-desc strong { font-family: 'urbane', sans-serif; font-weight: 600; color: #fff; }
-    .proj-tags { display: flex; flex-wrap: wrap; align-content: flex-start; gap: 8px; flex-shrink: 0; }
-    .tag {
-      font-family: 'urbane', sans-serif;
-      font-size: 15px;
-      padding: 4px 14px;
-      border-radius: 15px;
-      font-weight: 300;
-      flex-shrink: 0;
-    }
-    .tb { background: rgba(93,95,239,0.5); color: #fff; }
-    .tg { background: rgba(168,239,93,0.5); color: #1e1e1e; }
+    .g-bar .p-title { flex: 0 1 150px; font-size: 22px; }
+    .g-bar .p-meta { flex: 0 0 150px; }
+    .g-bar .p-desc { flex: 1 1 160px; min-width: 110px; }
+    .g-bar .p-tags { flex: 0 1 115px; flex-direction: column; gap: 4px; }
+    .g-duo-item .p-card { padding: 32px 24px; }
 
-    .proj-imgs {
-      height: 100%;
-      border-radius: 60px;
-      border: none;
-      overflow: hidden;
-      display: block;
+    .p-title {
+      font-weight: 800;
+      font-size: 30px;
+      line-height: 1.15;
+      flex-shrink: 0;
     }
-    .proj-imgs img {
+    .p-meta {
+      display: flex;
+      gap: 20px;
+      font-size: 10px;
+    }
+    .mk-col, .mv-col { display: flex; flex-direction: column; gap: 5px; color: var(--muted); font-weight: 300; }
+    .p-desc {
+      font-weight: 300;
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.4;
+    }
+    .p-desc strong { font-weight: 600; color: var(--text); }
+    .p-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px 16px;
+      font-size: 9px;
+      font-style: italic;
+      color: var(--muted2);
+      font-weight: 300;
+    }
+
+    .p-media { overflow: hidden; display: block; }
+    .p-media img {
       width: 100%;
       height: 100%;
       object-fit: cover;
       display: block;
-      transition: opacity 0.3s;
+      transition: opacity 0.3s ease;
     }
-    .proj-imgs:hover img { opacity: 0.85; }
+    .p-media:hover img { opacity: 0.85; }
 
-    /* artemis_08.png is a circular design on a square canvas with black padding baked in;
-       object-fit: cover alone can't fill the corners without cropping into the circle */
+    /* artemis_08.png is a circular design on a square canvas with black padding baked
+       in; cover alone can't fill the corners without cropping into the circle */
     a[href="artemis.html"] img { transform: scale(1.65); }
 
-    /* kinopolis_08.png has the map tool's own "Layers" legend panel baked into the left
-       ~29% of the source image; default centered cover crop includes part of that legend
-       text, so shift the crop right to show clean map content instead */
-    img[src*="kinopolis_08"] { object-position: 90% 60%; }
-
-    /* ── ABOUT ── */
-    /* controls the gap between this section's content and the contact section below it,
-       independent of the shared .section padding (which affects every section) */
-    .section-about { overflow: visible; padding-bottom: 160px; }
-    .about-canvas {
-      position: relative;
-      width: 1427px;
-      height: 700px;
-      flex-shrink: 0;
-      margin-top: 175px;
-    }
-    .ab-el {
-      position: absolute;
-      transform: translate(-50%, -50%) rotate(var(--r, -30deg));
-      font-family: 'urbane', sans-serif;
-      color: #fff;
-      line-height: 1;
-      white-space: nowrap;
-    }
-    .ab-el.block { white-space: normal; }
-    .ab-hero { font-weight: 800; text-shadow: 5px 5px 10px rgba(0,0,0,0.25); }
-    .ab-med  { font-weight: 500; text-shadow: 5px 5px 10px rgba(0,0,0,0.25); }
-    .ab-light{ font-weight: 300; }
-    .ab-thin { font-weight: 100; }
-    .ab-sub  { font-size: 0.5em; }
-
-    .ab-pill {
-      position: absolute;
-      transform: translate(-50%, -50%) rotate(var(--r, -30deg));
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 5px 30px;
-      border-radius: 40px;
-      background: rgba(255,255,255,0.01);
-      box-shadow: inset 5px 5px 10px rgba(0,0,0,0.25);
-      font-family: 'urbane', sans-serif;
-      font-weight: 100;
-      white-space: nowrap;
-      cursor: pointer;
-      text-decoration: none;
-      transition: background 0.25s, color 0.25s, box-shadow 0.25s, font-weight 0.1s;
-    }
-    .ab-pill.skill { color: #b2f16e; font-size: 45px; }
-    .ab-pill.skill:hover, .ab-pill.skill:focus-visible {
-      background: #b1f16d; color: #1e1e1e; font-weight: 600;
-      box-shadow: inset -5px -5px 10px rgba(0,0,0,0.25);
-    }
-    .ab-pill.skill .ab-pill-hov { display: none; }
-    .ab-pill.skill:hover .ab-pill-def, .ab-pill.skill:focus-visible .ab-pill-def { display: none; }
-    .ab-pill.skill:hover .ab-pill-hov, .ab-pill.skill:focus-visible .ab-pill-hov { display: inline; }
-
-    .ab-pill.link { color: #bfc0f9; font-size: 30px; }
-    .ab-pill.link:hover, .ab-pill.link:focus-visible {
-      background: #bebff9; color: #1e1e1e; font-weight: 600;
-      box-shadow: inset -5px -5px 10px rgba(0,0,0,0.25);
-    }
-
-    /* ── TEMP REFERENCE GRID (remove before shipping) ── */
-    .ab-grid {
-      display: none;
-      position: absolute;
-      inset: 0;
-      overflow: hidden;
-      pointer-events: none;
-      z-index: 0;
-    }
-    .ab-grid-lines {
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      width: 1900px;
-      height: 1900px;
-      transform: translate(-50%, -50%) rotate(var(--gr, -30deg));
-      background-image: repeating-linear-gradient(to right, rgba(255,80,80,0.35) 0 1px, transparent 1px 50px);
-    }
-    .ab-grid-lines.gr-b {
-      --gr: 60deg;
-      background-image: repeating-linear-gradient(to right, rgba(80,220,255,0.35) 0 1px, transparent 1px 50px);
-    }
-    .ab-grid-origin {
-      position: absolute;
-      left: 50%; top: 50%;
-      width: 12px; height: 12px;
-      transform: translate(-50%, -50%);
-      border-radius: 50%;
-      background: #ff0;
-      box-shadow: 0 0 6px #ff0;
-    }
-    .ab-grid-label {
-      position: absolute;
-      left: 50%; top: 50%;
-      transform: translate(6px, -22px);
-      font-family: monospace;
-      font-size: 12px;
-      color: #ff0;
-      white-space: nowrap;
-    }
-
-    .ab-line {
-      position: absolute;
-      transform: translate(-50%, -50%) rotate(-30deg);
-      overflow: visible;
-      pointer-events: none;
-      z-index: 0;
-    }
-    /* shadow-casting copy: always fully opaque so the shadow renders at full strength,
-       filter drops its own SourceGraphic so only the shadow shows, never this stroke itself */
-    .ab-line .ab-line-cast {
-      fill: none;
-      stroke: #000;
-      stroke-width: 6;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-      filter: url(#ab-line-shadow);
-    }
-    /* visible copy: independent of the shadow, safe to make invisible (e.g. rgba(...,0.01)) */
-    .ab-line .ab-line-vis {
-      fill: none;
-      stroke:rgba(255,255,255,0.01);
-      stroke-opacity: 1;
-      stroke-width: 6;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-    }
-
-    /* ── CONTACT ── */
-    .section-contact { overflow: visible; }
-
-    .contact-visual {
-      position: relative;
-      width: min(1400px, 94%);
-      height: min(760px, 88vh);
-      transform: translate(-30px, 0px);
-    }
-
-    .contact-headline {
-      position: absolute;
-      transform-origin: left center;
-      transform: rotate(-30deg);
-      z-index: 0;
-      font-family: 'urbane', sans-serif;
-      font-weight: 700;
-      color: #fff;
-      white-space: nowrap;
-      pointer-events: none;
-    }
-    .contact-headline-1 {
-      left: 15%;
-      top: 5%;
-      font-size: 90px;
-      line-height: 75px;
-    }
-    .contact-headline-1 .ch-sub {
-      font-size: 60px;
-      display: block;
-      margin-top: 18px;
-    }
-    .contact-headline-2 {
-      right: -5%;
-      bottom: 12%;
-      font-size: 90px;
-      line-height: 75px;
-    }
-
-    .contact-pill-field {
-      position: absolute;
-      left: 60%;
-      top: 45%;
-      transform: translate(-50%, -50%) rotate(-30deg);
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 6px;
-      z-index: 1;
-    }
-    .c-pill {
-      display: inline-block;
-      padding: 13px 38px;
-      border-radius: 50px;
-      background: rgba(255,255,255,0.01);
-      box-shadow: inset 5px 5px 15px 2px rgba(0,0,0,0.25);
-      color: #fff;
-      font-family: 'urbane', sans-serif;
-      font-weight: 100;
-      font-size: 40px;
-      white-space: nowrap;
-      text-decoration: none;
-      cursor: pointer;
-      transform-origin: left center;
-      transform: rotate(0deg) scale(1);
-      transition: transform 0.35s ease, background 0.3s ease, color 0.3s ease, box-shadow 0.3s ease, font-weight 0.15s ease;
-    }
-    .c-pill:hover,
-    .c-pill:focus-visible {
-      transform: scale(1.08);
-      background: #e4e4e4;
-      color: #1e1e1e;
-      font-weight: 500;
-      box-shadow: inset 5px -6px 15px rgba(0,0,0,0.15);
-      z-index: 3;
-      position: relative;
-    }
-
-    .contact-rows {
-      position: absolute;
-      left: 8%;
-      top: 70%;
-      transform: translateY(-50%);
-      z-index: 2;
-      display: flex;
-      flex-direction: column;
-      gap: 31px;
-      pointer-events: none;
-    }
-    .contact-row {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      font-family: 'urbane', sans-serif;
+    /* ── FOOTER ── */
+    .site-footer {
+      border-top: 1px solid rgba(255,255,255,0.25);
+      padding: 20px 0 50px;
       font-weight: 300;
-      font-size: 1.9rem;
-      color: #fff;
-      text-decoration: none;
-      transition: color 0.25s ease;
+      font-size: 13px;
+      color: var(--muted2);
     }
-    .contact-row svg { flex-shrink: 0; width: 21px; height: 21px; stroke: currentColor; }
-    .contact-row:nth-child(1) { margin-left: 10px; }
-    .contact-row:nth-child(2) { margin-left: 30px; }
-    .contact-row:nth-child(3) { margin-left: 50px; }
-    .contact-row:nth-child(4) { margin-left: 140px; }
-    .contact-row:nth-child(5) { margin-left: 150px; }
-    .contact-row:nth-child(6) { margin-left: 240px; }
-    .contact-row:nth-child(7) { margin-left: 210px; }
 
-    /* row label glows to match whichever pill is active */
-    .contact-visual:has(.c-pill[data-key="email"]:hover) .contact-row[data-key="email"],
-    .contact-visual:has(.c-pill[data-key="email"]:focus-visible) .contact-row[data-key="email"],
-    .contact-visual:has(.c-pill[data-key="connect"]:hover) .contact-row[data-key="connect"],
-    .contact-visual:has(.c-pill[data-key="connect"]:focus-visible) .contact-row[data-key="connect"],
-    .contact-visual:has(.c-pill[data-key="download"]:hover) .contact-row[data-key="download"],
-    .contact-visual:has(.c-pill[data-key="download"]:focus-visible) .contact-row[data-key="download"],
-    .contact-visual:has(.c-pill[data-key="explore"]:hover) .contact-row[data-key="explore"],
-    .contact-visual:has(.c-pill[data-key="explore"]:focus-visible) .contact-row[data-key="explore"],
-    .contact-visual:has(.c-pill[data-key="reach"]:hover) .contact-row[data-key="reach"],
-    .contact-visual:has(.c-pill[data-key="reach"]:focus-visible) .contact-row[data-key="reach"],
-    .contact-visual:has(.c-pill[data-key="watch"]:hover) .contact-row[data-key="watch"],
-    .contact-visual:has(.c-pill[data-key="watch"]:focus-visible) .contact-row[data-key="watch"],
-    .contact-visual:has(.c-pill[data-key="location"]:hover) .contact-row[data-key="location"],
-    .contact-visual:has(.c-pill[data-key="location"]:focus-visible) .contact-row[data-key="location"] {
-      color: var(--green);
+    @media (max-width: 600px) {
+      .g-square, .g-narrow, .g-duo, .g-duo-item, .g-bar { height: auto; flex-direction: column; }
+      .row-split > *, .col-split > * { border-radius: var(--radius) !important; }
+      .g-square .p-media, .g-narrow .p-media, .g-duo-item .p-media { flex: 0 0 220px; }
+      .g-square .p-card, .g-narrow .p-card, .g-duo-item .p-card { flex: 0 0 auto; }
+      .g-bar .p-card { flex: 0 0 auto; flex-direction: column; overflow: visible; }
+      .g-bar .p-title, .g-bar .p-meta, .g-bar .p-desc, .g-bar .p-tags { flex: 0 0 auto; }
+      .p-media-row { flex: 0 0 220px; }
     }
   </style>
 </head>
 <body>
 
-<!-- ── SIDEBAR ── -->
-<aside class="sidebar">
-  <div class="logo" aria-label="elif">e<span class="pipe" aria-hidden="true"></span><span class="logo-if" aria-hidden="true">if</span></div>
-
-  <nav class="dot-nav">
-    <a href="#hi" class="dot-item active" data-section="hi">
-      <span class="dot"></span>
-      <span class="dot-lbl">hi</span>
-    </a>
-    <div class="dot-seg"></div>
-
-    <a href="#works" class="dot-item" data-section="works">
-      <span class="dot"></span>
-      <span class="dot-lbl">works</span>
-    </a>
-    <div class="dot-seg"></div>
-
-    <a href="#about" class="dot-item" data-section="about">
-      <span class="dot"></span>
-      <span class="dot-lbl">about</span>
-    </a>
-    <div class="dot-seg"></div>
-
-    <a href="#contact" class="dot-item" data-section="contact">
-      <span class="dot"></span>
-      <span class="dot-lbl">contact</span>
-    </a>
-
-    <div class="dot-seg"></div>
-    <span class="resume-arrow" aria-hidden="true">
-      <svg width="11" height="11" viewBox="0 0 11 11" fill="none">
-        <path d="M5.5 0.5V7M5.5 7L3 4.5M5.5 7L8 4.5" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
-        <path d="M1 9H10" stroke="currentColor" stroke-width="1" stroke-linecap="round"/>
-      </svg>
-    </span>
-    <a href="Bora_CV.pdf" class="resume-btn" target="_blank">
-      <span class="resume-lbl">resume</span>
-    </a>
-  </nav>
-
-  <div class="copyright">© 2026<br>Elif Bora</div>
-</aside>
-
-<!-- ── MAIN ── -->
-<main class="main-content">
-
-  <!-- ── HI ── -->
-  <section id="hi" class="section section-hi">
-    <div class="pill-field" aria-hidden="false">
-      <span class="pill b" data-filter="Projection Mapping" style="left:502px; top:1006px;">Projection Mapping</span>
-      <span class="pill b" data-filter="Audiovisual Art" style="left:914px; top:486px;">Audiovisual Art</span>
-      <span class="pill b" data-filter="3D Modelling and Animation" style="left:271px; top:278px;">3D Modelling and Animation</span>
-      <span class="pill b" data-filter="Machine Learning" style="left:331px; top:174px;">Machine Learning</span>
-      <span class="pill b" data-filter="Spatial Data Visualization" style="left:663px; top:902px;">Spatial Data Visualisation</span>
-      <span class="pill b" data-filter="Interactive Art" style="left:91px; top:590px;">Interactive Art</span>
-      <span class="pill b" data-filter="Infographics" style="left:1069px; top:694px;">Infographics</span>
-      <span class="pill b" data-filter="Game Developement" style="left:665px; top:1110px;">Game Developement</span>
-      <span class="pill b" data-filter="Game Design" style="left:423px; top:382px;">Game Design</span>
-      <span class="pill b" data-filter="UI/UX Design" style="left:136px; top:798px;">UI/UX Design</span>
-      <span class="pill b" data-filter="Graphic Design" style="left:155px; top:486px;">Graphic Design</span>
-
-      <span class="pill g" data-filter="Figma" style="left:394px; top:70px;">Figma</span>
-      <span class="pill g" data-filter="QGIS" style="left:914px; top:1214px;">QGIS</span>
-      <span class="pill g" data-filter="Unity" style="left:1033px; top:1006px;">Unity</span>
-      <span class="pill g" data-filter="TouchDesigner" style="left:1069px; top:590px;">TouchDesigner</span>
-      <span class="pill g" data-filter="p5.js" style="left:210px; top:382px;">p5.js</span>
-      <span class="pill g" data-filter="Three.js" style="left:1103px; top:798px;">Three.js</span>
-      <span class="pill g" data-filter="Arduino IDE" style="left:800px; top:382px;">Arduino IDE</span>
-      <span class="pill g" data-filter="Python" style="left:845px; top:798px;">Python</span>
-      <span class="pill g" data-filter="Blender" style="left:331px; top:902px;">Blender</span>
-      <span class="pill g" data-filter="Adobe Creative Suite" style="left:34px; top:694px;">Adobe Creative Suite</span>
-    </div>
-
-    <div class="hi-copy">
-      <p class="hi-line hi-first" style="transform:translateX(0)"><span class="hi-hi">Hi!</span> <span class="hi-name">I'm Elif.</span></p>
-      <p class="hi-line" style="transform:translateX(-5px)">I am a computational</p>
-      <p class="hi-line" style="transform:translateX(67px)">artist & visual designer</p>
-      <p class="hi-line" style="transform:translateX(85px)">with a multidisciplinary</p>
-      <p class="hi-line" style="transform:translateX(-60px)">background.</p>
-    </div>
-  </section>
-
-  <!-- ── WORKS ── -->
-  <section id="works" class="section section-works">
-   <div class="card card-works">
-    <div class="works-filter-row">
-      <button class="works-expand-toggle" id="works-expand-toggle" type="button" aria-expanded="false">
-        <span class="works-expand-label">Show all</span>
-        <svg class="works-expand-icon" viewBox="0 0 14 8" fill="none" aria-hidden="true">
-          <path d="M1 1L7 7L13 1" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </button>
-      <div class="works-filter" id="works-filter">
-        <button class="filter-chip" id="filter-chip" type="button" hidden>
-          <span id="filter-chip-label"></span>
-          <span class="filter-chip-x" aria-hidden="true">✕</span>
-        </button>
-        <svg class="filter-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-          <line x1="4" y1="7" x2="20" y2="7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
-          <circle cx="9" cy="7" r="2.1" fill="currentColor"/>
-          <line x1="4" y1="12" x2="20" y2="12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
-          <circle cx="15" cy="12" r="2.1" fill="currentColor"/>
-          <line x1="4" y1="17" x2="20" y2="17" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
-          <circle cx="11" cy="17" r="2.1" fill="currentColor"/>
-        </svg>
-        <button class="filter-toggle" id="filter-toggle" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="filter-panel">Filter</button>
-        <div class="filter-panel" id="filter-panel" role="listbox" aria-label="Filter works by tag">
-          <button class="filter-option" type="button" data-filter="Spatial Data Visualization">Spatial Data Visualization</button>
-          <button class="filter-option" type="button" data-filter="Projection Mapping">Projection Mapping</button>
-          <button class="filter-option" type="button" data-filter="Audiovisual Art">Audiovisual Art</button>
-          <button class="filter-option" type="button" data-filter="3D Modelling and Animation">3D Modelling and Animation</button>
-          <button class="filter-option" type="button" data-filter="Game Developement">Game Developement</button>
-          <button class="filter-option" type="button" data-filter="Graphic Design">Graphic Design</button>
-          <button class="filter-option" type="button" data-filter="Infographics">Infographics</button>
-          <button class="filter-option" type="button" data-filter="Interactive Art">Interactive Art</button>
-          <button class="filter-option" type="button" data-filter="Game Design">Game Design</button>
-          <button class="filter-option" type="button" data-filter="Machine Learning">Machine Learning</button>
-          <button class="filter-option" type="button" data-filter="UI/UX Design">UI/UX Design</button>
-          <button class="filter-option" type="button" data-filter="TouchDesigner">TouchDesigner</button>
-          <button class="filter-option" type="button" data-filter="Blender">Blender</button>
-          <button class="filter-option" type="button" data-filter="Figma">Figma</button>
-          <button class="filter-option" type="button" data-filter="Adobe Creative Suite">Adobe Creative Suite</button>
-          <button class="filter-option" type="button" data-filter="Unity">Unity</button>
-          <button class="filter-option" type="button" data-filter="QGIS">QGIS</button>
-          <button class="filter-option" type="button" data-filter="Python">Python</button>
-          <button class="filter-option" type="button" data-filter="Three.js">Three.js</button>
-          <button class="filter-option" type="button" data-filter="Arduino IDE">Arduino IDE</button>
-          <button class="filter-option" type="button" data-filter="p5.js">p5.js</button>
-        </div>
+<header class="site-header" id="top">
+  <div class="site-header-inner">
+      <div class="brand">
+        <span class="brand-name">ELIF BORA</span>
+        <span class="brand-tag">creative technologist | visual designer</span>
       </div>
-    </div>
+      <nav class="site-nav">
+        <a href="#top">WORKS</a>
+        <a href="about.html">ABOUT/CONTACT</a>
+        <a href="Bora_CV.pdf" target="_blank" rel="noopener">RESUME</a>
+      </nav>
+  </div>
+</header>
 
-    <div class="works-fade works-fade-top" aria-hidden="true"></div>
-    <div class="works-viewport">
-    <div class="works-list">
+<div class="page-inner">
+
+  <main class="works-grid">
+
     <!-- Coral Stories -->
-    <div class="proj-row wl-square-r">
-      <div class="proj-card">
-        <h3 class="proj-title">Coral Stories</h3>
-        <div class="proj-meta">
-          <div class="mkcol">
-            <span class="mk">Year:</span>
-            <span class="mk">Company:</span>
-            <span class="mk">Collaborators:</span>
-          </div>
-          <div class="mvcol">
-            <span class="mv">2026</span>
-            <span class="mv">Aura Collective</span>
-            <span class="mv">Ceci Gonzalez</span>
-            <span class="mv">Bam</span>
-            <span class="mv">Pearl</span>
-            <span class="mv">Iman Idris</span>
-          </div>
+    <a class="g-square row-split" href="coralstories.html">
+      <div class="p-card">
+        <h3 class="p-title">Coral Stories</h3>
+        <div class="p-meta">
+          <div class="mk-col"><span>Year:</span><span>Company:</span><span>Collaborators:</span></div>
+          <div class="mv-col"><span>2026</span><span>Aura Collective</span><span>Ceci Gonzalez, Bam, Pearl, Iman Idris</span></div>
         </div>
-        <p class="proj-desc">Projection mapping project onto Dissney Hub, proposal submission for OFFF Barcelona 2026.Exploring the tension between the Anthropocene and the natural world.</p>
-        <div class="proj-tags">
-          <span class="tag tb">Projection Mapping</span>
-          <span class="tag tb">3D Modelling and Animation</span>
-          <span class="tag tg">TouchDesigner</span>
-          <span class="tag tg">Blender</span>
+        <p class="p-desc">Projection mapping project onto Dissney Hub, proposal submission for OFFF Barcelona 2026. Exploring the tension between the Anthropocene and the natural world.</p>
+        <div class="p-tags">
+          <span>Projection Mapping</span><span>3D Modelling and Animation</span><span>TouchDesigner</span><span>Blender</span>
         </div>
       </div>
-      <a class="proj-imgs" href="coralstories.html"><img src="images/coral_stories/coral_stories_04.png" alt="Coral Stories"></a>
-    </div>
+      <div class="p-media"><img src="images/coral_stories/coral_stories_04.png" alt="Coral Stories"></div>
+    </a>
 
     <!-- Kin'o'polis -->
-    <div class="proj-row wl-bar-2img">
-      <div class="proj-card">
-        <h3 class="proj-title">Kin'o'polis</h3>
-        <div class="proj-meta-row">
-          <div class="proj-meta">
-            <div class="mkcol">
-              <span class="mk">Year:</span>
-              <span class="mk">Company:</span>
-              <span class="mk">Collaborators:</span>
-            </div>
-            <div class="mvcol">
-              <span class="mv">2026</span>
-              <span class="mv">UAL</span>
-              <span class="mv">Solo</span>
-            </div>
-          </div>
-          <p class="proj-desc">Speculative cartographic tool, re-imagining London as a more-than-human city. It integrates urban and ecological datasets to <strong>model alternative city futures</strong> for the species that share it with us.</p>
-          <div class="proj-tags">
-            <span class="tag tb">Spatial Data Visualization</span>
-            <span class="tag tb">3D Modelling and Animation</span>
-            <span class="tag tg">Three.js</span>
-            <span class="tag tg">Blender</span>
-            <span class="tag tg">Python</span>
-          </div>
+    <a class="g-bar col-split" href="kinopolis.html">
+      <div class="p-card">
+        <h3 class="p-title">Kin&rsquo;o&rsquo;polis</h3>
+        <div class="p-meta">
+          <div class="mk-col"><span>Year:</span><span>Company:</span><span>Collaborators:</span></div>
+          <div class="mv-col"><span>2026</span><span>UAL</span><span>Solo</span></div>
+        </div>
+        <p class="p-desc">Speculative cartographic tool re-imagining London as a more-than-human city, <strong>modelling alternative city futures</strong> for the species that share it.</p>
+        <div class="p-tags">
+          <span>Spatial Data Visualization</span><span>3D Modelling and Animation</span><span>Three.js</span><span>Blender</span><span>Python</span>
         </div>
       </div>
-      <div class="proj-imgs-row">
-        <a class="proj-imgs" href="kinopolis.html"><img src="images/kinopolis/kinopolis_08.png" alt="Kinopolis"></a>
-        <a class="proj-imgs" href="kinopolis.html"><img src="images/kinopolis/kinopolis_11.png" alt="Kinopolis"></a>
+      <div class="p-media-row">
+        <div class="p-media"><img src="images/kinopolis/kinopolis_11.png" alt="Kinopolis"></div>
       </div>
-    </div>
+    </a>
 
     <!-- Emergence -->
-    <div class="proj-row wl-square-l">
-      <a class="proj-imgs" href="emergence.html"><img src="images/emergence/emergence_02.png" alt="Emergence"></a>
-      <div class="proj-card">
-        <h3 class="proj-title">Emergence</h3>
-        <div class="proj-meta">
-          <div class="mkcol">
-            <span class="mk">Year:</span>
-            <span class="mk">Company:</span>
-            <span class="mk">Collaborators:</span>
-          </div>
-          <div class="mvcol">
-            <span class="mv">2025</span>
-            <span class="mv">UAL</span>
-            <span class="mv">Ceci Gonzalez</span>
-            <span class="mv">Nemo</span>
-          </div>
+    <a class="g-square row-split" href="emergence.html">
+      <div class="p-media"><img src="images/emergence/emergence_02.png" alt="Emergence"></div>
+      <div class="p-card">
+        <h3 class="p-title">Emergence</h3>
+        <div class="p-meta">
+          <div class="mk-col"><span>Year:</span><span>Company:</span><span>Collaborators:</span></div>
+          <div class="mv-col"><span>2025</span><span>UAL</span><span>Ceci Gonzalez, Nemo</span></div>
         </div>
-        <p class="proj-desc">Interactive 3D projection mapping installation. Viewers reshape a topography by hand and watch <strong>a city grow between natural forms</strong>, drawing out the parallels between urban expansion and organic growth.</p>
-        <div class="proj-tags">
-          <span class="tag tb">Projection Mapping</span>
-          <span class="tag tb">3D Modelling and Animation</span>
-          <span class="tag tb">Interactive Art</span>
-          <span class="tag tg">TouchDesigner</span>
-          <span class="tag tg">Blender</span>
+        <p class="p-desc">Interactive 3D projection mapping installation. Viewers reshape a topography by hand and watch <strong>a city grow between natural forms</strong>, drawing out the parallels between urban expansion and organic growth.</p>
+        <div class="p-tags">
+          <span>Projection Mapping</span><span>3D Modelling and Animation</span><span>Interactive Art</span><span>TouchDesigner</span><span>Blender</span>
         </div>
       </div>
-    </div>
+    </a>
 
     <!-- Pytko Sept 2025 -->
-    <div class="proj-row wl-narrow-r">
-      <div class="proj-card">
-        <h3 class="proj-title">Pytko Gig Sept '25</h3>
-        <div class="proj-meta">
-          <div class="mkcol">
-            <span class="mk">Year:</span>
-            <span class="mk">Company:</span>
-            <span class="mk">Collaborators:</span>
-          </div>
-          <div class="mvcol">
-            <span class="mv">2025</span>
-            <span class="mv">—</span>
-            <span class="mv">Julia Pytko</span>
-          </div>
+    <a class="g-narrow row-split" href="pytko_Sept25.html">
+      <div class="p-card">
+        <h3 class="p-title">Pytko Gig Sept &rsquo;25</h3>
+        <div class="p-meta">
+          <div class="mk-col"><span>Year:</span><span>Company:</span><span>Collaborators:</span></div>
+          <div class="mv-col"><span>2025</span><span>&mdash;</span><span>Julia Pytko</span></div>
         </div>
-        <p class="proj-desc">Live audioreactive visuals for Julia Pytko's EP Release.</p>
-        <div class="proj-tags">
-          <span class="tag tb">Projection Mapping</span>
-          <span class="tag tb">Audiovisual Art</span>
-          <span class="tag tg">TouchDesigner</span>
+        <p class="p-desc">Live audioreactive visuals for Julia Pytko's EP Release.</p>
+        <div class="p-tags">
+          <span>Projection Mapping</span><span>Audiovisual Art</span><span>TouchDesigner</span>
         </div>
       </div>
-      <a class="proj-imgs" href="pytko_Sept25.html"><img src="images/pytko_Sept25/pytko02_05.jpg" alt="Pytko Sept 2025"></a>
-    </div>
+      <div class="p-media"><img src="images/pytko_Sept25/pytko02_05.jpg" alt="Pytko Sept 2025"></div>
+    </a>
 
     <!-- Pytko June 2025 -->
-    <div class="proj-row wl-narrow-l">
-      <a class="proj-imgs" href="pytko_June25.html"><img src="images/pytko_June25/pytko01_03.png" alt="Pytko June 2025"></a>
-      <div class="proj-card">
-        <h3 class="proj-title">Pytko Gig June '25</h3>
-        <div class="proj-meta">
-          <div class="mkcol">
-            <span class="mk">Year:</span>
-            <span class="mk">Company:</span>
-            <span class="mk">Collaborators:</span>
-          </div>
-          <div class="mvcol">
-            <span class="mv">2025</span>
-            <span class="mv">—</span>
-            <span class="mv">Julia Pytko</span>
-          </div>
+    <a class="g-narrow row-split" href="pytko_June25.html">
+      <div class="p-media"><img src="images/pytko_June25/pytko01_03.png" alt="Pytko June 2025"></div>
+      <div class="p-card">
+        <h3 class="p-title">Pytko Gig June &rsquo;25</h3>
+        <div class="p-meta">
+          <div class="mk-col"><span>Year:</span><span>Company:</span><span>Collaborators:</span></div>
+          <div class="mv-col"><span>2025</span><span>&mdash;</span><span>Julia Pytko</span></div>
         </div>
-        <p class="proj-desc">Live audioreactive visuals for Julia Pytko's Greyhound performance.</p>
-        <div class="proj-tags">
-          <span class="tag tb">Projection Mapping</span>
-          <span class="tag tb">Audiovisual Art</span>
-          <span class="tag tg">TouchDesigner</span>
+        <p class="p-desc">Live audioreactive visuals for Julia Pytko's Greyhound performance.</p>
+        <div class="p-tags">
+          <span>Projection Mapping</span><span>Audiovisual Art</span><span>TouchDesigner</span>
         </div>
       </div>
-    </div>
+    </a>
 
     <!-- Umwelt -->
-    <div class="proj-row wl-bar-1img">
-      <div class="proj-card">
-        <h3 class="proj-title">Umwelt</h3>
-        <div class="proj-meta-row">
-          <div class="proj-meta">
-            <div class="mkcol">
-              <span class="mk">Year:</span>
-              <span class="mk">Company:</span>
-              <span class="mk">Collaborators:</span>
-            </div>
-            <div class="mvcol">
-              <span class="mv">2025</span>
-              <span class="mv">UAL</span>
-              <span class="mv">Ceci Gonzalez</span>
-              <span class="mv">Bam</span>
-              <span class="mv">Pearl</span>
-            </div>
-          </div>
-          <p class="proj-desc">An interactive game installation exploring the perception of world through other species. It asks players to sit with an uncomfortable question: <strong>is the world I want for myself also ideal for another species?</strong></p>
-          <div class="proj-tags">
-            <span class="tag tb">Projection Mapping</span>
-            <span class="tag tb">Game Developement</span>
-            <span class="tag tb">3D Modelling and Animation</span>
-            <span class="tag tg">TouchDesigner</span>
-            <span class="tag tg">Blender</span>
-            <span class="tag tg">Unity</span>
-          </div>
+    <a class="g-bar col-split" href="umwelt.html">
+      <div class="p-card">
+        <h3 class="p-title">Umwelt</h3>
+        <div class="p-meta">
+          <div class="mk-col"><span>Year:</span><span>Company:</span><span>Collaborators:</span></div>
+          <div class="mv-col"><span>2025</span><span>UAL</span><span>Ceci Gonzalez, Bam, Pearl</span></div>
+        </div>
+        <p class="p-desc">An interactive game installation exploring the world through other species, asking: <strong>is the world I want also ideal for another species?</strong></p>
+        <div class="p-tags">
+          <span>Projection Mapping</span><span>Game Developement</span><span>3D Modelling and Animation</span><span>TouchDesigner</span><span>Blender</span><span>Unity</span>
         </div>
       </div>
-      <a class="proj-imgs" href="umwelt.html"><img src="images/umwelt/umwelt_14.jpeg" alt="Umwelt"></a>
-    </div>
+      <div class="p-media-row">
+        <div class="p-media"><img src="images/umwelt/umwelt_14.jpeg" alt="Umwelt"></div>
+      </div>
+    </a>
 
     <!-- London-AI + The Lead Arrow -->
-    <div class="proj-row-duo">
-      <div class="proj-row wl-duo-item">
-        <div class="proj-card">
-          <h3 class="proj-title">London-AI</h3>
-          <div class="proj-meta-row">
-            <div class="proj-meta">
-              <div class="mkcol">
-                <span class="mk">Year:</span>
-                <span class="mk">Company:</span>
-                <span class="mk">Collaborators:</span>
-              </div>
-              <div class="mvcol">
-                <span class="mv">2025</span>
-                <span class="mv">UAL</span>
-                <span class="mv">Solo</span>
-              </div>
-            </div>
-            <div class="proj-tags">
-              <span class="tag tb">Spatial Data Visualization</span>
-              <span class="tag tg">Python</span>
-              <span class="tag tg">QGIS</span>
-            </div>
+    <div class="g-duo">
+      <a class="g-duo-item col-split" href="londonmap.html">
+        <div class="p-card">
+          <h3 class="p-title">London-AI</h3>
+          <div class="p-meta">
+            <div class="mk-col"><span>Year:</span><span>Company:</span><span>Collaborators:</span></div>
+            <div class="mv-col"><span>2025</span><span>UAL</span><span>Solo</span></div>
+          </div>
+          <div class="p-tags">
+            <span>Spatial Data Visualization</span><span>Python</span><span>QGIS</span>
           </div>
         </div>
-        <a class="proj-imgs" href="londonmap.html"><img src="images/londonmap/londonmap_11.jpg" alt="London-AI"></a>
-      </div>
-      <div class="proj-row wl-duo-item">
-        <div class="proj-card">
-          <h3 class="proj-title">The Lead Arrow</h3>
-          <div class="proj-meta-row">
-            <div class="proj-meta">
-              <div class="mkcol">
-                <span class="mk">Year:</span>
-                <span class="mk">Company:</span>
-                <span class="mk">Collaborators:</span>
-              </div>
-              <div class="mvcol">
-                <span class="mv">2025</span>
-                <span class="mv">UAL</span>
-                <span class="mv">Solo</span>
-              </div>
-            </div>
-            <div class="proj-tags">
-              <span class="tag tb">Interactive Art</span>
-              <span class="tag tg">Unity</span>
-              <span class="tag tg">Arduino IDE</span>
-            </div>
+        <div class="p-media"><img src="images/londonmap/londonmap_11.jpg" alt="London-AI"></div>
+      </a>
+      <a class="g-duo-item col-split" href="theleadarrow.html">
+        <div class="p-card">
+          <h3 class="p-title">The Lead Arrow</h3>
+          <div class="p-meta">
+            <div class="mk-col"><span>Year:</span><span>Company:</span><span>Collaborators:</span></div>
+            <div class="mv-col"><span>2025</span><span>UAL</span><span>Solo</span></div>
+          </div>
+          <div class="p-tags">
+            <span>Interactive Art</span><span>Unity</span><span>Arduino IDE</span>
           </div>
         </div>
-        <a class="proj-imgs" href="theleadarrow.html"><img src="images/theleadarrow/theleadarrow_04.png" alt="The Lead Arrow"></a>
-      </div>
+        <div class="p-media"><img src="images/theleadarrow/theleadarrow_04.png" alt="The Lead Arrow"></div>
+      </a>
     </div>
 
     <!-- Artemis -->
-    <div class="proj-row wl-square-r">
-      <div class="proj-card">
-        <h3 class="proj-title">Artemis</h3>
-        <div class="proj-meta">
-          <div class="mkcol">
-            <span class="mk">Year:</span>
-            <span class="mk">Company:</span>
-            <span class="mk">Collaborators:</span>
-          </div>
-          <div class="mvcol">
-            <span class="mv">2023</span>
-            <span class="mv">Hacettepe</span>
-            <span class="mv">Solo</span>
-          </div>
+    <a class="g-square row-split" href="artemis.html">
+      <div class="p-card">
+        <h3 class="p-title">Artemis</h3>
+        <div class="p-meta">
+          <div class="mk-col"><span>Year:</span><span>Company:</span><span>Collaborators:</span></div>
+          <div class="mv-col"><span>2023</span><span>Hacettepe</span><span>Solo</span></div>
         </div>
-        <p class="proj-desc">Pixel art game concept design inspired by Andy Weir's novel. Set in the lunar city of Artemis, it follows <strong>Jazz Bashara</strong> through a world built on the economics and politics of living off-world.</p>
-        <div class="proj-tags">
-          <span class="tag tb">Graphic Design</span>
-          <span class="tag tb">Game Design</span>
-          <span class="tag tg">Adobe Creative Suite</span>
+        <p class="p-desc">Pixel art game concept design inspired by Andy Weir's novel. Set in the lunar city of Artemis, it follows <strong>Jazz Bashara</strong> through a world built on the economics and politics of living off-world.</p>
+        <div class="p-tags">
+          <span>Graphic Design</span><span>Game Design</span><span>Adobe Creative Suite</span>
         </div>
       </div>
-      <a class="proj-imgs" href="artemis.html"><img src="images/artemis/artemis_08.png" alt="Artemis"></a>
-    </div>
+      <div class="p-media"><img src="images/artemis/artemis_08.png" alt="Artemis"></div>
+    </a>
 
     <!-- Hidden Streams of Ankara v1 -->
-    <div class="proj-row wl-bar-2img">
-      <div class="proj-card">
-        <h3 class="proj-title">Hidden Streams of Ankara v1</h3>
-        <div class="proj-meta-row">
-          <div class="proj-meta">
-            <div class="mkcol">
-              <span class="mk">Year:</span>
-              <span class="mk">Company:</span>
-              <span class="mk">Collaborators:</span>
-            </div>
-            <div class="mvcol">
-              <span class="mv">2024</span>
-              <span class="mv">Hacettepe</span>
-              <span class="mv">Solo</span>
-            </div>
-          </div>
-          <p class="proj-desc">Data visualisation project exploring Ankara's buried rivers and urban flooding. It traces how the city's original streams were <strong>diverted into sewage pipes</strong> to make way for unplanned urban growth — and what that's cost it since.</p>
-          <div class="proj-tags">
-            <span class="tag tb">Spatial Data Visualization</span>
-            <span class="tag tb">Infographics</span>
-            <span class="tag tg">Adobe Creative Suite</span>
-          </div>
+    <a class="g-bar col-split" href="soa01.html">
+      <div class="p-card">
+        <h3 class="p-title">Hidden Streams of Ankara v1</h3>
+        <div class="p-meta">
+          <div class="mk-col"><span>Year:</span><span>Company:</span><span>Collaborators:</span></div>
+          <div class="mv-col"><span>2024</span><span>Hacettepe</span><span>Solo</span></div>
+        </div>
+        <p class="p-desc">Data visualisation on Ankara's buried rivers, tracing how they were <strong>diverted into sewage pipes</strong> for unplanned urban growth.</p>
+        <div class="p-tags">
+          <span>Spatial Data Visualization</span><span>Infographics</span><span>Adobe Creative Suite</span>
         </div>
       </div>
-      <div class="proj-imgs-row">
-        <a class="proj-imgs" href="soa01.html"><img src="images/soa01/soa01_08.png" alt="Hidden Streams of Ankara v1"></a>
-        <a class="proj-imgs" href="soa01.html"><img src="images/soa01/soa01_09.png" alt="Hidden Streams of Ankara v1"></a>
+      <div class="p-media-row">
+        <div class="p-media"><img src="images/soa01/soa01_08.png" alt="Hidden Streams of Ankara v1"></div>
+        <div class="p-media"><img src="images/soa01/soa01_09.png" alt="Hidden Streams of Ankara v1"></div>
       </div>
-    </div>
+    </a>
 
     <!-- Hidden Streams of Ankara v2 -->
-    <div class="proj-row wl-square-l">
-      <a class="proj-imgs" href="soa02.html"><img src="images/soa02/soa02_09.png" alt="Hidden Streams of Ankara v2"></a>
-      <div class="proj-card">
-        <h3 class="proj-title">Hidden Streams of Ankara v2</h3>
-        <div class="proj-meta">
-          <div class="mkcol">
-            <span class="mk">Year:</span>
-            <span class="mk">Company:</span>
-            <span class="mk">Collaborators:</span>
-          </div>
-          <div class="mvcol">
-            <span class="mv">2024</span>
-            <span class="mv">Hacettepe</span>
-            <span class="mv">Solo</span>
-          </div>
+    <a class="g-square row-split" href="soa02.html">
+      <div class="p-media"><img src="images/soa02/soa02_09.png" alt="Hidden Streams of Ankara v2"></div>
+      <div class="p-card">
+        <h3 class="p-title">Hidden Streams of Ankara v2</h3>
+        <div class="p-meta">
+          <div class="mk-col"><span>Year:</span><span>Company:</span><span>Collaborators:</span></div>
+          <div class="mv-col"><span>2024</span><span>Hacettepe</span><span>Solo</span></div>
         </div>
-        <p class="proj-desc">3D infographic video on urbanization, lost rivers, and flash floods. A <strong>three-part video series</strong> unpacking why Ankara lost its rivers, and why that loss keeps costing the city in floods.</p>
-        <div class="proj-tags">
-          <span class="tag tb">3D Modelling and Animation</span>
-          <span class="tag tb">Infographics</span>
-          <span class="tag tg">Adobe Creative Suite</span>
-          <span class="tag tg">Blender</span>
+        <p class="p-desc">3D infographic video on urbanization, lost rivers, and flash floods. A <strong>three-part video series</strong> unpacking why Ankara lost its rivers, and why that loss keeps costing the city in floods.</p>
+        <div class="p-tags">
+          <span>3D Modelling and Animation</span><span>Infographics</span><span>Adobe Creative Suite</span><span>Blender</span>
         </div>
       </div>
-    </div>
+    </a>
 
-    </div>
-    </div>
-    <div class="works-scrollbar" id="works-scrollbar">
-      <div class="works-scrollbar-thumb" id="works-scrollbar-thumb"></div>
-    </div>
-    <div class="works-fade works-fade-bottom" aria-hidden="true"></div>
-   </div>
-  </section>
+  </main>
 
-  <!-- ── ABOUT ── -->
-  <section id="about" class="section section-about">
-    <div class="about-canvas" role="group" aria-label="About Elif">
-      <svg width="0" height="0" style="position:absolute;" aria-hidden="true">
-        <defs>
-          <!-- shadow-only output for line a / line b's .ab-line-cast layer.
-               same params as CSS box-shadow: x, y, blur, spread, opacity.
-               no feMerge/SourceGraphic here on purpose -- the visible line is a
-               separate .ab-line-vis layer, so this filter only ever outputs the shadow. -->
-          <filter id="ab-line-shadow" x="-50%" y="-50%" width="200%" height="200%" color-interpolation-filters="sRGB">
-            <feMorphology in="SourceAlpha" operator="dilate" radius="1" result="spread"/>   <!-- spread -->
-            <feGaussianBlur in="spread" stdDeviation="5" result="blur"/>                    <!-- blur -->
-            <feOffset in="blur" dx="5" dy="5" result="offsetBlur"/>                       <!-- x / y -->
-            <feFlood flood-color="#000000" flood-opacity="0.25" result="color"/>             <!-- opacity -->
-            <feComposite in="color" in2="offsetBlur" operator="in"/>
-          </filter>
-        </defs>
-      </svg>
-      <!-- TEMP: reference grid, remove this div before shipping -->
-      <div class="ab-grid" aria-hidden="true">
-        <div class="ab-grid-lines"></div>
-        <div class="ab-grid-lines gr-b"></div>
-        <div class="ab-grid-origin"></div>
-        <div class="ab-grid-label">center (713,550)</div>
-      </div>
-      <svg class="ab-line" style="left:390px; top:390px;" width="400" height="560" viewBox="0 0 400 560">
-        <defs>
-          <path id="ab-line-path-a" d="M 300 230 L 800 232 A 100 100 0 0 1 930 332 L 930 780 A 100 100 0 0 1 800 880 L 650 880" />
-        </defs>
-        <use class="ab-line-cast" href="#ab-line-path-a" />
-        <use class="ab-line-vis" href="#ab-line-path-a" />
-      </svg>
-      <svg class="ab-line" style="left:590px; top:715px;" width="500" height="650" viewBox="0 0 500 650">
-        <defs>
-          <path id="ab-line-path-b" d="M -250 540 L 537 545 A 100 100 0 0 0 667 445 L 667 119 A 100 100 0 0 0 537 19 L 340 20" />
-        </defs>
-        <use class="ab-line-cast" href="#ab-line-path-b" />
-        <use class="ab-line-vis" href="#ab-line-path-b" />
-      </svg>
-      <span class="ab-el ab-hero" style="left:200px; top: 30px; --r:-30deg; font-size:90px;">I am</span>
-      <span class="ab-el ab-med" style="left:325px; top:-21px; --r:-30deg; font-size:45px;">a</span>
-      <span class="ab-el ab-med" style="left:280px; top:70px; --r:-30deg; font-size:45px;">creative technologist</span>
-      <span class="ab-el ab-med" style="left:300px; top: 120px; --r:-30deg; font-size:45px;">&amp; visual designer.</span>
-      <span class="ab-el ab-hero" style="left:320px; top:190px; --r:-30deg; font-size:60px;"><span class="ab-sub">I have a </span>background</span>
-      <span class="ab-el ab-hero" style="left:130px; top:370px; --r:-30deg; font-size:30px;">in</span>
-      <span class="ab-el ab-hero" style="left:690px; top:77px; --r:-30deg; font-size:60px;">I specialise <span class="ab-sub">in</span></span>
-      <span class="ab-el ab-light block" style="left:775px; top: 160px; --r:-30deg; font-size:30px; width:490px;">visual experience making and communication design projects</span>
-      <span class="ab-el ab-light block" style="left:732px; top:361px; --r:-30deg; font-size:30px; width:220px;">immersive<br>data&#8209;driven<br>spatial<br>experiences</span>
-      <span class="ab-el ab-hero" style="left:620px; top:10px; --r:-30deg; font-size:120px; line-height:0.75;">&amp;</span>
+  <footer class="site-footer">
+    <span>&copy; 2026 Elif Bora</span>
+  </footer>
 
-      <span class="ab-el ab-hero" style="left:1280px; top:312px; --r:60deg; font-size:30px;"><span style="font-size:2em; display:block; margin-bottom:12px;">My work</span>involves</span>
-
-      <span class="ab-el ab-thin" style="left:887px; top:571px; --r:60deg; font-size:30px;">interactive installations</span>
-      <span class="ab-el ab-thin" style="left:843px; top:584px; --r:60deg; font-size:30px;">audioreactive visuals</span>
-      <span class="ab-el ab-thin" style="left:910px; top:520px; --r:60deg; font-size:30px; color:#ccc;">cartographic tools</span>
-      <span class="ab-el ab-thin" style="left:1167px; top:340px; --r:60deg; font-size:30px;">infogrogrphics</span>
-      <span class="ab-el ab-thin" style="left:1155px; top:408px; --r:60deg; font-size:30px;">user-centered design</span>
-
-      <span class="ab-pill skill" style="left:315px; top:290px; --r:-30deg;" tabindex="0">
-        <span class="ab-pill-def">architecture</span><span class="ab-pill-hov">Bilkent 2019</span>
-      </span>
-      <span class="ab-pill skill" style="left:340px; top:410px; --r:-30deg;" tabindex="0">
-        <span class="ab-pill-def">graphic design</span><span class="ab-pill-hov">Hacettepe 2024</span>
-      </span>
-      <span class="ab-pill skill" style="left:400px; top:520px; --r:-30deg;" tabindex="0">
-        <span class="ab-pill-def">creative coding</span><span class="ab-pill-hov">UAL 2026</span>
-      </span>
-
-      <a class="ab-pill link" href="mobbyui.html" style="left:1072px; top:386px; --r:60deg;">Mobby UI</a>
-      <a class="ab-pill link" href="artemis.html" style="left:1075px; top:540px; --r:60deg;">Artemis</a>
-      <a class="ab-pill link" href="kinopolis.html" style="left:766px; top:570px; --r:60deg;">Kin&rsquo;opolis</a>
-      <a class="ab-pill link" href="emergence.html" style="left:705px; top:615px; --r:60deg;">Emergence</a>
-      <a class="ab-pill link" href="coralstories.html" style="left:644px; top:659px; --r:60deg;">Coral Stories</a>
-      <a class="ab-pill link" href="umwelt.html" style="left:560px; top:663px; --r:60deg;">Umwelt</a>
-      <a class="ab-pill link" href="londonmap.html" style="left:503px; top:715px; --r:60deg;">London-AI</a>
-      <a class="ab-pill link" href="soa01.html" style="left:992px; top:398px; --r:60deg;">HSOA</a>
-    </div>
-  </section>
-
-  <!-- ── CONTACT ── -->
-  <section id="contact" class="section section-contact">
-    <div class="contact-visual">
-      <div class="contact-headline contact-headline-1">Lets<span class="ch-sub">build something</span></div>
-      <div class="contact-headline contact-headline-2">together !</div>
-
-      <div class="contact-pill-field">
-        <a class="c-pill" data-key="email" href="mailto:ebora.creative@gmail.com">ebora.creative@gmail.com</a>
-        <a class="c-pill" data-key="connect" href="https://linkedin.com/in/elif-bora-a01476133" target="_blank" rel="noopener">linkedin.com/in/elif-bora-a01476133</a>
-        <a class="c-pill" data-key="download" href="Bora_CV.pdf" target="_blank" rel="noopener">CV</a>
-        <a class="c-pill" data-key="explore" href="https://www.behance.net/elifboraa" target="_blank" rel="noopener">https://www.behance.net/elifboraa</a>
-        <a class="c-pill" data-key="reach" href="https://instagram.com/elifbeurre" target="_blank" rel="noopener">@elifbeurre</a>
-        <a class="c-pill" data-key="watch" href="https://www.youtube.com/@elifbora2419" target="_blank" rel="noopener">www.youtube.com/@elifbora2419</a>
-        <span class="c-pill" data-key="location">London, UK</span>
-      </div>
-
-      <div class="contact-rows" aria-hidden="true">
-        <span class="contact-row" data-key="email">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 6l10 7 10-7"/></svg>
-          e-mail
-        </span>
-        <span class="contact-row" data-key="connect">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 10.5l6.8-4M8.6 13.5l6.8 4"/></svg>
-          connect
-        </span>
-        <span class="contact-row" data-key="download">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M4 21h16"/></svg>
-          download
-        </span>
-        <span class="contact-row" data-key="explore">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M16.5 3.5l4 4L7 21H3v-4L16.5 3.5z"/></svg>
-          explore
-        </span>
-        <span class="contact-row" data-key="reach">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v12H8l-4 4V4z"/><path d="M8 9h8M8 12h5"/></svg>
-          reach out
-        </span>
-        <span class="contact-row" data-key="watch">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M10 8l6 4-6 4V8z"/></svg>
-          watch
-        </span>
-        <span class="contact-row" data-key="location">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s7-7.58 7-12a7 7 0 10-14 0c0 4.42 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></svg>
-          I'm based in
-        </span>
-      </div>
-    </div>
-  </section>
-
-</main>
+</div>
 
 <script>
 (function () {
-  /* ── Scroll nav ── */
-  const sections = document.querySelectorAll('.section[id]');
-  const dots     = document.querySelectorAll('.dot-item[data-section]');
-
-  const io = new IntersectionObserver(entries => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        dots.forEach(d => d.classList.toggle('active', d.dataset.section === e.target.id));
+  var header = document.querySelector('.site-header');
+  var lastY = window.scrollY;
+  var ticking = false;
+  window.addEventListener('scroll', function () {
+    if (ticking) return;
+    ticking = true;
+    window.requestAnimationFrame(function () {
+      var y = window.scrollY;
+      if (y > lastY && y > 80) {
+        header.classList.add('is-hidden');
+      } else {
+        header.classList.remove('is-hidden');
       }
+      lastY = y;
+      ticking = false;
     });
-  }, { threshold: 0.35 });
-
-  sections.forEach(s => io.observe(s));
-
-  /* scroll-behavior:smooth was removed from html because it fights with
-     scroll-snap-type during real wheel/trackpad scrolling; animate these
-     click-triggered jumps explicitly instead so snap stays uncontested */
-  dots.forEach(dot => {
-    dot.addEventListener('click', (e) => {
-      e.preventDefault();
-      document.getElementById(dot.dataset.section).scrollIntoView({ behavior: 'smooth' });
-    });
-  });
-
-  /* ── Pill / tag filter ── */
-  const hiPills     = document.querySelectorAll('.pill[data-filter]');
-  const filterOpts  = document.querySelectorAll('.filter-option[data-filter]');
-  const allTriggers = document.querySelectorAll('[data-filter]');
-  const projRows    = document.querySelectorAll('.proj-row');
-  const filterChip  = document.getElementById('filter-chip');
-  const filterLbl   = document.getElementById('filter-chip-label');
-  const worksFilter = document.getElementById('works-filter');
-  const filterToggle= document.getElementById('filter-toggle');
-  const filterPanel = document.getElementById('filter-panel');
-  let activeFilter = null;
-
-  function rowTags(row) {
-    return Array.from(row.querySelectorAll('.tag')).map(t => t.textContent.trim());
-  }
-
-  function applyFilter(value) {
-    activeFilter = value;
-    allTriggers.forEach(p => p.classList.toggle('active', p.dataset.filter === value));
-    if (value) {
-      projRows.forEach(row => row.classList.toggle('hidden', !rowTags(row).includes(value)));
-      filterLbl.textContent = value;
-      filterChip.hidden = false;
-    } else {
-      projRows.forEach(row => row.classList.remove('hidden'));
-      filterChip.hidden = true;
-    }
-  }
-
-  hiPills.forEach(pill => {
-    pill.addEventListener('click', () => {
-      const value = pill.dataset.filter;
-      applyFilter(activeFilter === value ? null : value);
-      document.getElementById('works').scrollIntoView({ behavior: 'smooth' });
-    });
-  });
-
-  filterChip.addEventListener('click', () => applyFilter(null));
-
-  /* ── Filter tab open/close ── */
-  function openFilterPanel() {
-    worksFilter.classList.add('is-open');
-    filterToggle.setAttribute('aria-expanded', 'true');
-  }
-  function closeFilterPanel() {
-    worksFilter.classList.remove('is-open');
-    filterToggle.setAttribute('aria-expanded', 'false');
-  }
-  filterToggle.addEventListener('click', () => {
-    worksFilter.classList.contains('is-open') ? closeFilterPanel() : openFilterPanel();
-  });
-  document.addEventListener('click', (e) => {
-    if (!worksFilter.contains(e.target)) closeFilterPanel();
-  });
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') closeFilterPanel();
-  });
-
-  filterOpts.forEach(opt => {
-    opt.addEventListener('click', () => {
-      const value = opt.dataset.filter;
-      applyFilter(activeFilter === value ? null : value);
-      closeFilterPanel();
-    });
-  });
-
-  /* ── Sidebar expand on hover ── */
-  const sidebarEl = document.querySelector('.sidebar');
-  const COLLAPSE_DELAY = 250; // ms
-  let collapseTimer = null;
-
-  function expandSidebar() {
-    clearTimeout(collapseTimer);
-    sidebarEl.classList.add('is-expanded');
-  }
-  function scheduleCollapse() {
-    clearTimeout(collapseTimer);
-    collapseTimer = setTimeout(() => sidebarEl.classList.remove('is-expanded'), COLLAPSE_DELAY);
-  }
-
-  sidebarEl.addEventListener('mouseenter', expandSidebar);
-  sidebarEl.addEventListener('mouseleave', scheduleCollapse);
-
-  /* ── Works section expand/collapse ── */
-  const worksSection      = document.getElementById('works');
-  const worksExpandToggle = document.getElementById('works-expand-toggle');
-  const worksExpandLabel  = worksExpandToggle.querySelector('.works-expand-label');
-
-  worksExpandToggle.addEventListener('click', () => {
-    const isFull = worksSection.classList.toggle('is-full');
-    worksExpandToggle.setAttribute('aria-expanded', String(isFull));
-    worksExpandLabel.textContent = isFull ? 'Show less' : 'Show all';
-    if (!isFull) {
-      document.querySelector('.works-list').scrollTop = 0;
-      updateWorksThumb();
-    }
-  });
-
-  /* ── Works custom scrollbar ── */
-  const worksList     = document.querySelector('.works-list');
-  const worksViewport = document.querySelector('.works-viewport');
-  const worksCard     = document.querySelector('.card-works');
-  const worksTrack    = document.getElementById('works-scrollbar');
-  const worksThumb    = document.getElementById('works-scrollbar-thumb');
-
-  function syncWorksTrackPosition() {
-    const cardRect = worksCard.getBoundingClientRect();
-    const vpRect = worksViewport.getBoundingClientRect();
-    worksTrack.style.top = (vpRect.top - cardRect.top) + 'px';
-    worksTrack.style.height = vpRect.height + 'px';
-  }
-
-  function updateWorksThumb() {
-    syncWorksTrackPosition();
-    const trackHeight = worksTrack.clientHeight;
-    const maxScroll = worksList.scrollHeight - worksList.clientHeight;
-    if (maxScroll <= 0) {
-      worksTrack.style.display = 'none';
-      return;
-    }
-    worksTrack.style.display = 'block';
-    const ratio = worksList.clientHeight / worksList.scrollHeight;
-    const thumbHeight = Math.max(30, trackHeight * ratio);
-    const scrollRatio = worksList.scrollTop / maxScroll;
-    const thumbTop = scrollRatio * (trackHeight - thumbHeight);
-    worksThumb.style.height = thumbHeight + 'px';
-    worksThumb.style.transform = `translateY(${thumbTop}px)`;
-  }
-
-  worksList.addEventListener('scroll', updateWorksThumb);
-  window.addEventListener('resize', updateWorksThumb);
-  new ResizeObserver(updateWorksThumb).observe(worksList);
-  new ResizeObserver(updateWorksThumb).observe(worksViewport);
-  updateWorksThumb();
-
-  let worksDragging = false, worksDragStartY = 0, worksDragStartScroll = 0;
-
-  worksThumb.addEventListener('pointerdown', (e) => {
-    worksDragging = true;
-    worksDragStartY = e.clientY;
-    worksDragStartScroll = worksList.scrollTop;
-    worksThumb.setPointerCapture(e.pointerId);
-    e.preventDefault();
-  });
-  worksThumb.addEventListener('pointermove', (e) => {
-    if (!worksDragging) return;
-    const trackHeight = worksTrack.clientHeight;
-    const thumbHeight = worksThumb.offsetHeight;
-    const maxScroll = worksList.scrollHeight - worksList.clientHeight;
-    const deltaY = e.clientY - worksDragStartY;
-    const scrollDelta = deltaY * (maxScroll / (trackHeight - thumbHeight));
-    worksList.scrollTop = worksDragStartScroll + scrollDelta;
-  });
-  worksThumb.addEventListener('pointerup', () => { worksDragging = false; });
-
-  worksTrack.addEventListener('pointerdown', (e) => {
-    if (e.target === worksThumb) return;
-    const rect = worksTrack.getBoundingClientRect();
-    const clickY = e.clientY - rect.top;
-    const trackHeight = worksTrack.clientHeight;
-    const thumbHeight = worksThumb.offsetHeight;
-    const maxScroll = worksList.scrollHeight - worksList.clientHeight;
-    const scrollRatio = Math.min(Math.max((clickY - thumbHeight / 2) / (trackHeight - thumbHeight), 0), 1);
-    worksList.scrollTop = scrollRatio * maxScroll;
-  });
+  }, { passive: true });
 })();
 </script>
 </body>

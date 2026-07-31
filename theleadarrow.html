@@ -1,218 +1,527 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>The Lead Arrow — Elif Bora</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
-</head>
+  <link rel="stylesheet" href="https://use.typekit.net/ngv0pic.css">
+  <style>
+    /* ── RESET ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+    :root {
+      --bg:      #000;
+      --panel:   #1d1d1d;
+      --text:    #ffffff;
+      --muted:   #d9d9d9;
+      --muted2:  #a5a5a5;
+      --radius:  15px;
+      --content-w: 1586px;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'urbane', sans-serif;
+      font-weight: 300;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    .page-inner {
+      max-width: var(--content-w);
+      margin: 0 auto;
+      padding: 0 clamp(24px, 6vw, 95px);
+    }
+
+    /* ── HEADER ── */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: var(--bg);
+      transform: translateY(0);
+      transition: transform 0.3s ease;
+    }
+    .site-header.is-hidden { transform: translateY(-100%); }
+    .site-header-inner {
+      max-width: var(--content-w);
+      margin: 0 auto;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 20px;
+      padding: 28px clamp(24px, 6vw, 95px) 14px;
+      border-bottom: 1px solid rgba(255,255,255,0.25);
+    }
+    .brand { display: flex; flex-direction: column; gap: 6px; }
+    .brand-name { font-weight: 600; font-size: 25px; letter-spacing: 0.02em; }
+    .brand-tag { font-weight: 300; font-style: italic; font-size: 15px; color: var(--muted2); }
+    .site-nav { display: flex; flex-wrap: wrap; gap: 16px 48px; align-items: center; }
+    .site-nav a { font-weight: 500; font-size: 17px; transition: font-weight 0.15s ease; }
+    .site-nav a:hover, .site-nav a:focus-visible { font-weight: 700; }
+
+    /* ── PROJECT MAIN ── */
+    .project-main { padding: 40px 0 80px; position: relative; }
+    .project-close {
+      position: absolute;
+      top: 60px;
+      right: 24px;
+      display: inline-block;
+      font-size: 28px;
+      line-height: 1;
+      color: var(--muted2);
+      transition: color 0.2s ease;
+    }
+    .project-close:hover, .project-close:focus-visible { color: #fff; }
+
+    .project-panel {
+      margin: 0 auto;
+      background: var(--panel);
+      border-radius: var(--radius);
+      padding: clamp(24px, 6vw, 70px);
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      box-shadow: inset 0 0 60px rgba(0,0,0,0.45);
+    }
+
+    .project-title { font-weight: 800; font-size: 38px; line-height: 1.15; margin-bottom: 14px; max-width: 760px; margin-left: 100px; }
+
+    .project-tags2 {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: 6px 18px;
+      font-size: 12px;
+      font-style: italic;
+      font-weight: 300;
+      color: var(--muted2);
+      max-width: 760px;
+      margin-left: 100px;
+    }
+
+    .project-meta-row {
+      display: inline-flex;
+      flex-wrap: wrap;
+      gap: 32px;
+      padding: 16px 0;
+      width: fit-content;
+      max-width: min(100%, 760px);
+      margin-left: 100px;
+      border-top: 0.5px solid rgba(255,255,255,0.5);
+      border-bottom: 0.5px solid rgba(255,255,255,0.5);
+    }
+    .project-meta { display: flex; gap: 24px; font-size: 12px; }
+    .mk-col2, .mv-col2 { display: flex; flex-direction: column; gap: 16px; }
+    .mk-col2 { font-weight: 600; }
+    .mv-col2 { font-weight: 300; }
+    .mv-col2 .multi { display: flex; flex-direction: column; gap: 2px; }
+
+    .project-intro, .project-section-text {
+      font-weight: 300;
+      font-size: 15px;
+      line-height: 1.7;
+      max-width: 760px;
+      margin-left: 100px;
+    }
+    .project-section-text + .project-section-text { margin-top: -8px; }
+
+    .project-section-title { font-weight: 800; font-size: 22px; margin-top: 8px; max-width: 760px; margin-left: 100px; }
+
+    /* ── PROJECT CONTENT TYPOGRAPHY (extends coral-stories base) ── */
+    .project-panel h2 { font-weight: 800; font-size: 22px; margin-top: 8px; max-width: 760px; margin-left: 100px; }
+    .project-panel h3 { font-weight: 700; font-size: 18px; margin-top: 4px; max-width: 760px; margin-left: 100px; }
+    .project-panel h4 { font-weight: 600; font-size: 16px; margin-top: 4px; color: var(--muted); max-width: 760px; margin-left: 100px; }
+    .project-panel h5 { font-weight: 600; font-size: 15px; font-style: italic; color: var(--muted2); margin-top: 2px; max-width: 760px; margin-left: 100px; }
+    .project-panel p { font-weight: 300; font-size: 15px; line-height: 1.7; max-width: 760px; margin-left: 100px; }
+    .project-panel p + p { margin-top: -8px; }
+    .project-panel a { text-decoration: underline; text-underline-offset: 3px; }
+    .project-panel img { width: 100%; height: auto; display: block; border-radius: var(--radius); }
+    .project-panel .video-wrapper { border-radius: var(--radius); overflow: hidden; }
+    .project-panel ul { padding-left: 20px; display: flex; flex-direction: column; gap: 8px; max-width: 760px; margin-left: 100px; }
+    .project-panel li { font-weight: 300; font-size: 15px; line-height: 1.6; }
+    .project-panel .box { background: #141414; border: 1px solid rgba(255,255,255,0.15); border-radius: var(--radius); padding: 20px 24px; overflow-x: auto; max-width: 760px; margin-left: 100px; }
+    .project-panel .box pre { margin: 0; }
+    .project-panel .box code { font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #b1f16d; white-space: pre; }
+
+    /* ── SLIDER / GALLERY ── */
+    .slider { position: relative; border-radius: var(--radius); overflow: hidden; transition: height 0.35s ease; }
+    .slider-track { display: flex; align-items: center; transition: transform 0.45s ease; }
+    .slide { flex: 0 0 100%; }
+    .slide img { width: 100%; height: auto; display: block; }
+    .video-wrapper { width: 100%; aspect-ratio: 16 / 9; }
+    .video-wrapper iframe { width: 100%; height: 100%; display: block; border: none; }
+    .slider-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      background: rgba(20,20,20,0.6);
+      border: 1px solid var(--muted2);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
+      z-index: 2;
+    }
+    .slider-btn:hover { border-color: #fff; background: rgba(20,20,20,0.85); }
+    .slider-btn.prev { left: 14px; }
+    .slider-btn.next { right: 14px; }
+
+    .slider-dots {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      width: fit-content;
+      margin: -14px auto 0;
+      padding: 7px 14px;
+      background: rgba(30,30,30,0.55);
+      border-radius: 20px;
+    }
+    .dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      border: 2px solid var(--muted2);
+      background: transparent;
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .dot.active { background: #fff; border-color: #fff; }
+
+    /* ── FOOTER ── */
+    .site-footer {
+      border-top: 1px solid rgba(255,255,255,0.25);
+      padding: 20px 0 50px;
+      font-weight: 300;
+      font-size: 13px;
+      color: var(--muted2);
+    }
+
+    @media (max-width: 700px) {
+      .project-title { font-size: 28px; }
+      .project-meta-row { flex-direction: column; }
+    }
+  </style>
+</head>
 <body>
 
-  <nav class="nav">
-    <a href="index.html" class="nav-logo">
-      <span class="nav-logo-name">/elif_bora/</span>
-      <span class="nav-logo-tagline">computational artist | digital designer</span>
-    </a>
-    <ul class="nav-links">
-      <li><a href="index.html#about">about</a></li>
-      <li><a href="index.html#contact">contact</a></li>
-      <li><a href="index.html#works">works</a></li>
-      <li><a href="Bora_CV.pdf" download class="nav-resume">resume ↓</a></li>
-    </ul>
-    <button class="nav-burger" aria-label="menu">☰</button>
-  </nav>
+<header class="site-header" id="top">
+  <div class="site-header-inner">
+      <div class="brand">
+        <span class="brand-name">ELIF BORA</span>
+        <span class="brand-tag">creative technologist | visual designer</span>
+      </div>
+      <nav class="site-nav">
+        <a href="index.html#top">WORKS</a>
+        <a href="about.html">ABOUT/CONTACT</a>
+        <a href="Bora_CV.pdf" target="_blank" rel="noopener">RESUME</a>
+      </nav>
+  </div>
+</header>
 
-  <header class="project-hero">
-    <a href="index.html#works" class="back-link">← works</a>
-    <h1 class="project-title">The Lead Arrow: Interactive Target Shooting Game with an Arrow Controller</h1>
-    <div class="project-tags">
-      <span class="work-tag">Game Development</span>
-      <span class="work-tag-soft">Unity · Arduino</span>
+<div class="page-inner">
+
+  <main class="project-main">
+    <a class="project-close" href="index.html#top" aria-label="Back to works">&times;</a>
+
+    <div class="project-panel">
+      <h1 class="project-title">The Lead Arrow: Interactive Target Shooting Game with an Arrow Controller</h1>
+
+      <div class="project-tags2">
+        <span>Interactive Art</span>
+        <span>Unity</span>
+        <span>Arduino IDE</span>
+      </div>
+
+      <div class="project-meta-row">
+        <div class="project-meta">
+          <div class="mk-col2"><span>Year:</span><span>Company:</span><span>Collaborators:</span></div>
+          <div class="mv-col2">
+            <span>2025</span>
+            <span>UAL</span>
+            <span>Solo</span>
+          </div>
+        </div>
+      </div>
+
+      <h2>Overview</h2>
+
+      <p>The Lead Arrow is a Valentine's Day game for singles, where the players take on the cupid-angel role, but with a
+        twist. Instead of bringing people together, the aim is to break them up, using a the lead Arrow.</p>
+
+      <p>I designed the console to function like a bow, allowing the players the sensation of stretching and releasing
+        a string. The same idea can be applied to slingshot games, where the players would use the console horizontally,
+        instead of vertically. I used a stretch sensor for the console, which perfectly induces the feeling of using a
+        real bow. Unlike a mouse or a joystick, a stretch sensor provides a more immersive and realistic experience of
+        aiming and shooting.</p>
+
+      <p>The game is a single-player experience, where the player is represented with a bow and arrow on the screen.
+        Since I was limited to using only one sensor, I could only give the player the control over amount of stretch
+        and release. As a result, the bow points to a fixed position. Since I wasn't able to make the bow rotatable, I
+        made the targets mobile, moving in a looping motion from side to side.</p>
+
+      <p>The game consists of four levels, with increasing difficulty in each stage. As the player progresses more
+        targets appear along with obstacles that prevent them getting shot. Targets are represented with farm animals
+        with heart shaped particles emerging from their heads. The obstacles are depicted with roses, reinforcing the
+        Valentine's Day theme. Due to the bow's lack of rotation and orientation control, the game functions as a 2D
+        game, although the environment is designed in 3D.</p>
+
+      <h2>Supplies & Materials</h2>
+
+      <h3>Components Used</h3>
+
+      <p>— Arduino Leonardo<br>
+        — Conductive rubber cord stretch sensor<br>
+        — 1 × 10kΩ resistor<br>
+        — 2 × crocodile clips<br>
+        — 6 × male to male jumper wires<br>
+        — Breadboard<br>
+        — Upcycled cardboard from parcel box</p>
+
+      <img src="images/theleadarrow/theleadarrow_01.png" alt="The Lead Arrow components">
+
+      <h2>Process</h2>
+
+      <h3>1. Ideation for the console design</h3>
+      <p>I decided that I wanted to create a slingshot game using a literal slingshot as a console, so I started to
+        research what type of sensors I could use for this.</p>
+
+      <h3>2. Concept development of the game theme and mechanics</h3>
+      <p>I was thinking about the game concept, and since the project was due Valentine's Day, I decided that the theme
+        can be related to it. This made me realise that the player as a cupid should use a bow and arrow instead of a
+        slingshot, and the mechanics would still work the same for such a game.</p>
+
+      <h3>3. Initial game development using mouse control</h3>
+      <p>I needed to implement the game mechanics without the console first. So I developed a game that was playable
+        via mouse control.</p>
+
+      <h3>4. Testing serial data reading from stretch sensor</h3>
+      <p>This was my first time using a stretch sensor so I learned how to create a circuit with a stretch sensor and
+        write a code to enable serial reading from it.</p>
+
+      <h3>5. Integrating stretch sensor into Unity</h3>
+      <p>I made a blank sketch and followed the tutorial in Panopto to allow serial reading within Unity. However,
+        this gave a timeout error and through classmates, I learned that I needed to do something called
+        multithreading. I used ChatGPT to write the code for it.</p>
+
+      <h3>6. Adding serial read into the game mechanics</h3>
+      <p>I replaced mouse control with the serial data from the stretch sensor.</p>
+
+      <h3>7. Collection and implementation of game assets and UI</h3>
+      <p>So far, I had used very basic assets and UI elements, prioritising creating a game that was working. Then I
+        started spending time on the visual and audio elements of the game. I used free assets found from various
+        resources online.</p>
+
+      <h3>8. Adding More Levels</h3>
+      <p>I wanted to add levels to my game, however, in this process the serial reading started to give an error. I
+        spent a lot of time debugging this issue.</p>
+
+      <h3>9. Building the game console</h3>
+      <p>I created a bow from cardboards that were upcycled from the parcel boxes I had been collecting. I inserted
+        the stretch sensors like a string of the bow, via holes. The connection of the sensor to Arduino is provided
+        by crocodile clips.</p>
+
+      <h3>10. Debugging and final refinements</h3>
+      <p>The final touches on the game visuals, audio and mechanics were made and final debugging was done.</p>
+
+      <h3>11. Publishing the game</h3>
+      <p>Since I wasn't able to publish the console controlled version of the game for the web, I published the mouse
+        controlled version. I built the console controlled version as an app on my desktop.</p>
+
+      <h3>12. Playtesting and gathering feedback</h3>
+      <p>I asked friends and family to play the game and observed their reactions to further develop the game.</p>
+
+      <h2>Video Demonstration</h2>
+
+      <div class="video-wrapper">
+        <iframe src="https://www.youtube.com/embed/bO9d9qXTMoU" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+      </div>
+
+      <h2>Final Images</h2>
+
+      <img src="images/theleadarrow/theleadarrow_02.png" alt="The Lead Arrow final">
+
+      <h2>Design Justification</h2>
+
+      <p>The game's design is largely influenced by the technical limitations and my beginner level knowledge of Unity.
+        The size of the console was constrained by the length of the stretch sensor and the dimensions of cardboard
+        that was available.</p>
+
+      <p>During playtesting, I realised the transition between levels is not clear enough, so this issue can be further
+        developed. To match the players' movement and interaction with console, the bow and arrow on screen can be
+        positioned vertically, in a more 3D orientation, allowing the player to grasp a better feeling of their role
+        in the game and how they are effecting the game. More visual depth can be added to the game for a more
+        immersive experience. Additionally, the size and form of the console can be adjusted according to player
+        feedback. The console can have haptic feedback, for a more tactile experience. This console can also be adapted
+        for a difficult targeting game, by implementing precise orientation tracking.</p>
+
+      <h2>Project Link</h2>
+
+      <p><a href="https://play.unity.com/en/games/a1c2d837-a0fb-40da-8633-a7f8150951a8/eloevera-games" target="_blank">Play
+          the mouse controlled version of the game</a></p>
+
+      <h2>References</h2>
+
+      <h3>Tutorials</h3>
+
+      <p><a href="https://www.youtube.com/watch?v=OR0e-1UBEOU" target="_blank">Target Script</a></p>
+      <p><a href="https://www.youtube.com/watch?app=desktop&v=r7UDs5kLoB4&t=56s" target="_blank">Bow Script</a></p>
+      <p><a href="https://www.youtube.com/watch?v=pBXyK1DWbPg" target="_blank">Particles</a></p>
+      <p><a href="https://www.youtube.com/watch?v=zc8ac_qUXQY" target="_blank">Starter Page</a></p>
+      <p><a href="https://www.youtube.com/watch?v=Xtfe5S9n4SI" target="_blank">Play Background Music Throughout Levels</a></p>
+      <p><a href="https://www.youtube.com/watch?v=UVI6bwldPio" target="_blank">Collision Sound Effects</a></p>
+      <p><a href="https://www.hackster.io/Juliette/measuring-stretch-forces-with-a-conductive-rubber-cord-d1528e" target="_blank">Stretch Sensor Code</a></p>
+
+      <h3>Assets</h3>
+
+      <p>Bow and Arrow: <a href="https://www.youtube.com/watch?v=XHkAl-fVa1A&t=121s" target="_blank">Link</a></p>
+      <p>Targets: <a href="https://assetstore.unity.com/packages/3d/characters/animals/cartoon-animal-pack-01-232022" target="_blank">Link</a></p>
+      <p>Environment: <a href="https://assetstore.unity.com/packages/3d/environments/aa-3d-low-poly-nature-pack-227820" target="_blank">Link</a></p>
+      <p>Music: <a href="https://assetstore.unity.com/packages/audio/music/8bit-music-062022-225623" target="_blank">Link</a></p>
+      <p>Sound Effect: <a href="https://pixabay.com/sound-effects/search/arrow/" target="_blank">Link</a></p>
+
     </div>
-  </header>
-
-  <main class="project-content">
-
-    <h2>Overview</h2>
-
-    <p>The Lead Arrow is a Valentine's Day game for singles, where the players take on the cupid-angel role, but with a
-      twist. Instead of bringing people together, the aim is to break them up, using a the lead Arrow.</p>
-
-    <p>I designed the console to function like a bow, allowing the players the sensation of stretching and releasing
-      a string. The same idea can be applied to slingshot games, where the players would use the console horizontally,
-      instead of vertically. I used a stretch sensor for the console, which perfectly induces the feeling of using a
-      real bow. Unlike a mouse or a joystick, a stretch sensor provides a more immersive and realistic experience of
-      aiming and shooting.</p>
-
-    <p>The game is a single-player experience, where the player is represented with a bow and arrow on the screen.
-      Since I was limited to using only one sensor, I could only give the player the control over amount of stretch
-      and release. As a result, the bow points to a fixed position. Since I wasn't able to make the bow rotatable, I
-      made the targets mobile, moving in a looping motion from side to side.</p>
-
-    <p>The game consists of four levels, with increasing difficulty in each stage. As the player progresses more
-      targets appear along with obstacles that prevent them getting shot. Targets are represented with farm animals
-      with heart shaped particles emerging from their heads. The obstacles are depicted with roses, reinforcing the
-      Valentine's Day theme. Due to the bow's lack of rotation and orientation control, the game functions as a 2D
-      game, although the environment is designed in 3D.</p>
-
-    <h2>Supplies & Materials</h2>
-
-    <h3>Components Used</h3>
-
-    <p>— Arduino Leonardo<br>
-      — Conductive rubber cord stretch sensor<br>
-      — 1 × 10kΩ resistor<br>
-      — 2 × crocodile clips<br>
-      — 6 × male to male jumper wires<br>
-      — Breadboard<br>
-      — Upcycled cardboard from parcel box</p>
-
-    <img src="images/theleadarrow/theleadarrow_01.png" alt="The Lead Arrow components">
-
-    <h2>Process</h2>
-
-    <h3>1. Ideation for the console design</h3>
-    <p>I decided that I wanted to create a slingshot game using a literal slingshot as a console, so I started to
-      research what type of sensors I could use for this.</p>
-
-    <h3>2. Concept development of the game theme and mechanics</h3>
-    <p>I was thinking about the game concept, and since the project was due Valentine's Day, I decided that the theme
-      can be related to it. This made me realise that the player as a cupid should use a bow and arrow instead of a
-      slingshot, and the mechanics would still work the same for such a game.</p>
-
-    <h3>3. Initial game development using mouse control</h3>
-    <p>I needed to implement the game mechanics without the console first. So I developed a game that was playable
-      via mouse control.</p>
-
-    <h3>4. Testing serial data reading from stretch sensor</h3>
-    <p>This was my first time using a stretch sensor so I learned how to create a circuit with a stretch sensor and
-      write a code to enable serial reading from it.</p>
-
-    <h3>5. Integrating stretch sensor into Unity</h3>
-    <p>I made a blank sketch and followed the tutorial in Panopto to allow serial reading within Unity. However,
-      this gave a timeout error and through classmates, I learned that I needed to do something called
-      multithreading. I used ChatGPT to write the code for it.</p>
-
-    <h3>6. Adding serial read into the game mechanics</h3>
-    <p>I replaced mouse control with the serial data from the stretch sensor.</p>
-
-    <h3>7. Collection and implementation of game assets and UI</h3>
-    <p>So far, I had used very basic assets and UI elements, prioritising creating a game that was working. Then I
-      started spending time on the visual and audio elements of the game. I used free assets found from various
-      resources online.</p>
-
-    <h3>8. Adding More Levels</h3>
-    <p>I wanted to add levels to my game, however, in this process the serial reading started to give an error. I
-      spent a lot of time debugging this issue.</p>
-
-    <h3>9. Building the game console</h3>
-    <p>I created a bow from cardboards that were upcycled from the parcel boxes I had been collecting. I inserted
-      the stretch sensors like a string of the bow, via holes. The connection of the sensor to Arduino is provided
-      by crocodile clips.</p>
-
-    <h3>10. Debugging and final refinements</h3>
-    <p>The final touches on the game visuals, audio and mechanics were made and final debugging was done.</p>
-
-    <h3>11. Publishing the game</h3>
-    <p>Since I wasn't able to publish the console controlled version of the game for the web, I published the mouse
-      controlled version. I built the console controlled version as an app on my desktop.</p>
-
-    <h3>12. Playtesting and gathering feedback</h3>
-    <p>I asked friends and family to play the game and observed their reactions to further develop the game.</p>
-
-    <h2>Video Demonstration</h2>
-
-    <div class="video-wrapper">
-      <iframe src="https://www.youtube.com/embed/bO9d9qXTMoU" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-    </div>
-
-    <h2>Final Images</h2>
-
-    <img src="images/theleadarrow/theleadarrow_02.png" alt="The Lead Arrow final">
-
-    <h2>Design Justification</h2>
-
-    <p>The game's design is largely influenced by the technical limitations and my beginner level knowledge of Unity.
-      The size of the console was constrained by the length of the stretch sensor and the dimensions of cardboard
-      that was available.</p>
-
-    <p>During playtesting, I realised the transition between levels is not clear enough, so this issue can be further
-      developed. To match the players' movement and interaction with console, the bow and arrow on screen can be
-      positioned vertically, in a more 3D orientation, allowing the player to grasp a better feeling of their role
-      in the game and how they are effecting the game. More visual depth can be added to the game for a more
-      immersive experience. Additionally, the size and form of the console can be adjusted according to player
-      feedback. The console can have haptic feedback, for a more tactile experience. This console can also be adapted
-      for a difficult targeting game, by implementing precise orientation tracking.</p>
-
-    <h2>Project Link</h2>
-
-    <p><a href="https://play.unity.com/en/games/a1c2d837-a0fb-40da-8633-a7f8150951a8/eloevera-games" target="_blank">Play
-        the mouse controlled version of the game</a></p>
-
-    <h2>References</h2>
-
-    <h3>Tutorials</h3>
-
-    <p><a href="https://www.youtube.com/watch?v=OR0e-1UBEOU" target="_blank">Target Script</a></p>
-    <p><a href="https://www.youtube.com/watch?app=desktop&v=r7UDs5kLoB4&t=56s" target="_blank">Bow Script</a></p>
-    <p><a href="https://www.youtube.com/watch?v=pBXyK1DWbPg" target="_blank">Particles</a></p>
-    <p><a href="https://www.youtube.com/watch?v=zc8ac_qUXQY" target="_blank">Starter Page</a></p>
-    <p><a href="https://www.youtube.com/watch?v=Xtfe5S9n4SI" target="_blank">Play Background Music Throughout Levels</a></p>
-    <p><a href="https://www.youtube.com/watch?v=UVI6bwldPio" target="_blank">Collision Sound Effects</a></p>
-    <p><a href="https://www.hackster.io/Juliette/measuring-stretch-forces-with-a-conductive-rubber-cord-d1528e" target="_blank">Stretch Sensor Code</a></p>
-
-    <h3>Assets</h3>
-
-    <p>Bow and Arrow: <a href="https://www.youtube.com/watch?v=XHkAl-fVa1A&t=121s" target="_blank">Link</a></p>
-    <p>Targets: <a href="https://assetstore.unity.com/packages/3d/characters/animals/cartoon-animal-pack-01-232022" target="_blank">Link</a></p>
-    <p>Environment: <a href="https://assetstore.unity.com/packages/3d/environments/aa-3d-low-poly-nature-pack-227820" target="_blank">Link</a></p>
-    <p>Music: <a href="https://assetstore.unity.com/packages/audio/music/8bit-music-062022-225623" target="_blank">Link</a></p>
-    <p>Sound Effect: <a href="https://pixabay.com/sound-effects/search/arrow/" target="_blank">Link</a></p>
-
   </main>
 
-  <footer class="footer">
-    <div class="footer-left">
-      <span class="footer-logo">Elif Bora</span>
-    </div>
-    <div class="footer-nav">
-      <div class="footer-col">
-        <p class="footer-col-title">Navigate</p>
-        <a href="index.html">Home</a>
-        <a href="index.html#works">Works</a>
-        <a href="index.html#about">About</a>
-      </div>
-      <div class="footer-col">
-        <p class="footer-col-title">Download</p>
-        <a href="#">Link to resume</a>
-      </div>
-      <div class="footer-col">
-        <p class="footer-col-title">Contact</p>
-        <a href="https://linkedin.com/in/elif-bora-a01476133" target="_blank">LinkedIn</a>
-        <a href="https://www.instagram.com/elifbeurre/" target="_blank">Instagram</a>
-        <a href="https://www.behance.net/elifboraa" target="_blank">Behance</a>
-      </div>
-      <div class="footer-col">
-        <p class="footer-col-title">&nbsp;</p>
-        <span>London, UK</span>
-        <span>eboracreative@gmail.com</span>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <p>© 2026 Elif Bora</p>
-    </div>
+  <footer class="site-footer">
+    <span>&copy; 2026 Elif Bora</span>
   </footer>
 
-  <script>
-    document.querySelector('.nav-burger').addEventListener('click', () => {
-      document.querySelector('.nav-links').classList.toggle('open');
-    });
-  </script>
+</div>
 
+<script>
+  function positionAt(slider, trackIndex, instant) {
+    const track = slider.querySelector(".slider-track");
+    const allSlides = track.querySelectorAll(".slide");
+    const slideWidth = allSlides[trackIndex] ? allSlides[trackIndex].offsetWidth : allSlides[0].offsetWidth;
+    const gap = 0;
+    const offset = -trackIndex * (slideWidth + gap);
+    if (instant) {
+      track.style.transition = "none";
+      track.style.transform = "translateX(" + offset + "px)";
+      track.offsetHeight;
+      track.style.transition = "";
+    } else {
+      track.style.transform = "translateX(" + offset + "px)";
+    }
+  }
+
+  function updateActive(slider, realIndex) {
+    const track = slider.querySelector(".slider-track");
+    track.querySelectorAll(".slide:not(.clone)").forEach(function (s, i) {
+      s.classList.toggle("active", i === realIndex);
+    });
+    let dotsEl = slider.nextElementSibling;
+    while (dotsEl && !dotsEl.classList.contains("slider-dots")) dotsEl = dotsEl.nextElementSibling;
+    if (dotsEl) {
+      dotsEl.querySelectorAll(".dot").forEach(function (d, i) { d.classList.toggle("active", i === realIndex); });
+    }
+    track.dataset.current = realIndex;
+  }
+
+  function goToSlide(slider, realIndex, instant) {
+    positionAt(slider, realIndex + 1, instant);
+    updateActive(slider, realIndex);
+  }
+
+  function initSlider(slider) {
+    const track = slider.querySelector(".slider-track");
+    if (track.dataset.real) return;
+    const realSlides = Array.from(track.querySelectorAll(".slide"));
+    const n = realSlides.length;
+    if (n < 1) return;
+    const firstClone = realSlides[0].cloneNode(true);
+    const lastClone = realSlides[n - 1].cloneNode(true);
+    firstClone.classList.add("clone");
+    lastClone.classList.add("clone");
+    track.appendChild(firstClone);
+    track.insertBefore(lastClone, realSlides[0]);
+    track.dataset.real = n;
+    track.dataset.current = "0";
+    track.dataset.animating = "0";
+    positionAt(slider, 1, true);
+    realSlides[0].classList.add("active");
+  }
+
+  function moveSlide(btn, dir) {
+    const slider = btn.closest(".slider");
+    const track = slider.querySelector(".slider-track");
+    if (track.dataset.animating === "1") return;
+    const n = parseInt(track.dataset.real || "0");
+    const current = parseInt(track.dataset.current || "0");
+    const next = current + dir;
+
+    if (next >= 0 && next < n) {
+      goToSlide(slider, next, false);
+    } else {
+      track.dataset.animating = "1";
+      const allSlides = Array.from(track.querySelectorAll(".slide"));
+      const cloneIndex = next >= n ? n + 1 : 0;
+      allSlides.forEach(function (s, i) { s.classList.toggle("active", i === cloneIndex); });
+      positionAt(slider, cloneIndex, false);
+      track.addEventListener("transitionend", function handler() {
+        track.removeEventListener("transitionend", handler);
+        goToSlide(slider, next >= n ? 0 : n - 1, true);
+        track.dataset.animating = "0";
+      }, { once: true });
+    }
+  }
+
+  document.querySelectorAll(".slider").forEach(function (slider) {
+    requestAnimationFrame(function () {
+      initSlider(slider);
+      slider.querySelectorAll("img").forEach(function (img) {
+        img.addEventListener("load", function () {
+          const current = parseInt(slider.querySelector(".slider-track").dataset.current || "0");
+          goToSlide(slider, current, true);
+        });
+      });
+    });
+    let dotsEl = slider.nextElementSibling;
+    while (dotsEl && !dotsEl.classList.contains("slider-dots")) dotsEl = dotsEl.nextElementSibling;
+    if (dotsEl) {
+      dotsEl.querySelectorAll(".dot").forEach(function (dot, i) {
+        dot.addEventListener("click", function () { goToSlide(slider, i, false); });
+      });
+    }
+  });
+
+  window.addEventListener("resize", function () {
+    document.querySelectorAll(".slider").forEach(function (slider) {
+      const current = parseInt(slider.querySelector(".slider-track").dataset.current || "0");
+      goToSlide(slider, current, true);
+    });
+  });
+</script>
+
+
+<script>
+(function () {
+  var header = document.querySelector('.site-header');
+  var lastY = window.scrollY;
+  var ticking = false;
+  window.addEventListener('scroll', function () {
+    if (ticking) return;
+    ticking = true;
+    window.requestAnimationFrame(function () {
+      var y = window.scrollY;
+      if (y > lastY && y > 80) {
+        header.classList.add('is-hidden');
+      } else {
+        header.classList.remove('is-hidden');
+      }
+      lastY = y;
+      ticking = false;
+    });
+  }, { passive: true });
+})();
+</script>
 </body>
 </html>

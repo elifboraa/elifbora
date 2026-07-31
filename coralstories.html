@@ -4,180 +4,355 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Coral Stories — Elif Bora</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;900&family=Bitter:wght@300;400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="project.css">
+  <link rel="stylesheet" href="https://use.typekit.net/ngv0pic.css">
+  <style>
+    /* ── RESET ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:      #000;
+      --panel:   #1d1d1d;
+      --text:    #ffffff;
+      --muted:   #d9d9d9;
+      --muted2:  #a5a5a5;
+      --radius:  15px;
+      --content-w: 1586px;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'urbane', sans-serif;
+      font-weight: 300;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    .page-inner {
+      max-width: var(--content-w);
+      margin: 0 auto;
+      padding: 0 clamp(24px, 6vw, 95px);
+    }
+
+    /* ── HEADER ── */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: var(--bg);
+      transform: translateY(0);
+      transition: transform 0.3s ease;
+    }
+    .site-header.is-hidden { transform: translateY(-100%); }
+    .site-header-inner {
+      max-width: var(--content-w);
+      margin: 0 auto;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 20px;
+      padding: 28px clamp(24px, 6vw, 95px) 14px;
+      border-bottom: 1px solid rgba(255,255,255,0.25);
+    }
+    .brand { display: flex; flex-direction: column; gap: 6px; }
+    .brand-name { font-weight: 600; font-size: 25px; letter-spacing: 0.02em; }
+    .brand-tag { font-weight: 300; font-style: italic; font-size: 15px; color: var(--muted2); }
+    .site-nav { display: flex; flex-wrap: wrap; gap: 16px 48px; align-items: center; }
+    .site-nav a { font-weight: 500; font-size: 17px; transition: font-weight 0.15s ease; }
+    .site-nav a:hover, .site-nav a:focus-visible { font-weight: 700; }
+
+    /* ── PROJECT MAIN ── */
+    .project-main { padding: 40px 0 80px; position: relative; }
+    .project-close {
+      position: absolute;
+      top: 60px;
+      right: 24px;
+      display: inline-block;
+      font-size: 28px;
+      line-height: 1;
+      color: var(--muted2);
+      transition: color 0.2s ease;
+    }
+    .project-close:hover, .project-close:focus-visible { color: #fff; }
+
+    .project-panel {
+      margin: 0 auto;
+      background: var(--panel);
+      border-radius: var(--radius);
+      padding: clamp(24px, 6vw, 70px);
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      box-shadow: inset 0 0 60px rgba(0,0,0,0.45);
+    }
+
+    .project-title { font-weight: 800; font-size: 38px; line-height: 1.15; margin-bottom: 14px; max-width: 760px; margin-left: 100px; }
+
+    .project-tags2 {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: 6px 18px;
+      font-size: 12px;
+      font-style: italic;
+      font-weight: 300;
+      color: var(--muted2);
+      max-width: 760px;
+      margin-left: 100px;
+    }
+
+    .project-meta-row {
+      display: inline-flex;
+      flex-wrap: wrap;
+      gap: 32px;
+      padding: 16px 0;
+      width: fit-content;
+      max-width: min(100%, 760px);
+      margin-left: 100px;
+      border-top: 0.5px solid rgba(255,255,255,0.5);
+      border-bottom: 0.5px solid rgba(255,255,255,0.5);
+    }
+    .project-meta { display: flex; gap: 24px; font-size: 12px; }
+    .mk-col2, .mv-col2 { display: flex; flex-direction: column; gap: 16px; }
+    .mk-col2 { font-weight: 600; }
+    .mv-col2 { font-weight: 300; }
+    .mv-col2 .multi { display: flex; flex-direction: column; gap: 2px; }
+
+    .project-intro, .project-section-text {
+      font-weight: 300;
+      font-size: 15px;
+      line-height: 1.7;
+      max-width: 760px;
+      margin-left: 100px;
+    }
+    .project-section-text + .project-section-text { margin-top: -8px; }
+
+    .project-section-title { font-weight: 800; font-size: 22px; margin-top: 8px; max-width: 760px; margin-left: 100px; }
+
+    /* ── SLIDER / GALLERY ── */
+    .slider { position: relative; border-radius: var(--radius); overflow: hidden; transition: height 0.35s ease; }
+    .slider-track { display: flex; align-items: center; transition: transform 0.45s ease; }
+    .slide { flex: 0 0 100%; }
+    .slide img { width: 100%; height: auto; display: block; }
+    .video-wrapper { width: 100%; aspect-ratio: 16 / 9; }
+    .video-wrapper iframe { width: 100%; height: 100%; display: block; border: none; }
+    .slider-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      background: rgba(20,20,20,0.6);
+      border: 1px solid var(--muted2);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
+      z-index: 2;
+    }
+    .slider-btn:hover { border-color: #fff; background: rgba(20,20,20,0.85); }
+    .slider-btn.prev { left: 14px; }
+    .slider-btn.next { right: 14px; }
+
+    .slider-dots {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      width: fit-content;
+      margin: -14px auto 0;
+      padding: 7px 14px;
+      background: rgba(30,30,30,0.55);
+      border-radius: 20px;
+    }
+    .dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      border: 2px solid var(--muted2);
+      background: transparent;
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .dot.active { background: #fff; border-color: #fff; }
+
+    /* ── FOOTER ── */
+    .site-footer {
+      border-top: 1px solid rgba(255,255,255,0.25);
+      padding: 20px 0 50px;
+      font-weight: 300;
+      font-size: 13px;
+      color: var(--muted2);
+    }
+
+    @media (max-width: 700px) {
+      .project-title { font-size: 28px; }
+      .project-meta-row { flex-direction: column; }
+    }
+  </style>
 </head>
 <body>
 
-<!-- ── SIDEBAR ── -->
-<aside class="sidebar">
-  <div class="logo">e<span class="pipe">|</span>if</div>
-
-  <nav class="dot-nav">
-    <a href="index.html#hi" class="dot-item" data-section="hi">
-      <span class="dot"></span>
-      <span class="dot-lbl">hi</span>
-    </a>
-    <div class="dot-seg"></div>
-
-    <a href="index.html#works" class="dot-item active" data-section="works">
-      <span class="dot"></span>
-      <span class="dot-lbl">works</span>
-    </a>
-    <div class="dot-seg"></div>
-
-    <a href="index.html#about" class="dot-item" data-section="about">
-      <span class="dot"></span>
-      <span class="dot-lbl">about</span>
-    </a>
-    <div class="dot-seg"></div>
-
-    <a href="index.html#contact" class="dot-item" data-section="contact">
-      <span class="dot"></span>
-      <span class="dot-lbl">contact</span>
-    </a>
-
-    <div class="dot-seg"></div>
-    <a href="Bora_CV.pdf" class="resume-btn" target="_blank">
-      <svg class="resume-icon" width="11" height="11" viewBox="0 0 11 11" fill="none" aria-hidden="true">
-        <path d="M5.5 0.5V7M5.5 7L3 4.5M5.5 7L8 4.5" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
-        <path d="M1 9H10" stroke="currentColor" stroke-width="1" stroke-linecap="round"/>
-      </svg>
-      resume
-    </a>
-  </nav>
-
-  <div class="copyright">© 2026<br>Elif Bora</div>
-</aside>
-
-<!-- ── MAIN ── -->
-<main class="main-content">
-  <div class="project-card">
-
-    <a href="index.html#works" class="back-link">← works</a>
-
-    <h1 class="project-title">Coral Stories</h1>
-
-    <div class="project-meta-row">
-      <div class="project-tags">
-        <span class="ptag tb">Projection Mapping</span>
-        <span class="ptag tb">3D Modelling and Animation</span>
-        <span class="ptag tg">TouchDesigner</span>
-        <span class="ptag tg">Blender</span>
+<header class="site-header" id="top">
+  <div class="site-header-inner">
+      <div class="brand">
+        <span class="brand-name">ELIF BORA</span>
+        <span class="brand-tag">creative technologist | visual designer</span>
       </div>
-      <div class="project-info">
-        <span class="pik">Year:</span>          <span class="piv">2026</span>
-        <span class="pik">Company:</span>       <span class="piv">Aura Collective</span>
-        <span class="pik">Collaborators:</span> <span class="piv">Cecilia Gonzalez, Elif Bora, Iman Idris, Natcha Watcharawittayakul, Suchanan Unhavaithaya</span>
-      </div>
-    </div>
-
-    <p>Coral Stories is a collaborative project developed under our London based studio, Aura Collective, created as
-      part of our submission to the OFFF Barcelona 2026 open call, a projection mapping commission to be displayed
-      on the Disney Hub. The project explores how nature interacts with human-made artifacts and human-caused
-      natural. The project is planned to be developed further in order to reflect the theme more concretely,
-      therefore the below images reflect the process.</p>
-
-    <div class="slider">
-      <div class="slider-track">
-        <div class="slide">
-          <img src="images/coral_stories/coral_stories_04.png" alt="Coral_Stories_04">
-        </div>
-        <div class="slide">
-          <div class="video-wrapper">
-            <iframe src="https://www.youtube.com/embed/Poz8iUBbcgw" frameborder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              allowfullscreen></iframe>
-          </div>
-        </div>
-      </div>
-      <button class="slider-btn prev" onclick="moveSlide(this, -1)" aria-label="Previous">&#8249;</button>
-      <button class="slider-btn next" onclick="moveSlide(this, 1)" aria-label="Next">&#8250;</button>
-    </div>
-    <div class="slider-dots">
-      <span class="dot active"></span>
-      <span class="dot"></span>
-    </div>
-
-    <h2 class="project-sub">Process</h2>
-    <p>The open call had no set theme, so we each began by developing individual moodboards. A shared thread emerged
-      across them — ocean imagery as a way to explore the tension between the Anthropocene and the natural world.
-      From there we built a shared moodboard, aligning on visual direction, tools, and constraints. Each collaborator
-      then explored their own approach to the theme independently.</p>
-
-    <div class="slider">
-      <div class="slider-track">
-        <div class="slide">
-          <img src="images/coral_stories/coral_stories_02.png" alt="Coral_Stories_02">
-        </div>
-        <div class="slide">
-          <img src="images/coral_stories/coral_stories_01.png" alt="Coral_Stories_01">
-        </div>
-        <div class="slide">
-          <img src="images/coral_stories/coral_stories_03.png" alt="Coral_Stories_03">
-        </div>
-      </div>
-      <button class="slider-btn prev" onclick="moveSlide(this, -1)" aria-label="Previous">&#8249;</button>
-      <button class="slider-btn next" onclick="moveSlide(this, 1)" aria-label="Next">&#8250;</button>
-    </div>
-    <div class="slider-dots">
-      <span class="dot active"></span>
-      <span class="dot"></span>
-      <span class="dot"></span>
-    </div>
-
-    <h2 class="project-sub">Individual Exploration</h2>
-    <p>I firstly explored how to create the oil spill effect in TouchDesigner. Then I wanted to merge this effect
-      with the Blender made coral growth animation.</p>
-    <p>My approach was to combine an animated Blender coral model with GLSL shaders in TouchDesigner, but the
-      integration proved technically unfeasible within the timeframe. I shifted to working entirely in Blender, and
-      produced a video of corals growing across the concrete walls of the Disney Hub — a visual of nature reclaiming
-      urban space.</p>
-
-    <div class="slider">
-      <div class="slider-track">
-        <div class="slide">
-          <div class="video-wrapper">
-            <iframe src="https://www.youtube.com/embed/AK6zwAfCeiY" frameborder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              allowfullscreen></iframe>
-          </div>
-        </div>
-        <div class="slide">
-          <div class="video-wrapper">
-            <iframe src="https://www.youtube.com/embed/UDqeO8Wjlv0" frameborder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              allowfullscreen></iframe>
-          </div>
-        </div>
-        <div class="slide">
-          <img src="images/coral_stories/coral_stories_05.png" alt="Coral_Stories_05">
-        </div>
-        <div class="slide">
-          <img src="images/coral_stories/coral_stories_06.png" alt="Coral_Stories_06">
-        </div>
-        <div class="slide">
-          <img src="images/coral_stories/coral_stories_08.png" alt="Coral_Stories_08">
-        </div>
-        <div class="slide">
-          <img src="images/coral_stories/coral_stories_09.png" alt="Coral_Stories_09">
-        </div>
-      </div>
-      <button class="slider-btn prev" onclick="moveSlide(this, -1)" aria-label="Previous">&#8249;</button>
-      <button class="slider-btn next" onclick="moveSlide(this, 1)" aria-label="Next">&#8250;</button>
-    </div>
-    <div class="slider-dots">
-      <span class="dot active"></span>
-      <span class="dot"></span>
-      <span class="dot"></span>
-      <span class="dot"></span>
-      <span class="dot"></span>
-    </div>
-
+      <nav class="site-nav">
+        <a href="index.html#top">WORKS</a>
+        <a href="about.html">ABOUT/CONTACT</a>
+        <a href="Bora_CV.pdf" target="_blank" rel="noopener">RESUME</a>
+      </nav>
   </div>
-</main>
+</header>
+
+<div class="page-inner">
+
+  <main class="project-main">
+    <a class="project-close" href="index.html#top" aria-label="Back to works">&times;</a>
+
+    <div class="project-panel">
+      <h1 class="project-title">Coral Stories</h1>
+
+      <div class="project-tags2">
+        <span>Projection Mapping</span>
+        <span>3D Modelling and Animation</span>
+        <span>TouchDesigner</span>
+        <span>Blender</span>
+      </div>
+
+      <div class="project-meta-row">
+        <div class="project-meta">
+          <div class="mk-col2"><span>Year:</span><span>Company:</span><span>Collaborators:</span></div>
+          <div class="mv-col2">
+            <span>2026</span>
+            <span>Aura Collective</span>
+            <span class="multi">
+              <span>Cecilia Gonzalez</span>
+              <span>Elif Bora</span>
+              <span>Iman Idris</span>
+              <span>Natcha Watcharawittayakul</span>
+              <span>Suchanan Unhavaithaya</span>
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <p class="project-intro">Coral Stories is a collaborative project developed under our London based studio, Aura Collective, created as
+        part of our submission to the OFFF Barcelona 2026 open call, a projection mapping commission to be displayed
+        on the Disney Hub. The project explores how nature interacts with human-made artifacts and human-caused
+        natural. The project is planned to be developed further in order to reflect the theme more concretely,
+        therefore the below images reflect the process.</p>
+
+      <div class="slider">
+        <div class="slider-track">
+          <div class="slide">
+            <img src="images/coral_stories/coral_stories_04.png" alt="Coral_Stories_04">
+          </div>
+          <div class="slide">
+            <div class="video-wrapper">
+              <iframe src="https://www.youtube.com/embed/Poz8iUBbcgw" frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen></iframe>
+            </div>
+          </div>
+        </div>
+        <button class="slider-btn prev" onclick="moveSlide(this, -1)" aria-label="Previous">&#8249;</button>
+        <button class="slider-btn next" onclick="moveSlide(this, 1)" aria-label="Next">&#8250;</button>
+      </div>
+      <div class="slider-dots">
+        <span class="dot active"></span>
+        <span class="dot"></span>
+      </div>
+
+      <h2 class="project-section-title">Process</h2>
+      <p class="project-section-text">The open call had no set theme, so we each began by developing individual moodboards. A shared thread emerged
+        across them — ocean imagery as a way to explore the tension between the Anthropocene and the natural world.
+        From there we built a shared moodboard, aligning on visual direction, tools, and constraints. Each collaborator
+        then explored their own approach to the theme independently.</p>
+
+      <div class="slider">
+        <div class="slider-track">
+          <div class="slide">
+            <img src="images/coral_stories/coral_stories_02.png" alt="Coral_Stories_02">
+          </div>
+          <div class="slide">
+            <img src="images/coral_stories/coral_stories_01.png" alt="Coral_Stories_01">
+          </div>
+          <div class="slide">
+            <img src="images/coral_stories/coral_stories_03.png" alt="Coral_Stories_03">
+          </div>
+        </div>
+        <button class="slider-btn prev" onclick="moveSlide(this, -1)" aria-label="Previous">&#8249;</button>
+        <button class="slider-btn next" onclick="moveSlide(this, 1)" aria-label="Next">&#8250;</button>
+      </div>
+      <div class="slider-dots">
+        <span class="dot active"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+      </div>
+
+      <h2 class="project-section-title">Individual Exploration</h2>
+      <p class="project-section-text">I firstly explored how to create the oil spill effect in TouchDesigner. Then I wanted to merge this effect
+        with the Blender made coral growth animation.</p>
+      <p class="project-section-text">My approach was to combine an animated Blender coral model with GLSL shaders in TouchDesigner, but the
+        integration proved technically unfeasible within the timeframe. I shifted to working entirely in Blender, and
+        produced a video of corals growing across the concrete walls of the Disney Hub — a visual of nature reclaiming
+        urban space.</p>
+
+      <div class="slider">
+        <div class="slider-track">
+          <div class="slide">
+            <div class="video-wrapper">
+              <iframe src="https://www.youtube.com/embed/AK6zwAfCeiY" frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen></iframe>
+            </div>
+          </div>
+          <div class="slide">
+            <div class="video-wrapper">
+              <iframe src="https://www.youtube.com/embed/UDqeO8Wjlv0" frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen></iframe>
+            </div>
+          </div>
+          <div class="slide">
+            <img src="images/coral_stories/coral_stories_05.png" alt="Coral_Stories_05">
+          </div>
+          <div class="slide">
+            <img src="images/coral_stories/coral_stories_06.png" alt="Coral_Stories_06">
+          </div>
+          <div class="slide">
+            <img src="images/coral_stories/coral_stories_08.png" alt="Coral_Stories_08">
+          </div>
+          <div class="slide">
+            <img src="images/coral_stories/coral_stories_09.png" alt="Coral_Stories_09">
+          </div>
+        </div>
+        <button class="slider-btn prev" onclick="moveSlide(this, -1)" aria-label="Previous">&#8249;</button>
+        <button class="slider-btn next" onclick="moveSlide(this, 1)" aria-label="Next">&#8250;</button>
+      </div>
+      <div class="slider-dots">
+        <span class="dot active"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+      </div>
+
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <span>&copy; 2026 Elif Bora</span>
+  </footer>
+
+</div>
 
 <script>
   function positionAt(slider, trackIndex, instant) {
@@ -284,5 +459,27 @@
   });
 </script>
 
+
+<script>
+(function () {
+  var header = document.querySelector('.site-header');
+  var lastY = window.scrollY;
+  var ticking = false;
+  window.addEventListener('scroll', function () {
+    if (ticking) return;
+    ticking = true;
+    window.requestAnimationFrame(function () {
+      var y = window.scrollY;
+      if (y > lastY && y > 80) {
+        header.classList.add('is-hidden');
+      } else {
+        header.classList.remove('is-hidden');
+      }
+      lastY = y;
+      ticking = false;
+    });
+  }, { passive: true });
+})();
+</script>
 </body>
 </html>
