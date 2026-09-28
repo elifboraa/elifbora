@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>UI Design — Elif Bora</title>
+  <title>UI Design: Mobile App — Elif Bora</title>
   <link rel="stylesheet" href="https://use.typekit.net/ngv0pic.css">
   <style>
     /* ── RESET ── */
@@ -223,6 +223,23 @@
       margin-left: 100px;
     }
 
+
+    .project-section-title2 {
+      font-weight: 700;
+      font-size: 19px;
+      margin-top: 8px;
+      max-width: 760px;
+      margin-left: 100px;
+    }
+
+    .project-section-title3 {
+      font-weight: 600;
+      font-size: 17px;
+      margin-top: 8px;
+      max-width: 760px;
+      margin-left: 100px;
+    }
+
     /* ── SLIDER / GALLERY ── */
     .slider {
       position: relative;
@@ -360,7 +377,7 @@
       <a class="project-close" href="index.html#top" aria-label="Back to works">&times;</a>
 
       <div class="project-panel">
-        <h1 class="project-title">UI Design</h1>
+        <h1 class="project-title">UI Design: Mobile App</h1>
 
         <div class="project-tags2">
           <span>UI Design</span>
@@ -371,52 +388,101 @@
           <div class="project-meta">
             <div class="mk-col2"><span>Year:</span><span>Company:</span></div>
             <div class="mv-col2">
-              <span>2026</span>
+              <span>2024</span>
               <span>Atomyum Venture Builder | Designy Code</span>
             </div>
           </div>
         </div>
 
-        <p class="project-intro">UI Design for a mobile application for a car wash and other automotive services
-          company.</p>
+        <p class="project-intro">As a UI/UX Design Intern, I was responsible for designing the user interface for a
+          mobile application for a car wash and other automotive services. The company targeted mainly corporate
+          clients. The user was expected to use it during work hours when the car could be collected from their office
+          parking lot, driven to the service location, and returned afterwards. Thus the main identitity of the
+          application was designed to reflect this target audience.</p>
 
-        <img src="images/ui/ui_01.png" alt="Mobby_01">
+
+        <div class="slider">
+          <div class="slider-track">
+            <div class="slide"> <img src="images/ui/ui_01.png" alt="Mobby_01">></div>
+            <div class="slide">
+              <div class="video-wrapper">
+                <iframe src="https://www.youtube.com/embed/03de_JKnSvs" frameborder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowfullscreen></iframe>
+              </div>
+            </div>
+          </div>
+          <button class="slider-btn prev" onclick="moveSlide(this, -1)" aria-label="Previous">&#8249;</button>
+          <button class="slider-btn next" onclick="moveSlide(this, 1)" aria-label="Next">&#8250;</button>
+        </div>
+        <div class="slider-dots">
+          <span class="dot active"></span>
+          <span class="dot"></span>
+        </div>
 
 
-  <h2 class="project-section-title">Process</h2>
+        <h2 class="project-section-title">Process</h2>
 
-        <h3>Low Fidelity Wireframes</h3>
-      <p class="project-section-text">Low fidelity wireframes were created to explore different layout options and user flows.</p>
+        <h3 class="project-section-title2">Low Fidelity Wireframes</h3>
+        <p class="project-section-text">Low fidelity wireframes were created to explore different layout options and
+          user
+          flows. The basic structure and navigation were established.</p>
 
         <img src="images/ui/ui_10.png" alt="Mobby_10">
 
-         <h3>High Fidelity Wireframes</h3>
-          <p class="project-section-text">Low fidelity wireframes  were then refined into high-fidelity mockups.</p>
+        <h3 class="project-section-title2">High Fidelity Wireframes</h3>
+        <p class="project-section-text">Low fidelity wireframes were then refined into high-fidelity mockups. Different
+          design options were explored and evaluated. Mobile applications with similar functionality were used as
+          references.</p>
         <img src="images/ui/ui_11.png" alt="Mobby_11">
 
-        <h3>Design Systems</h3>
-         <p class="project-section-text">A design system reflecting the brand identitywas established to ensure consistency across all UI elements.</p>
-         
-         <h3>Project Mockup Frames</h3>
-          <p class="project-section-text">Finally, the completed mockups were assembled into a cohesive user interface. Additionally, user flow is added for better representation and communication between client stakeholders and the developers.</p>
-    
-           <h4>Login</h4>
-          <img src="images/ui/ui_02.png" alt="Mobby_02">
-              <h4>Home</h4>
+        <h3 class="project-section-title2">Design Systems</h3>
+        <p class="project-section-text">A design system reflecting the brand identitywas established to ensure
+          consistency
+          across all UI elements.The color palette and typography were defined together with the head of design
+          department. The sytem includes UI components,assets and variables. Some of the elements were collected from
+          external figma template resources were used: The refernce to these are listed below.</p>
+        
+          <p class="project-section-text">
+          <a href="https://www.figma.com/community/file/952131925958384905/uicons-by-flaticon-free-interface-icons"
+            style="text-decoration: underline;">
+            Figma Flaticon - UI Icon Library
+          </a><br>
+          <a href="https://www.figma.com/community/file/1267182137838438438/maps-ready-map-v1-0" style="text-decoration:
+            underline;">
+            Figma Ready Map v1.0 - Map Template
+          </a><br>
+          <a href="https://www.figma.com/community/file/1034483012549130899/calendar-ui?q_id=5aafec2e-3559-4852-a7d3-74e1dc726c35"
+            style="text-decoration: underline;">
+            Figma Calendar UI - Calendar Template
+          </a>
+        </p>
+
+        <img src="images/ui/ui_12.png" alt="Mobby_11">
+
+        <h3 class="project-section-title2">Project Mockup Frames</h3>
+        <p class="project-section-text">Finally, the completed mockups were assembled into a cohesive user interface.
+          Additionally, user flow is added for better representation and communication between client stakeholders and
+          the
+          developers.</p>
+
+        <h4 class="project-section-title3">Login</h4>
+          <p class="project-section-text">The login/ sign up page allows users to access their account or create a new one. Several options for logging in/ signing up are provided for ease of use. The user can also reset their password if they forget it.</p>
+        <img src="images/ui/ui_02.png" alt="Mobby_02">
+        <h4 class="project-section-title3">Home</h4>
+         <p class="project-section-text">Home screen includes the services, promotion notifications and location and vehicle information. The user can directly scroll through the available services, see their duration, price and a brief description just by looking at the home page. The service cards are selected for detailed description, serice reviews and detailed images. The user is then directed to the booking process by inputting their preferences and details.</p>
         <img src="images/ui/ui_03.png" alt="Mobby_03">
-                <h4>Bookings: Active</h4>
+        <h4 class="project-section-title3">Bookings: Active</h4> 
         <img src="images/ui/ui_04.png" alt="Mobby_04">
-         <h4>Bookings: Completed</h4>
+        <h4 class="project-section-title3">Bookings: Completed</h4>
         <img src="images/ui/ui_05.png" alt="Mobby_05">
-         <h4>Support</h4>
+        <h4 class="project-section-title3">Support</h4>
         <img src="images/ui/ui_06.png" alt="Mobby_06">
-         <h4>Profile</h4>
+        <h4 class="project-section-title3">Profile / Settings </h4>
         <img src="images/ui/ui_07.png" alt="Mobby_07">
-         <h4>Location Settings</h4>
-        <img src="images/ui/ui_08.png" alt="Mobby_08">
-        <h4>Notifications</h4>
+        <h4 class="project-section-title3">Notifications</h4>
         <img src="images/ui/ui_09.png" alt="Mobby_09">
-         
+
     </main>
 
     <footer class="site-footer">
